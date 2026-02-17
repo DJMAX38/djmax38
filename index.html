@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ MAX - Évènements & Boutique Officielle</title>
+    <title>DJ MAX - Boutique & Réservations</title>
 
     <style>
         body {
@@ -13,7 +13,6 @@
             color: #fff;
         }
 
-        /* HEADER */
         header {
             background: linear-gradient(135deg, #ff0077, #5500ff);
             padding: 80px 20px;
@@ -29,7 +28,6 @@
             font-size: 22px;
         }
 
-        /* SECTIONS */
         .section {
             padding: 60px 20px;
             max-width: 1100px;
@@ -42,7 +40,6 @@
             color: #ff0077;
         }
 
-        /* CARDS */
         .cards {
             display: flex;
             flex-wrap: wrap;
@@ -75,9 +72,23 @@
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
+            cursor: pointer;
         }
 
-        /* FOOTER */
+        /* PANIER */
+        #panier {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        #panier h3 {
+            margin-top: 0;
+        }
+        #panier-items {
+            margin-bottom: 20px;
+        }
+
         footer {
             background: #111;
             text-align: center;
@@ -90,10 +101,9 @@
 
 <body>
 
-<!-- HEADER -->
 <header>
     <h1>DJ MAX</h1>
-    <p>Évènements • Mix • Boutique Officielle</p>
+    <p>Évènements • Mix • Boutique Officielle • Réservations</p>
 </header>
 
 <!-- ÉVÈNEMENTS -->
@@ -118,32 +128,66 @@
 
         <div class="card">
             <h3>Paire de chaussettes DJ MAX – Logo 2026</h3>
-            <p class="price">4,50 €</p>
-            <p>Chaussettes blanches avec logo DJ MAX multicolore.</p>
-            <a class="btn" href="#">Acheter</a>
+            <p class="price">4.50 €</p>
+            <button class="btn" onclick="ajouterPanier('Chaussettes DJ MAX', 4.50)">Acheter</button>
         </div>
 
         <div class="card">
             <h3>Veste zippée DJ MAX – Logo blanc</h3>
-            <p class="price">13,00 €</p>
-            <p>Veste noire zippée avec logo poitrine + grand logo dans le dos.</p>
-            <a class="btn" href="#">Acheter</a>
+            <p class="price">13.00 €</p>
+            <button class="btn" onclick="ajouterPanier('Veste DJ MAX', 13.00)">Acheter</button>
         </div>
 
     </div>
+
+    <!-- PANIER -->
+    <div id="panier">
+        <h3>🛒 Panier</h3>
+        <div id="panier-items">Aucun article pour le moment.</div>
+        <button class="btn" onclick="finaliser()">Finaliser mes achats</button>
+    </div>
 </div>
 
-<!-- CONTACT -->
+<!-- RÉSERVATION DJ -->
 <div class="section">
-    <h2>Contact</h2>
-    <p style="text-align:center;">📧 Email : maxens.gv@djma38.com p>
-    <p style="text-align:center;">📱 Instagram : @djmax38</p>
+    <h2>Réserver DJ MAX</h2>
+    <p style="text-align:center;">Pour réserver une prestation DJ (anniversaire, soirée privée, restaurant, club…) :</p>
+    <p style="text-align:center; font-size:20px; color:#00ffcc;">📧 maxens.gv@djmax38.com</p>
 </div>
 
-<!-- FOOTER -->
 <footer>
     © Copyright 2026 - DJ MAX. Tous droits réservés.
 </footer>
+
+<script>
+    let panier = {};
+
+    function ajouterPanier(article, prix) {
+        if (!panier[article]) {
+            panier[article] = { quantite: 1, prix: prix };
+        } else {
+            panier[article].quantite++;
+        }
+        afficherPanier();
+    }
+
+    function afficherPanier() {
+        let zone = document.getElementById("panier-items");
+        zone.innerHTML = "";
+
+        for (let item in panier) {
+            zone.innerHTML += `<p>${item} — ${panier[item].quantite} × ${panier[item].prix} €</p>`;
+        }
+
+        if (zone.innerHTML === "") {
+            zone.innerHTML = "Aucun article pour le moment.";
+        }
+    }
+
+    function finaliser() {
+        alert("Pour finaliser vos achats, contactez : maxens.gv@djmax38.com");
+    }
+</script>
 
 </body>
 </html>
