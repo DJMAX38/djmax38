@@ -3,488 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ MAX - Boutique & Réservations</title>
-<!-- Icône du site --> <link rel="icon" type="image/png" href="favicon.png">
+    <title>DJ MAX – Évènements & Boutique</title>
+
+    <!-- Icône du site -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <style>
         :root {
-            --bg: #05040a;
-            --card: #111021;
-            --accent: #ff0077;
-            --accent2: #00f5ff;
+            --bg: #0a0a0a;
+            --primary: #00d4ff;
+            --secondary: #ffe066;
             --text: #ffffff;
+            --card: #111111;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #1a1030 0, #05040a 55%);
+            font-family: "Segoe UI", sans-serif;
+            background: var(--bg);
             color: var(--text);
-            scroll-behavior: smooth;
         }
 
-        a {
-            color: inherit;
-        }
-
-        /* NAVBAR */
+        /* NAVIGATION */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
+            top: 0; left: 0; right: 0;
+            height: 65px;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 30px;
-            background: rgba(5, 4, 10, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .logo {
-            font-weight: 800;
+            font-size: 22px;
+            font-weight: 700;
             letter-spacing: 2px;
-            font-size: 20px;
         }
-
-        .logo span {
-            color: var(--accent);
-        }
+        .logo span { color: var(--primary); }
 
         .nav-links a {
             margin-left: 20px;
             text-decoration: none;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text);
             opacity: 0.8;
             transition: 0.2s;
+            text-transform: uppercase;
+            font-size: 13px;
         }
-
         .nav-links a:hover {
             opacity: 1;
-            color: var(--accent2);
+            color: var(--secondary);
         }
 
-        /* HEADER / HERO */
+        /* HEADER */
         header {
             padding: 140px 20px 100px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #00d4ff33, #ffe06622);
         }
 
-        header::before {
-            content: "";
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255,0,119,0.4), transparent 60%);
-            top: -100px;
-            left: -50px;
-            filter: blur(10px);
-            opacity: 0.7;
-        }
-
-        header::after {
-            content: "";
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0,245,255,0.4), transparent 60%);
-            bottom: -150px;
-            right: -50px;
-            filter: blur(10px);
-            opacity: 0.7;
-        }
-
-        .hero-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-title {
-            font-size: 52px;
+        header h1 {
+            font-size: 50px;
             margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
         }
 
-        .hero-title span {
-            color: var(--accent);
-        }
-
-        .hero-sub {
+        header p {
             font-size: 18px;
-            opacity: 0.85;
-            margin-bottom: 30px;
-        }
-
-        .hero-cta {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            opacity: 0.9;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: linear-gradient(135deg, #ff0077, #ff4fb0);
-            color: white;
-            text-decoration: none;
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: black;
             font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0 0 18px rgba(255,0,119,0.6);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.2s;
         }
-
-        .btn.secondary {
-            background: transparent;
-            box-shadow: none;
-            border-color: rgba(255,255,255,0.25);
-        }
-
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 26px rgba(255,0,119,0.9);
-            opacity: 0.95;
-        }
-
-        .btn.secondary:hover {
-            box-shadow: 0 0 18px rgba(0,245,255,0.7);
-            border-color: var(--accent2);
+            background: var(--secondary);
         }
 
         /* SECTIONS */
         .section {
             padding: 60px 20px;
             max-width: 1100px;
-            margin: 0 auto;
+            margin: auto;
         }
 
-        .section-title {
+        .section h2 {
             text-align: center;
-            font-size: 30px;
-            margin-bottom: 35px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .section-title span {
-            color: var(--accent2);
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: var(--primary);
         }
 
         /* ÉVÈNEMENTS */
         .event-card {
-            background: rgba(10, 10, 25, 0.9);
-            border-radius: 16px;
+            background: var(--card);
             padding: 25px;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 0 25px rgba(0,0,0,0.7);
-            max-width: 600px;
-            margin: 0 auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-        }
-
-        .event-card h3 {
-            margin-top: 0;
-            font-size: 22px;
-            color: var(--accent);
-        }
-
-        .event-meta {
-            opacity: 0.85;
-            margin-bottom: 10px;
+            max-width: 600px;
+            margin: auto;
         }
 
         /* BOUTIQUE */
-        .products-grid {
+        .products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 25px;
         }
 
-        .product-card {
+        .product {
             background: var(--card);
-            border-radius: 16px;
-            padding: 18px;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 0 18px rgba(0,0,0,0.7);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-        }
-
-        .product-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top, rgba(255,0,119,0.18), transparent 55%);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 0 28px rgba(255,0,119,0.5);
-            border-color: rgba(255,0,119,0.6);
-        }
-
-        .product-card:hover::before {
-            opacity: 1;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 150px;
-            border-radius: 12px;
-            background: radial-gradient(circle at top, #ff4fb0, #111021);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-        }
-
-        .product-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .product-price {
-            color: var(--accent2);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .product-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .qty-btn {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.3);
-            background: transparent;
-            color: white;
-            cursor: pointer;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.15s;
-        }
-
-        .qty-btn:hover {
-            border-color: var(--accent2);
-            color: var(--accent2);
-        }
-
-        .qty-display {
-            min-width: 26px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        /* PANIER LATERAL */
-        #panier-panel {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            width: 280px;
-            max-height: 60vh;
-            background: rgba(10, 10, 25, 0.96);
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: 0 0 30px rgba(0,0,0,0.9);
-            padding: 16px;
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            z-index: 900;
-        }
-
-        #panier-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        #panier-header h3 {
-            margin: 0;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        #panier-items {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 4px;
-            margin-bottom: 10px;
-        }
-
-        .panier-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 6px;
-            opacity: 0.9;
-        }
-
-        .panier-total {
-            border-top: 1px solid rgba(255,255,255,0.12);
-            padding-top: 6px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-        }
-
-        .panier-footer-text {
-            font-size: 11px;
-            opacity: 0.7;
-            margin-bottom: 6px;
-        }
-
-        .btn-mini {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: linear-gradient(135deg, #ff0077, #ff4fb0);
-            color: white;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            box-shadow: 0 0 14px rgba(255,0,119,0.6);
-            transition: 0.15s;
-        }
-
-        .btn-mini:hover {
-            box-shadow: 0 0 22px rgba(255,0,119,0.9);
-            transform: translateY(-1px);
-        }
-
-        /* RÉSERVATION */
-        .reservation-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-            gap: 30px;
-        }
-
-        .reservation-card {
-            background: var(--card);
-            border-radius: 16px;
             padding: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 0 22px rgba(0,0,0,0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
         }
 
-        .reservation-card h3 {
-            margin-top: 0;
-            color: var(--accent);
+        .product img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
         }
 
-        .reservation-card p {
-            opacity: 0.85;
+        .product h3 {
+            margin: 0 0 10px;
         }
 
-        .reservation-form label {
-            display: block;
+        .price {
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn-small {
+            padding: 10px 18px;
+            background: var(--primary);
+            color: black;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* POPUP */
+        #popup {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        #popup-content {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        #popup-content button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* MENTIONS LÉGALES */
+        footer {
+            margin-top: 60px;
+            padding: 25px;
+            text-align: center;
+            background: #000;
             font-size: 13px;
-            margin-bottom: 4px;
             opacity: 0.8;
         }
 
-        .reservation-form input,
-        .reservation-form textarea,
-        .reservation-form select {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: #05040a;
-            color: white;
-            margin-bottom: 10px;
-            font-size: 13px;
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
         }
 
-        .reservation-form textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        /* CONTACT */
-        .contact-card {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            background: var(--card);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 0 22px rgba(0,0,0,0.7);
-        }
-
-        .contact-line {
-            margin: 6px 0;
-            opacity: 0.9;
-        }
-
-        .contact-highlight {
-            color: var(--accent2);
-            font-weight: 600;
-        }
-
-        /* FOOTER */
-        footer {
-            margin-top: 60px;
-            padding: 25px 20px;
-            text-align: center;
-            font-size: 12px;
-            opacity: 0.7;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            background: rgba(5,4,10,0.95);
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 800px) {
-            .reservation-grid {
-                grid-template-columns: 1fr;
-            }
-            #panier-panel {
-                width: calc(100% - 40px);
-                right: 20px;
-            }
-            .nav-links {
-                display: none;
-            }
+        .legal {
+            max-width: 900px;
+            margin: 40px auto;
+            font-size: 14px;
+            opacity: 0.85;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -494,228 +222,97 @@
 <nav>
     <div class="logo">DJ <span>MAX</span></div>
     <div class="nav-links">
-        <a href="#top">Accueil</a>
         <a href="#events">Évènements</a>
         <a href="#shop">Boutique</a>
-        <a href="#booking">Réservation</a>
-        <a href="#contact">Contact</a>
+        <a href="#legal">Mentions légales</a>
     </div>
 </nav>
 
-<header id="top">
-    <div class="hero-inner">
-        <h1 class="hero-title">DJ <span>MAX</span> 2026</h1>
-        <p class="hero-sub">
-            Soirées, restaurants, évènements privés, merchandising officiel.<br>
-            Un univers 100% mix, 100% ambiance, 100% toi.
-        </p>
-        <div class="hero-cta">
-            <a href="#shop" class="btn">Accéder à la boutique</a>
-            <a href="#booking" class="btn secondary">Réserver une prestation</a>
-        </div>
-    </div>
+<header>
+    <h1>Bienvenue sur le site officiel de DJ MAX</h1>
+    <p>Évènements, musique, ambiance et articles exclusifs.</p>
+    <a href="#shop" class="btn">Accéder à la boutique</a>
 </header>
 
-<!-- ÉVÈNEMENTS -->
 <section class="section" id="events">
-    <h2 class="section-title">Évènements <span>à venir</span></h2>
+    <h2>Évènements à venir</h2>
 
     <div class="event-card">
-        <h3>DJ MAX AU RESTAURANT LE LOCAL</h3>
-        <p class="event-meta">📅 Jeudi 19 Février 2026 • 🕒 19h - 23h</p>
-        <p>Soirée exclusive au restaurant <strong>Le Local</strong> : mix live, ambiance club, expérience DJ MAX.</p>
+        <h3>DJ MAX au restaurant Le Local</h3>
+        <p>📅 Jeudi 19 février 2026</p>
+        <p>🕒 19h – 23h</p>
+        <p>Une soirée chaleureuse, musicale et festive vous attend.</p>
     </div>
 </section>
 
-<!-- BOUTIQUE -->
 <section class="section" id="shop">
-    <h2 class="section-title">Boutique <span>officielle</span></h2>
+    <h2>Boutique officielle</h2>
 
-    <div class="products-grid">
+    <div class="products">
 
-        <div class="product-card" data-product="Chaussettes DJ MAX" data-price="4.50">
-            <div class="product-image">
-                Visuel chaussettes DJ MAX
-            </div>
-            <div class="product-title">Paire de chaussettes DJ MAX – Logo 2026</div>
-            <div class="product-price">4,50 €</div>
-            <div class="product-actions">
-                <div style="display:flex;align-items:center;gap:4px;">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <div class="qty-display">1</div>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-                <button class="btn-mini" onclick="ajouterPanierCard(this)">Ajouter</button>
-            </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/300x160?text=Chaussettes+DJ+MAX" alt="">
+            <h3>Chaussettes DJ MAX – Logo 2026</h3>
+            <div class="price">4,50 €</div>
+            <button class="btn-small" onclick="reserve('Chaussettes DJ MAX – 4,50 €')">Réserver</button>
         </div>
 
-        <div class="product-card" data-product="Veste DJ MAX" data-price="13.00">
-            <div class="product-image">
-                Visuel veste zippée DJ MAX
-            </div>
-            <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
-            <div class="product-price">13,00 €</div>
-            <div class="product-actions">
-                <div style="display:flex;align-items:center;gap:4px;">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <div class="qty-display">1</div>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-                <button class="btn-mini" onclick="ajouterPanierCard(this)">Ajouter</button>
-            </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/300x160?text=Veste+DJ+MAX" alt="">
+            <h3>Veste zippée DJ MAX – Logo blanc</h3>
+            <div class="price">13,00 €</div>
+            <button class="btn-small" onclick="reserve('Veste DJ MAX – 13,00 €')">Réserver</button>
         </div>
-
-        <!-- Tu pourras dupliquer ce bloc pour ajouter d'autres produits -->
 
     </div>
 </section>
 
-<!-- PANIER LATERAL -->
-<div id="panier-panel">
-    <div id="panier-header">
-        <h3>🛒 Panier</h3>
-        <span style="font-size:11px;opacity:0.7;">DJ MAX 2026</span>
+<!-- POPUP -->
+<div id="popup">
+    <div id="popup-content">
+        <h3>Réservation d’article</h3>
+        <p id="popup-text"></p>
+        <p>Pour finaliser votre réservation, veuillez envoyer un e‑mail à :</p>
+        <p><strong>maxens.gv@djmax38.com</strong></p>
+        <button onclick="closePopup()">Fermer</button>
     </div>
-    <div id="panier-items">Aucun article pour le moment.</div>
-    <div class="panier-total">
-        <span>Total</span>
-        <span id="panier-total-amount">0,00 €</span>
-    </div>
-    <div class="panier-footer-text">
-        Pour finaliser vos achats, un récapitulatif vous sera demandé par mail.
-    </div>
-    <button class="btn-mini" onclick="finaliser()">Finaliser mes achats</button>
 </div>
 
-<!-- RÉSERVATION -->
-<section class="section" id="booking">
-    <h2 class="section-title">Réserver <span>DJ MAX</span></h2>
+<section class="section legal" id="legal">
+    <h2>Mentions légales</h2>
 
-    <div class="reservation-grid">
-        <div class="reservation-card">
-            <h3>Prestation DJ</h3>
-            <p>
-                Anniversaire, restaurant, soirée privée, entreprise, club…<br>
-                DJ MAX s’adapte à ton univers : playlist personnalisée, ambiance sur mesure,
-                matériel possible selon le lieu.
-            </p>
-            <p>
-                Pour toute demande, remplis le formulaire ou contacte directement :<br>
-                <strong>📧 maxens.gv@djmax38.com</strong>
-            </p>
-        </div>
+    <p><strong>Éditeur du site :</strong><br>
+    DJ MAX – Seyssinet-Pariset, France<br>
+    Contact : maxens.gv@djmax38.com</p>
 
-        <div class="reservation-card">
-            <h3>Demande de réservation</h3>
-            <form class="reservation-form" onsubmit="reservationMessage(); return false;">
-                <label>Nom / Prénom</label>
-                <input type="text" required>
+    <p><strong>Hébergement :</strong><br>
+    GitHub Pages – GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA</p>
 
-                <label>Email</label>
-                <input type="email" required>
+    <p><strong>Propriété intellectuelle :</strong><br>
+    L’ensemble du contenu du site (textes, images, logos, design) est protégé. Toute reproduction est interdite sans autorisation.</p>
 
-                <label>Date souhaitée</label>
-                <input type="date" required>
+    <p><strong>Données personnelles :</strong><br>
+    Aucune donnée personnelle n’est collectée automatiquement. Les réservations par e‑mail sont traitées uniquement pour répondre à votre demande.</p>
 
-                <label>Type d’évènement</label>
-                <select required>
-                    <option value="">Choisir…</option>
-                    <option>Anniversaire</option>
-                    <option>Soirée privée</option>
-                    <option>Restaurant / Bar</option>
-                    <option>Entreprise</option>
-                    <option>Autre</option>
-                </select>
-
-                <label>Message / Détails</label>
-                <textarea placeholder="Lieu, horaires, ambiance souhaitée…"></textarea>
-
-                <button class="btn" type="submit" style="width:100%;margin-top:5px;">Envoyer la demande</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-    <h2 class="section-title">Contact <span>direct</span></h2>
-
-    <div class="contact-card">
-        <p class="contact-line">
-            📧 <span class="contact-highlight">maxens.gv@djmax38.com</span>
-        </p>
-        <p class="contact-line">
-            Pour les achats boutique, indique les articles + quantités vus sur le site.
-        </p>
-        <p class="contact-line">
-            Pour les réservations, précise la date, le lieu, le type d’évènement et l’ambiance souhaitée.
-        </p>
-    </div>
+    <p><strong>Cookies :</strong><br>
+    Ce site n’utilise aucun cookie de suivi.</p>
 </section>
 
 <footer>
-    © 2026 - DJ MAX. Tous droits réservés. • Site officiel djmax38.com
+    © 2026 – DJ MAX • Tous droits réservés • <a href="#legal">Mentions légales</a>
 </footer>
 
 <script>
-    let panier = {};
-
-    function changeQty(btn, delta) {
-        const display = btn.parentElement.querySelector('.qty-display');
-        let value = parseInt(display.textContent, 10) || 1;
-        value += delta;
-        if (value < 1) value = 1;
-        display.textContent = value;
+    function reserve(item) {
+        document.getElementById("popup-text").textContent =
+            "Vous souhaitez réserver : " + item;
+        document.getElementById("popup").style.display = "flex";
     }
 
-    function ajouterPanierCard(button) {
-        const card = button.closest('.product-card');
-        const name = card.getAttribute('data-product');
-        const price = parseFloat(card.getAttribute('data-price'));
-        const qty = parseInt(card.querySelector('.qty-display').textContent, 10) || 1;
-
-        if (!panier[name]) {
-            panier[name] = { quantite: 0, prix: price };
-        }
-        panier[name].quantite += qty;
-
-        afficherPanier();
-    }
-
-    function afficherPanier() {
-        const zone = document.getElementById('panier-items');
-        zone.innerHTML = '';
-        let total = 0;
-
-        for (let item in panier) {
-            const q = panier[item].quantite;
-            const p = panier[item].prix;
-            const lineTotal = q * p;
-            total += lineTotal;
-
-            const div = document.createElement('div');
-            div.className = 'panier-item';
-            div.innerHTML = `<span>${item} × ${q}</span><span>${lineTotal.toFixed(2).replace('.', ',')} €</span>`;
-            zone.appendChild(div);
-        }
-
-        if (!Object.keys(panier).length) {
-            zone.textContent = 'Aucun article pour le moment.';
-        }
-
-        document.getElementById('panier-total-amount').textContent =
-            total.toFixed(2).replace('.', ',') + ' €';
-    }
-
-    function finaliser() {
-        alert("Pour finaliser vos achats, contactez : maxens.gv@djmax38.com\n\nIndiquez les articles et quantités de votre panier.");
-    }
-
-    function reservationMessage() {
-        alert("Votre demande de réservation est prête.\n\nPour finaliser, envoyez les mêmes informations à : maxens.gv@djmax38.com");
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
     }
 </script>
 
 </body>
 </html>
-
