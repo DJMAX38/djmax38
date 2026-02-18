@@ -3,38 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ MAX – Créations, Prestations & Boutique</title>
+    <title>DJ MAX – Créations & Évènements</title>
 
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
+        /* ============================
+           PALETTE CLUB PREMIUM CLAIRE
+        ============================ */
         :root {
-            --bg: #f4f5fb;
-            --bg-alt: #eceffd;
-            --text: #1f2430;
-            --muted: #6b7280;
-            --primary: #4fb7e5;
-            --primary-dark: #2f8fb8;
-            --secondary: #f7c96b;
-            --accent: #b9a4f5;
-            --accent2: #f59ab2;
+            --bg: #f7f8ff;
+            --text: #1a1d29;
+            --muted: #6b6f80;
             --card: #ffffff;
-            --border: #dde1ee;
-            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --border: #d9dcf2;
+
+            --primary: #5a6bff;      /* Bleu club doux */
+            --primary2: #9b5bff;     /* Violet club doux */
+            --glow: rgba(120, 90, 255, 0.35);
+            --glow-strong: rgba(120, 90, 255, 0.55);
+
             --radius: 14px;
+            --shadow: 0 10px 30px rgba(20, 20, 40, 0.08);
         }
 
         * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: "Segoe UI", system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
+            overflow-x: hidden;
         }
 
-        a { color: inherit; text-decoration: none; }
+        /* ============================
+           FOND ANIMÉ NÉON (LIGNES)
+        ============================ */
+        .neon-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(120deg, #dfe3ff, #f7f8ff, #e8e0ff);
+            overflow: hidden;
+        }
 
+        .neon-line {
+            position: absolute;
+            width: 200%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--primary2), transparent);
+            opacity: 0.35;
+            filter: blur(4px);
+            animation: moveNeon 12s linear infinite;
+        }
+
+        .neon-line:nth-child(1) { top: 10%; animation-duration: 14s; }
+        .neon-line:nth-child(2) { top: 30%; animation-duration: 11s; }
+        .neon-line:nth-child(3) { top: 50%; animation-duration: 16s; }
+        .neon-line:nth-child(4) { top: 70%; animation-duration: 13s; }
+        .neon-line:nth-child(5) { top: 90%; animation-duration: 18s; }
+
+        @keyframes moveNeon {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(50%); }
+        }
+
+        /* ============================
+           NAVIGATION
+        ============================ */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -61,10 +98,11 @@
             width: 26px;
             height: 26px;
             border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, var(--primary), var(--primary2));
+            box-shadow: 0 0 12px var(--glow);
         }
 
-        .logo span { color: var(--primary-dark); }
+        .logo span { color: var(--primary2); }
 
         .nav-links {
             display: flex;
@@ -81,12 +119,15 @@
         }
 
         .nav-links a:hover {
-            color: var(--primary-dark);
-            background: rgba(79, 183, 229, 0.08);
+            color: var(--primary2);
+            background: rgba(120, 90, 255, 0.08);
         }
 
-        main { padding-top: 80px; }
+        main { padding-top: 90px; }
 
+        /* ============================
+           SECTIONS
+        ============================ */
         .section {
             padding: 60px 20px;
             max-width: 1120px;
@@ -94,9 +135,11 @@
         }
 
         .section-title {
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             margin-bottom: 6px;
+            color: var(--primary2);
+            text-shadow: 0 0 12px var(--glow);
         }
 
         .section-sub {
@@ -105,165 +148,56 @@
             margin-bottom: 26px;
         }
 
-        header.hero {
-            padding: 110px 20px 80px;
-            background: radial-gradient(circle at top left, #e0f4ff 0, #f4f5fb 45%);
-        }
-
-        .hero-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-            gap: 40px;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .hero-inner { grid-template-columns: 1fr; }
-        }
-
-        .hero-title {
-            font-size: 40px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .hero-highlight { color: var(--primary-dark); }
-
-        .hero-text {
-            font-size: 15px;
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 999px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: 0.18s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 14px 40px rgba(37, 99, 235, 0.25);
-        }
-
-        .btn-ghost {
-            background: transparent;
-            color: var(--primary-dark);
-            border-color: rgba(148, 163, 184, 0.6);
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--primary-dark);
-            background: rgba(79, 183, 229, 0.06);
-        }
-
+        /* ============================
+           CARDS
+        ============================ */
         .card {
             background: var(--card);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
             padding: 22px;
+            backdrop-filter: blur(6px);
         }
 
+        /* ============================
+           AUDIO
+        ============================ */
         .audio-block {
             margin-top: 10px;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 12px;
             background: rgba(255,255,255,0.7);
+            box-shadow: 0 0 12px var(--glow);
         }
 
         audio { width: 100%; margin-top: 6px; }
 
-        .event-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: #fee2e2;
-            color: #b91c1c;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            color: #374151;
-            margin-bottom: 12px;
-        }
-
-        .product-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .product-price {
-            font-size: 14px;
-            color: var(--primary-dark);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        #popup {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.35);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        #popup-content {
-            background: var(--card);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 24px 22px 20px;
-            width: 90%;
-            max-width: 420px;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
+        /* ============================
+           FOOTER
+        ============================ */
         footer {
             padding: 22px 20px;
             text-align: center;
             font-size: 12px;
             color: var(--muted);
             border-top: 1px solid var(--border);
-            background: #ffffff;
+            background: #ffffffaa;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
 
 <body>
+
+<!-- FOND ANIMÉ NÉON -->
+<div class="neon-bg">
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+</div>
 
 <nav>
     <div class="logo">
@@ -273,30 +207,11 @@
     <div class="nav-links">
         <a href="#creation">Créations</a>
         <a href="#events">Évènements</a>
-        <a href="#prestations">Prestations</a>
-        <a href="#shop">Boutique</a>
         <a href="#legal">Mentions légales</a>
     </div>
 </nav>
 
 <main>
-
-<header class="hero">
-    <div class="hero-inner">
-        <div>
-            <h1 class="hero-title">
-                L’univers <span class="hero-highlight">DJ MAX</span>, musique et évènements.
-            </h1>
-            <p class="hero-text">
-                Créations originales, prestations DJ pour soirées privées, restaurants et évènements professionnels,
-                et une boutique dédiée à l’univers DJ MAX.
-            </p>
-            <div>
-                <a href="#creation" class="btn btn-primary">Voir les créations du DJ</a>
-            </div>
-        </div>
-    </div>
-</header>
 
 <section class="section" id="creation">
     <div class="section-title">Créations du DJ</div>
@@ -338,55 +253,8 @@
         <p style="font-size:14px; color:var(--muted);">
             Soirée initialement prévue au restaurant Le Local.
         </p>
-        <div class="event-status">
-            <span>●</span> ÉVÈNEMENT ANNULÉ
-        </div>
-    </div>
-</section>
-
-<section class="section" id="prestations">
-    <div class="section-title">Prestations DJ</div>
-    <div class="section-sub">Formules adaptées à vos besoins.</div>
-
-    <div class="card">
-        <h3>Soirées privées</h3>
-        <p style="color:var(--muted); font-size:14px;">
-            Ambiance personnalisée, playlist adaptée à votre public.
-        </p>
-    </div>
-
-    <div class="card" style="margin-top:20px;">
-        <h3>Restaurants & Bars</h3>
-        <p style="color:var(--muted); font-size:14px;">
-            Fond musical, montée progressive, moments dynamiques selon le service.
-        </p>
-    </div>
-
-    <div class="card" style="margin-top:20px;">
-        <h3>Évènements professionnels</h3>
-        <p style="color:var(--muted); font-size:14px;">
-            Ambiance moderne, élégante, en cohérence avec votre image.
-        </p>
-    </div>
-</section>
-
-<section class="section" id="shop">
-    <div class="section-title">Boutique officielle</div>
-    <div class="section-sub">Articles réservables par e‑mail.</div>
-
-    <div class="products">
-        <div class="card">
-            <div class="product-image">Visuel chaussettes DJ MAX</div>
-            <div class="product-title">Chaussettes DJ MAX – Logo 2026</div>
-            <div class="product-price">4,50 €</div>
-        </div>
-
-        <div class="card">
-            <div class="product-image" style="background:linear-gradient(135deg,var(--primary),var(--accent2));">
-                Visuel veste zippée DJ MAX
-            </div>
-            <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
-            <div class="product-price">13,00 €</div>
+        <div style="margin-top:10px; padding:6px 12px; border-radius:999px; background:#ffe0e0; color:#b30000; display:inline-block;">
+            ● ÉVÈNEMENT ANNULÉ
         </div>
     </div>
 </section>
@@ -402,19 +270,15 @@
         </p>
 
         <p><strong>Hébergement :</strong><br>
-            GitHub Pages – GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA
+            GitHub Pages – GitHub Inc., San Francisco, CA, USA
         </p>
 
         <p><strong>Propriété intellectuelle :</strong><br>
-            L’ensemble du contenu du site (textes, images, logos, design, musique) est protégé.
+            L’ensemble du contenu du site est protégé.
         </p>
 
         <p><strong>Données personnelles :</strong><br>
-            Les informations transmises par e‑mail sont utilisées uniquement pour répondre à votre demande.
-        </p>
-
-        <p><strong>Cookies :</strong><br>
-            Ce site n’utilise aucun cookie de suivi.
+            Aucune donnée n’est stockée sur le site.
         </p>
     </div>
 </section>
