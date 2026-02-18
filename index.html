@@ -9,18 +9,18 @@
 
     <style>
         :root {
-            --bg: #f7f8ff;
-            --text: #1a1d29;
-            --muted: #6b6f80;
-            --card: #ffffff;
-            --border: #d9dcf2;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --muted: #b3b3b3;
+            --card: #111111;
+            --border: #2a2a2a;
 
-            --primary: #5a6bff;
-            --primary2: #9b5bff;
-            --glow: rgba(120, 90, 255, 0.35);
+            --red1: #ff2b2b;
+            --red2: #ff5c5c;
+            --glow: rgba(255, 40, 40, 0.35);
 
             --radius: 14px;
-            --shadow: 0 10px 30px rgba(20, 20, 40, 0.08);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         body {
@@ -31,30 +31,30 @@
             overflow-x: hidden;
         }
 
-        /* FOND ANIMÉ NÉON */
+        /* FOND ANIMÉ NÉON ROUGE FIN */
         .neon-bg {
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: linear-gradient(120deg, #dfe3ff, #f7f8ff, #e8e0ff);
+            background: #000;
             overflow: hidden;
         }
 
         .neon-line {
             position: absolute;
             width: 200%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--primary2), transparent);
-            opacity: 0.35;
-            filter: blur(4px);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red1), var(--red2), transparent);
+            opacity: 0.25;
+            filter: blur(2px);
             animation: moveNeon 12s linear infinite;
         }
 
-        .neon-line:nth-child(1) { top: 10%; animation-duration: 14s; }
-        .neon-line:nth-child(2) { top: 30%; animation-duration: 11s; }
-        .neon-line:nth-child(3) { top: 50%; animation-duration: 16s; }
-        .neon-line:nth-child(4) { top: 70%; animation-duration: 13s; }
-        .neon-line:nth-child(5) { top: 90%; animation-duration: 18s; }
+        .neon-line:nth-child(1) { top: 12%; animation-duration: 14s; }
+        .neon-line:nth-child(2) { top: 28%; animation-duration: 11s; }
+        .neon-line:nth-child(3) { top: 46%; animation-duration: 16s; }
+        .neon-line:nth-child(4) { top: 63%; animation-duration: 13s; }
+        .neon-line:nth-child(5) { top: 81%; animation-duration: 18s; }
 
         @keyframes moveNeon {
             from { transform: translateX(-50%); }
@@ -66,9 +66,9 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             height: 70px;
-            background: #ffffffcc;
+            background: rgba(0,0,0,0.65);
             backdrop-filter: blur(14px);
-            box-shadow: 0 1px 0 rgba(148, 163, 184, 0.35);
+            border-bottom: 1px solid #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -88,11 +88,11 @@
             width: 26px;
             height: 26px;
             border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--primary2));
+            background: linear-gradient(135deg, var(--red1), var(--red2));
             box-shadow: 0 0 12px var(--glow);
         }
 
-        .logo span { color: var(--primary2); }
+        .logo span { color: var(--red2); }
 
         .nav-links {
             display: flex;
@@ -109,8 +109,8 @@
         }
 
         .nav-links a:hover {
-            color: var(--primary2);
-            background: rgba(120, 90, 255, 0.08);
+            color: var(--red2);
+            background: rgba(255, 40, 40, 0.12);
         }
 
         main { padding-top: 90px; }
@@ -126,7 +126,7 @@
             font-size: 28px;
             font-weight: 800;
             margin-bottom: 6px;
-            color: var(--primary2);
+            color: var(--red2);
             text-shadow: 0 0 12px var(--glow);
         }
 
@@ -150,11 +150,31 @@
             margin-top: 10px;
             padding: 12px;
             border-radius: 12px;
-            background: rgba(255,255,255,0.7);
+            background: #1a1a1a;
             box-shadow: 0 0 12px var(--glow);
         }
 
         audio { width: 100%; margin-top: 6px; }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--red2);
+            background: transparent;
+            color: var(--red2);
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--red2);
+            color: black;
+            box-shadow: 0 0 14px var(--glow);
+        }
 
         /* FOOTER */
         footer {
@@ -163,8 +183,7 @@
             font-size: 12px;
             color: var(--muted);
             border-top: 1px solid var(--border);
-            background: #ffffffaa;
-            backdrop-filter: blur(10px);
+            background: #0a0a0a;
         }
     </style>
 </head>
@@ -199,31 +218,37 @@
 <!-- ACCUEIL -->
 <section class="section" id="accueil">
     <div class="section-title">Bienvenue dans l’univers DJ MAX</div>
-    <div class="section-sub">Musique, évènements et créations officielles.</div>
+    <div class="section-sub">Musique, évènements, créations et prestations DJ.</div>
 
     <div class="card">
         <p style="font-size:15px; color:var(--muted);">
-            Découvrez les créations DJ MAX, les évènements à venir, et la boutique officielle.
+            Découvrez les créations DJ MAX, les évènements à venir, la boutique officielle et réservez votre prestation DJ.
         </p>
+        <a class="btn" href="#reservation">Réserver une prestation DJ</a>
     </div>
 </section>
 
-<!-- ÉVÈNEMENT -->
+<!-- ÉVÈNEMENTS -->
 <section class="section" id="events">
-    <div class="section-title">Évènement</div>
-    <div class="section-sub">Informations officielles.</div>
+    <div class="section-title">Évènements</div>
+    <div class="section-sub">Toutes les dates officielles.</div>
 
     <div class="card">
-        <h3>DJ MAX au restaurant Le Local</h3>
-        <p style="font-size:14px; color:var(--muted); margin:6px 0;">
-            📅 Jeudi 19 février 2026 • 🕒 19h – 23h
-        </p>
-        <p style="font-size:14px; color:var(--muted);">
-            Soirée initialement prévue au restaurant Le Local.
-        </p>
-        <div style="margin-top:10px; padding:6px 12px; border-radius:999px; background:#ffe0e0; color:#b30000; display:inline-block;">
+        <h3>DJ MAX au Restaurant Le Local</h3>
+        <p>📅 19 février 2026 • 🕒 19h – 23h</p>
+        <div style="margin-top:10px; padding:6px 12px; border-radius:999px; background:#3a0000; color:#ff4d4d; display:inline-block;">
             ● ÉVÈNEMENT ANNULÉ
         </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+        <h3>DJ MAX au Restaurant Le Local</h3>
+        <p>📅 26 février 2026 • 🕒 19h – 22h</p>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+        <h3>Jeu du DJ animé par DJ MAX</h3>
+        <p>📅 28 février 2026 • 🕒 21h – 22h</p>
     </div>
 </section>
 
@@ -264,11 +289,24 @@
     <div class="card">
         <h3>Chaussettes DJ MAX – Logo 2026</h3>
         <p style="color:var(--muted);">4,50 €</p>
+        <a class="btn" href="#achat">Acheter</a>
     </div>
 
     <div class="card" style="margin-top:20px;">
         <h3>Veste zippée DJ MAX – Logo blanc</h3>
         <p style="color:var(--muted);">13,00 €</p>
+        <a class="btn" href="#achat">Acheter</a>
+    </div>
+</section>
+
+<!-- RÉSERVATION DJ -->
+<section class="section" id="reservation">
+    <div class="section-title">Réservation DJ</div>
+    <div class="section-sub">Demandez votre prestation DJ MAX.</div>
+
+    <div class="card">
+        <p>Pour réserver une prestation DJ, envoyez un e‑mail à :</p>
+        <p style="color:var(--red2); font-weight:600;">maxens.gv@djmax38.com</p>
     </div>
 </section>
 
