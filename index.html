@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ MAX – Évènements & Boutique</title>
+    <title>DJ MAX – Univers, Prestations & Boutique</title>
 
     <!-- Icône du site -->
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         :root {
-            --bg: #0a0a0a;
-            --primary: #00d4ff;
-            --secondary: #ffe066;
-            --text: #ffffff;
-            --card: #111111;
+            --bg: #faf9ff;
+            --text: #2a2a2a;
+            --primary: #8ad7f1;   /* Turquoise pastel */
+            --secondary: #ffe8a3; /* Jaune pastel */
+            --accent: #d7c4ff;    /* Lavande pastel */
+            --accent2: #ffbfd4;   /* Rose pastel */
+            --card: #ffffff;
+            --shadow: rgba(0,0,0,0.08);
         }
 
         * { box-sizing: border-box; }
@@ -30,61 +33,85 @@
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
-            height: 65px;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(10px);
+            height: 70px;
+            background: white;
+            box-shadow: 0 2px 10px var(--shadow);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 30px;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: 2px;
+            color: var(--primary);
         }
-        .logo span { color: var(--primary); }
 
         .nav-links a {
             margin-left: 20px;
             text-decoration: none;
             color: var(--text);
+            font-weight: 500;
             opacity: 0.8;
             transition: 0.2s;
-            text-transform: uppercase;
-            font-size: 13px;
         }
         .nav-links a:hover {
             opacity: 1;
-            color: var(--secondary);
+            color: var(--primary);
         }
 
         /* HEADER */
         header {
-            padding: 140px 20px 100px;
+            padding: 140px 20px 120px;
             text-align: center;
-            background: linear-gradient(135deg, #00d4ff33, #ffe06622);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            opacity: 0.25;
+            border-radius: 50%;
+            top: -80px;
+            left: -80px;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent2);
+            opacity: 0.25;
+            border-radius: 50%;
+            bottom: -60px;
+            right: -60px;
         }
 
         header h1 {
-            font-size: 50px;
+            font-size: 48px;
             margin-bottom: 10px;
         }
 
         header p {
             font-size: 18px;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .btn {
             display: inline-block;
             margin-top: 25px;
             padding: 12px 25px;
-            background: var(--primary);
-            color: black;
+            background: white;
+            color: var(--text);
             font-weight: 600;
             border-radius: 8px;
             text-decoration: none;
@@ -96,7 +123,7 @@
 
         /* SECTIONS */
         .section {
-            padding: 60px 20px;
+            padding: 70px 20px;
             max-width: 1100px;
             margin: auto;
         }
@@ -108,15 +135,58 @@
             color: var(--primary);
         }
 
-        /* ÉVÈNEMENTS */
-        .event-card {
+        /* CARDS */
+        .card {
             background: var(--card);
             padding: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* CRÉATION DU DJ */
+        .creation-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 800px) {
+            .creation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ÉVÈNEMENTS */
+        .event-card {
             max-width: 600px;
             margin: auto;
+            text-align: center;
+        }
+
+        .cancelled {
+            color: red;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        /* PRESTATIONS */
+        .prestations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .presta-box {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px var(--shadow);
+            text-align: center;
+        }
+
+        .presta-box h3 {
+            margin-top: 0;
+            color: var(--accent2);
         }
 
         /* BOUTIQUE */
@@ -124,14 +194,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 25px;
-        }
-
-        .product {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
         }
 
         .product img {
@@ -142,12 +204,8 @@
             margin-bottom: 15px;
         }
 
-        .product h3 {
-            margin: 0 0 10px;
-        }
-
         .price {
-            color: var(--secondary);
+            color: var(--accent2);
             font-weight: 700;
             margin-bottom: 15px;
         }
@@ -155,7 +213,7 @@
         .btn-small {
             padding: 10px 18px;
             background: var(--primary);
-            color: black;
+            color: white;
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
@@ -166,7 +224,7 @@
         #popup {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.4);
             display: none;
             align-items: center;
             justify-content: center;
@@ -174,12 +232,13 @@
         }
 
         #popup-content {
-            background: var(--card);
+            background: white;
             padding: 30px;
             border-radius: 12px;
             text-align: center;
             width: 90%;
             max-width: 400px;
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         #popup-content button {
@@ -189,7 +248,18 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            color: white;
             font-weight: 600;
+        }
+
+        /* FORMULAIRES */
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+            font-size: 15px;
         }
 
         /* MENTIONS LÉGALES */
@@ -197,22 +267,14 @@
             margin-top: 60px;
             padding: 25px;
             text-align: center;
-            background: #000;
+            background: white;
             font-size: 13px;
-            opacity: 0.8;
+            color: #555;
         }
 
         footer a {
             color: var(--primary);
             text-decoration: none;
-        }
-
-        .legal {
-            max-width: 900px;
-            margin: 40px auto;
-            font-size: 14px;
-            opacity: 0.85;
-            line-height: 1.6;
         }
     </style>
 </head>
@@ -220,28 +282,114 @@
 <body>
 
 <nav>
-    <div class="logo">DJ <span>MAX</span></div>
+    <div class="logo">DJ MAX</div>
     <div class="nav-links">
+        <a href="#creation">Création du DJ</a>
         <a href="#events">Évènements</a>
+        <a href="#prestations">Prestations</a>
         <a href="#shop">Boutique</a>
         <a href="#legal">Mentions légales</a>
     </div>
 </nav>
 
 <header>
-    <h1>Bienvenue sur le site officiel de DJ MAX</h1>
-    <p>Évènements, musique, ambiance et articles exclusifs.</p>
-    <a href="#shop" class="btn">Accéder à la boutique</a>
+    <h1>Bienvenue dans l’univers pastel de DJ MAX</h1>
+    <p>Musique, prestations, créations et boutique dans une ambiance douce et géométrique.</p>
+    <a href="#prestations" class="btn">Découvrir les prestations</a>
 </header>
 
-<section class="section" id="events">
-    <h2>Évènements à venir</h2>
+<section class="section" id="creation">
+    <h2>Création du DJ</h2>
 
-    <div class="event-card">
+    <div class="creation-grid">
+        <div class="card">
+            <h3>L’univers de DJ MAX</h3>
+            <p>
+                DJ MAX propose un univers musical chaleureux, festif et moderne.  
+                Entre soirées privées, restaurants, évènements professionnels et créations personnelles,  
+                chaque prestation est pensée pour offrir une ambiance unique.
+            </p>
+            <p>
+                Les influences pastel, géométriques et lumineuses se retrouvent dans son identité visuelle  
+                comme dans ses sets musicaux.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Ambiance & Style</h3>
+            <p>
+                Un mélange de pop, dance, house et remix personnels,  
+                toujours avec une touche de bonne humeur et de créativité.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="events">
+    <h2>Évènements</h2>
+
+    <div class="card event-card">
         <h3>DJ MAX au restaurant Le Local</h3>
         <p>📅 Jeudi 19 février 2026</p>
         <p>🕒 19h – 23h</p>
-        <p>Une soirée chaleureuse, musicale et festive vous attend.</p>
+        <p class="cancelled">ÉVÈNEMENT ANNULÉ</p>
+    </div>
+</section>
+
+<section class="section" id="prestations">
+    <h2>Prestations DJ</h2>
+
+    <div class="prestations-grid">
+
+        <div class="presta-box">
+            <h3>Soirées privées</h3>
+            <p>Ambiance personnalisée, playlist sur mesure, matériel possible selon le lieu.</p>
+        </div>
+
+        <div class="presta-box">
+            <h3>Restaurants & Bars</h3>
+            <p>Sets adaptés à l’ambiance du lieu, musique douce ou festive selon vos besoins.</p>
+        </div>
+
+        <div class="presta-box">
+            <h3>Évènements professionnels</h3>
+            <p>Ambiance élégante, moderne et adaptée à votre image.</p>
+        </div>
+
+        <div class="presta-box">
+            <h3>Anniversaires</h3>
+            <p>Une prestation festive, joyeuse et adaptée à votre public.</p>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top:40px;">
+        <h3>Demande de prestation</h3>
+        <form onsubmit="bookingPopup(); return false;" style="margin-top:20px;">
+            <label>Nom et prénom</label>
+            <input type="text" required>
+
+            <label>Adresse e‑mail</label>
+            <input type="email" required>
+
+            <label>Date souhaitée</label>
+            <input type="date" required>
+
+            <label>Type de prestation</label>
+            <select required>
+                <option value="">Sélectionnez…</option>
+                <option>Soirée privée</option>
+                <option>Restaurant / Bar</option>
+                <option>Entreprise</option>
+                <option>Anniversaire</option>
+                <option>Autre</option>
+            </select>
+
+            <label>Détails supplémentaires</label>
+            <textarea placeholder="Lieu, horaires, ambiance souhaitée…"></textarea>
+
+            <button class="btn-small" type="submit" style="margin-top:15px; width:100%;">Envoyer la demande</button>
+        </form>
     </div>
 </section>
 
@@ -250,14 +398,14 @@
 
     <div class="products">
 
-        <div class="product">
+        <div class="card product">
             <img src="https://via.placeholder.com/300x160?text=Chaussettes+DJ+MAX" alt="">
             <h3>Chaussettes DJ MAX – Logo 2026</h3>
             <div class="price">4,50 €</div>
             <button class="btn-small" onclick="reserve('Chaussettes DJ MAX – 4,50 €')">Réserver</button>
         </div>
 
-        <div class="product">
+        <div class="card product">
             <img src="https://via.placeholder.com/300x160?text=Veste+DJ+MAX" alt="">
             <h3>Veste zippée DJ MAX – Logo blanc</h3>
             <div class="price">13,00 €</div>
@@ -270,32 +418,36 @@
 <!-- POPUP -->
 <div id="popup">
     <div id="popup-content">
-        <h3>Réservation d’article</h3>
+        <h3>Réservation</h3>
         <p id="popup-text"></p>
-        <p>Pour finaliser votre réservation, veuillez envoyer un e‑mail à :</p>
+        <p>Pour finaliser votre demande, veuillez envoyer un e‑mail à :</p>
         <p><strong>maxens.gv@djmax38.com</strong></p>
         <button onclick="closePopup()">Fermer</button>
     </div>
 </div>
 
-<section class="section legal" id="legal">
+<section class="section" id="legal">
     <h2>Mentions légales</h2>
 
-    <p><strong>Éditeur du site :</strong><br>
-    DJ MAX – Seyssinet-Pariset, France<br>
-    Contact : maxens.gv@djmax38.com</p>
+    <div class="card" style="line-height:1.7;">
+        <p><strong>Éditeur du site :</strong><br>
+        DJ MAX – Seyssinet-Pariset, France<br>
+        Contact : maxens.gv@djmax38.com</p>
 
-    <p><strong>Hébergement :</strong><br>
-    GitHub Pages – GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA</p>
+        <p><strong>Hébergement :</strong><br>
+        GitHub Pages – GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA</p>
 
-    <p><strong>Propriété intellectuelle :</strong><br>
-    L’ensemble du contenu du site (textes, images, logos, design) est protégé. Toute reproduction est interdite sans autorisation.</p>
+        <p><strong>Propriété intellectuelle :</strong><br>
+        L’ensemble du contenu du site (textes, images, logos, design) est protégé. 
+        Toute reproduction est interdite sans autorisation.</p>
 
-    <p><strong>Données personnelles :</strong><br>
-    Aucune donnée personnelle n’est collectée automatiquement. Les réservations par e‑mail sont traitées uniquement pour répondre à votre demande.</p>
+        <p><strong>Données personnelles :</strong><br>
+        Les informations envoyées par e‑mail sont utilisées uniquement pour répondre à votre demande. 
+        Aucune donnée n’est stockée sur le site.</p>
 
-    <p><strong>Cookies :</strong><br>
-    Ce site n’utilise aucun cookie de suivi.</p>
+        <p><strong>Cookies :</strong><br>
+        Ce site n’utilise aucun cookie de suivi.</p>
+    </div>
 </section>
 
 <footer>
@@ -306,6 +458,12 @@
     function reserve(item) {
         document.getElementById("popup-text").textContent =
             "Vous souhaitez réserver : " + item;
+        document.getElementById("popup").style.display = "flex";
+    }
+
+    function bookingPopup() {
+        document.getElementById("popup-text").textContent =
+            "Votre demande de prestation a bien été enregistrée.";
         document.getElementById("popup").style.display = "flex";
     }
 
