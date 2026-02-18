@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ MAX – Créations & Évènements</title>
+    <title>DJ MAX – Site Officiel</title>
 
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        /* ============================
-           PALETTE CLUB PREMIUM CLAIRE
-        ============================ */
         :root {
             --bg: #f7f8ff;
             --text: #1a1d29;
@@ -18,16 +15,13 @@
             --card: #ffffff;
             --border: #d9dcf2;
 
-            --primary: #5a6bff;      /* Bleu club doux */
-            --primary2: #9b5bff;     /* Violet club doux */
+            --primary: #5a6bff;
+            --primary2: #9b5bff;
             --glow: rgba(120, 90, 255, 0.35);
-            --glow-strong: rgba(120, 90, 255, 0.55);
 
             --radius: 14px;
             --shadow: 0 10px 30px rgba(20, 20, 40, 0.08);
         }
-
-        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -37,9 +31,7 @@
             overflow-x: hidden;
         }
 
-        /* ============================
-           FOND ANIMÉ NÉON (LIGNES)
-        ============================ */
+        /* FOND ANIMÉ NÉON */
         .neon-bg {
             position: fixed;
             inset: 0;
@@ -69,9 +61,7 @@
             to   { transform: translateX(50%); }
         }
 
-        /* ============================
-           NAVIGATION
-        ============================ */
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -125,9 +115,7 @@
 
         main { padding-top: 90px; }
 
-        /* ============================
-           SECTIONS
-        ============================ */
+        /* SECTIONS */
         .section {
             padding: 60px 20px;
             max-width: 1120px;
@@ -148,21 +136,16 @@
             margin-bottom: 26px;
         }
 
-        /* ============================
-           CARDS
-        ============================ */
+        /* CARDS */
         .card {
             background: var(--card);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
             padding: 22px;
-            backdrop-filter: blur(6px);
         }
 
-        /* ============================
-           AUDIO
-        ============================ */
+        /* AUDIO */
         .audio-block {
             margin-top: 10px;
             padding: 12px;
@@ -173,9 +156,7 @@
 
         audio { width: 100%; margin-top: 6px; }
 
-        /* ============================
-           FOOTER
-        ============================ */
+        /* FOOTER */
         footer {
             padding: 22px 20px;
             text-align: center;
@@ -190,7 +171,7 @@
 
 <body>
 
-<!-- FOND ANIMÉ NÉON -->
+<!-- FOND ANIMÉ -->
 <div class="neon-bg">
     <div class="neon-line"></div>
     <div class="neon-line"></div>
@@ -205,17 +186,51 @@
         DJ <span>MAX</span>
     </div>
     <div class="nav-links">
-        <a href="#creation">Créations</a>
-        <a href="#events">Évènements</a>
+        <a href="#accueil">Accueil</a>
+        <a href="#events">Évènement</a>
+        <a href="#creation">Créations DJ</a>
+        <a href="#shop">Boutique</a>
         <a href="#legal">Mentions légales</a>
     </div>
 </nav>
 
 <main>
 
+<!-- ACCUEIL -->
+<section class="section" id="accueil">
+    <div class="section-title">Bienvenue dans l’univers DJ MAX</div>
+    <div class="section-sub">Musique, évènements et créations officielles.</div>
+
+    <div class="card">
+        <p style="font-size:15px; color:var(--muted);">
+            Découvrez les créations DJ MAX, les évènements à venir, et la boutique officielle.
+        </p>
+    </div>
+</section>
+
+<!-- ÉVÈNEMENT -->
+<section class="section" id="events">
+    <div class="section-title">Évènement</div>
+    <div class="section-sub">Informations officielles.</div>
+
+    <div class="card">
+        <h3>DJ MAX au restaurant Le Local</h3>
+        <p style="font-size:14px; color:var(--muted); margin:6px 0;">
+            📅 Jeudi 19 février 2026 • 🕒 19h – 23h
+        </p>
+        <p style="font-size:14px; color:var(--muted);">
+            Soirée initialement prévue au restaurant Le Local.
+        </p>
+        <div style="margin-top:10px; padding:6px 12px; border-radius:999px; background:#ffe0e0; color:#b30000; display:inline-block;">
+            ● ÉVÈNEMENT ANNULÉ
+        </div>
+    </div>
+</section>
+
+<!-- CRÉATIONS DJ -->
 <section class="section" id="creation">
     <div class="section-title">Créations du DJ</div>
-    <div class="section-sub">Sélection officielle des titres DJ MAX.</div>
+    <div class="section-sub">Titres officiels DJ MAX.</div>
 
     <div class="card">
         <h3>I’m Still Standing – DJ MAX</h3>
@@ -241,52 +256,39 @@
     </div>
 </section>
 
-<section class="section" id="events">
-    <div class="section-title">Évènements</div>
-    <div class="section-sub">Informations transparentes sur les dates et leur statut.</div>
+<!-- BOUTIQUE -->
+<section class="section" id="shop">
+    <div class="section-title">Boutique officielle</div>
+    <div class="section-sub">Articles DJ MAX.</div>
 
     <div class="card">
-        <h3>DJ MAX au restaurant Le Local</h3>
-        <p style="font-size:14px; color:var(--muted); margin:6px 0;">
-            📅 Jeudi 19 février 2026 • 🕒 19h – 23h
-        </p>
-        <p style="font-size:14px; color:var(--muted);">
-            Soirée initialement prévue au restaurant Le Local.
-        </p>
-        <div style="margin-top:10px; padding:6px 12px; border-radius:999px; background:#ffe0e0; color:#b30000; display:inline-block;">
-            ● ÉVÈNEMENT ANNULÉ
-        </div>
+        <h3>Chaussettes DJ MAX – Logo 2026</h3>
+        <p style="color:var(--muted);">4,50 €</p>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+        <h3>Veste zippée DJ MAX – Logo blanc</h3>
+        <p style="color:var(--muted);">13,00 €</p>
     </div>
 </section>
 
+<!-- MENTIONS LÉGALES -->
 <section class="section" id="legal">
     <div class="section-title">Mentions légales</div>
-    <div class="section-sub">Informations concernant l’éditeur et l’hébergement du site.</div>
+    <div class="section-sub">Informations officielles.</div>
 
     <div class="card">
-        <p><strong>Éditeur du site :</strong><br>
-            DJ MAX – Seyssinet-Pariset, France<br>
-            Contact : maxens.gv@djmax38.com
-        </p>
-
-        <p><strong>Hébergement :</strong><br>
-            GitHub Pages – GitHub Inc., San Francisco, CA, USA
-        </p>
-
-        <p><strong>Propriété intellectuelle :</strong><br>
-            L’ensemble du contenu du site est protégé.
-        </p>
-
-        <p><strong>Données personnelles :</strong><br>
-            Aucune donnée n’est stockée sur le site.
-        </p>
+        <p><strong>Éditeur :</strong> DJ MAX – Seyssinet-Pariset</p>
+        <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
+        <p><strong>Hébergement :</strong> GitHub Pages</p>
+        <p><strong>Données personnelles :</strong> Aucune donnée stockée.</p>
     </div>
 </section>
 
 </main>
 
 <footer>
-    © 2026 – DJ MAX • Tous droits réservés • <a href="#legal">Mentions légales</a>
+    © 2026 – DJ MAX • Tous droits réservés
 </footer>
 
 </body>
