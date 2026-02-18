@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ MAX – Évènements, Prestations & Boutique</title>
+    <title>DJ MAX – Créations, Prestations & Boutique</title>
 
-    <!-- Icône du site -->
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         :root {
             --bg: #f4f5fb;
-            --bg-alt: #eef0f8;
+            --bg-alt: #eceffd;
             --text: #1f2430;
             --muted: #6b7280;
-            --primary: #4fb7e5;   /* Bleu pastel pro */
+            --primary: #4fb7e5;
             --primary-dark: #2f8fb8;
-            --secondary: #f7c96b; /* Jaune doux */
-            --accent: #b9a4f5;    /* Lavande */
-            --accent2: #f59ab2;   /* Rose doux */
+            --secondary: #f7c96b;
+            --accent: #b9a4f5;
+            --accent2: #f59ab2;
             --card: #ffffff;
             --border: #dde1ee;
             --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
@@ -90,10 +89,7 @@
             background: rgba(79, 183, 229, 0.08);
         }
 
-        /* LAYOUT */
-        main {
-            padding-top: 80px;
-        }
+        main { padding-top: 80px; }
 
         .section {
             padding: 60px 20px;
@@ -135,9 +131,7 @@
         }
 
         @media (max-width: 900px) {
-            .hero-inner {
-                grid-template-columns: 1fr;
-            }
+            .hero-inner { grid-template-columns: 1fr; }
         }
 
         .hero-title {
@@ -146,9 +140,7 @@
             margin-bottom: 10px;
         }
 
-        .hero-highlight {
-            color: var(--primary-dark);
-        }
+        .hero-highlight { color: var(--primary-dark); }
 
         .hero-text {
             font-size: 15px;
@@ -230,7 +222,7 @@
             padding: 22px;
         }
 
-        /* CRÉATION DU DJ */
+        /* CREATIONS */
         .creation-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
@@ -238,30 +230,7 @@
         }
 
         @media (max-width: 900px) {
-            .creation-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            background: rgba(79, 183, 229, 0.08);
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-        }
-
-        .pill-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background: var(--primary-dark);
+            .creation-grid { grid-template-columns: 1fr; }
         }
 
         .creation-text p {
@@ -290,17 +259,19 @@
             color: #1f2933;
         }
 
-        .creation-side h3 {
-            margin-top: 0;
-            margin-bottom: 6px;
+        .creation-side h3 { margin-top: 0; margin-bottom: 6px; }
+        .creation-side p { font-size: 13px; margin-bottom: 6px; }
+
+        .audio-block {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.7);
         }
 
-        .creation-side p {
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
+        audio { width: 100%; margin-top: 6px; }
 
-        /* ÉVÈNEMENTS */
+        /* EVENTS */
         .event-status {
             display: inline-flex;
             align-items: center;
@@ -340,7 +311,6 @@
             color: var(--muted);
         }
 
-        /* FORMULAIRE PRESTATION */
         .form-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -349,9 +319,7 @@
         }
 
         @media (max-width: 900px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
+            .form-grid { grid-template-columns: 1fr; }
         }
 
         label {
@@ -372,12 +340,9 @@
             background: #f9fafb;
         }
 
-        textarea {
-            min-height: 90px;
-            resize: vertical;
-        }
+        textarea { min-height: 90px; resize: vertical; }
 
-        /* BOUTIQUE */
+        /* SHOP */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -432,18 +397,10 @@
             text-align: center;
         }
 
-        #popup-content h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
+        #popup-content h3 { margin-top: 0; margin-bottom: 8px; }
+        #popup-content p { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
 
-        #popup-content p {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 6px;
-        }
-
-        /* MENTIONS LÉGALES */
+        /* LEGAL */
         .legal-text p {
             font-size: 13px;
             color: var(--muted);
@@ -465,12 +422,8 @@
         }
 
         @media (max-width: 720px) {
-            nav {
-                padding: 0 16px;
-            }
-            .nav-links {
-                display: none;
-            }
+            nav { padding: 0 16px; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -483,7 +436,7 @@
         DJ <span>MAX</span>
     </div>
     <div class="nav-links">
-        <a href="#creation">Univers</a>
+        <a href="#creation">Créations</a>
         <a href="#events">Évènements</a>
         <a href="#prestations">Prestations</a>
         <a href="#shop">Boutique</a>
@@ -496,25 +449,25 @@
         <div class="hero-inner">
             <div>
                 <h1 class="hero-title">
-                    Un univers <span class="hero-highlight">DJ professionnel</span>, pastel et moderne.
+                    L’univers <span class="hero-highlight">DJ MAX</span>, musique et évènements.
                 </h1>
                 <p class="hero-text">
-                    DJ MAX accompagne vos soirées privées, restaurants et évènements professionnels avec une ambiance musicale
-                    sur mesure, dans un univers visuel doux, géométrique et contemporain.
+                    Créations originales, prestations DJ pour soirées privées, restaurants et évènements professionnels,
+                    et une boutique dédiée à l’univers DJ MAX.
                 </p>
                 <div class="hero-actions">
-                    <a href="#prestations" class="btn btn-primary">Découvrir les prestations</a>
-                    <a href="#shop" class="btn btn-ghost">Voir la boutique</a>
+                    <a href="#creation" class="btn btn-primary">Voir les créations du DJ</a>
+                    <a href="#prestations" class="btn btn-ghost">Découvrir les prestations</a>
                 </div>
             </div>
             <div class="hero-panel">
-                <div class="hero-tag">Aperçu rapide</div>
+                <div class="hero-tag">Aperçu</div>
                 <div style="font-size:14px; margin-bottom:10px;">
-                    Prestations DJ, boutique officielle et univers créatif réunis sur un seul site.
+                    Site officiel de DJ MAX : musique, prestations et articles.
                 </div>
                 <div class="hero-metric">
-                    <span>Types d’évènements</span>
-                    <span>Privés, pros, restaurants</span>
+                    <span>Créations</span>
+                    <span>Mix & titres DJ MAX</span>
                 </div>
                 <div class="hero-metric">
                     <span>Réservation</span>
@@ -528,55 +481,48 @@
         </div>
     </header>
 
-    <!-- CRÉATION DU DJ -->
+    <!-- CREATIONS DJ -->
     <section class="section" id="creation">
         <div class="section-header">
             <div>
-                <div class="section-title">Création & univers de DJ MAX</div>
-                <div class="section-sub">Une identité musicale et visuelle cohérente, professionnelle et chaleureuse.</div>
+                <div class="section-title">Créations du DJ</div>
+                <div class="section-sub">Une sélection de titres et remixes signés DJ MAX.</div>
             </div>
         </div>
 
         <div class="creation-grid">
             <div class="card creation-text">
-                <div class="pill">
-                    <div class="pill-dot"></div>
-                    Univers artistique
-                </div>
                 <p>
-                    DJ MAX propose un univers musical moderne, accessible et festif, pensé pour créer des moments
-                    conviviaux et mémorables. Chaque prestation est adaptée au lieu, au public et à l’ambiance souhaitée.
+                    DJ MAX développe un univers musical orienté soirées conviviales, restaurants, évènements privés
+                    et professionnels. Chaque création est pensée pour être jouée en situation réelle.
                 </p>
                 <p>
-                    L’esthétique pastel et géométrique reflète une approche professionnelle mais chaleureuse :
-                    des couleurs douces, des formes structurées, une énergie positive et maîtrisée.
-                </p>
-                <p>
-                    L’objectif : offrir une expérience complète, où la musique, l’ambiance et l’image forment un ensemble
-                    harmonieux, au service de votre évènement.
+                    Les titres et remixes sont construits pour garder une énergie maîtrisée, avec des montées,
+                    des respirations et des moments forts adaptés au public.
                 </p>
                 <div class="creation-tags">
-                    <div class="tag">Ambiance sur mesure</div>
-                    <div class="tag">Univers pastel</div>
-                    <div class="tag">Évènements variés</div>
-                    <div class="tag">Approche professionnelle</div>
+                    <div class="tag">Créations originales</div>
+                    <div class="tag">Remixes DJ MAX</div>
+                    <div class="tag">Ambiance évènementielle</div>
                 </div>
             </div>
 
             <div class="card creation-side">
-                <h3>Style musical</h3>
-                <p>Mix de pop, dance, house et remixes, avec une attention particulière à l’ambiance générale.</p>
-                <p>Adaptation au public, au lieu et au moment de la soirée.</p>
-                <hr style="border:none;border-top:1px solid rgba(148,163,184,0.4);margin:14px 0;">
-                <p style="font-size:13px;">
-                    Vous souhaitez une ambiance douce, festive, dynamique ou évolutive au fil de la soirée ?  
-                    DJ MAX construit un set cohérent avec vos attentes.
-                </p>
+                <h3>“I’m Still Standing” – DJ MAX</h3>
+                <p>Version DJ MAX, prête pour les soirées et évènements.</p>
+                <div class="audio-block">
+                    <p style="margin:0 0 4px;">Lecture du titre :</p>
+                    <!-- IMPORTANT : place le fichier im-still-standing.mp3 à côté de index.html -->
+                    <audio controls>
+                        <source src="im-still-standing.mp3" type="audio/mpeg">
+                        Votre navigateur ne supporte pas la lecture audio.
+                    </audio>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ÉVÈNEMENTS -->
+    <!-- EVENTS -->
     <section class="section" id="events">
         <div class="section-header">
             <div>
@@ -585,7 +531,7 @@
             </div>
         </div>
 
-        <div class="card event-card">
+        <div class="card">
             <h3>DJ MAX au restaurant Le Local</h3>
             <p style="font-size:14px; color:var(--muted); margin:6px 0;">
                 📅 Jeudi 19 février 2026 • 🕒 19h – 23h
@@ -604,40 +550,40 @@
         <div class="section-header">
             <div>
                 <div class="section-title">Prestations DJ</div>
-                <div class="section-sub">Des formules claires pour différents types d’évènements.</div>
+                <div class="section-sub">Formules adaptées à vos besoins.</div>
             </div>
         </div>
 
         <div class="prestations-grid">
-            <div class="presta-box">
+            <div class="card">
                 <div class="presta-label">Prestation</div>
                 <div class="presta-title">Soirées privées</div>
                 <div class="presta-text">
-                    Ambiance personnalisée, playlist sur mesure, échanges en amont pour définir vos attentes.
+                    Ambiance personnalisée, échanges en amont, playlist adaptée à votre public.
                 </div>
             </div>
 
-            <div class="presta-box">
+            <div class="card">
                 <div class="presta-label">Prestation</div>
                 <div class="presta-title">Restaurants & Bars</div>
                 <div class="presta-text">
-                    Sets adaptés à l’ambiance du lieu : fond musical, montée progressive, moments plus dynamiques.
+                    Fond musical, montée progressive, moments plus dynamiques selon le service.
                 </div>
             </div>
 
-            <div class="presta-box">
+            <div class="card">
                 <div class="presta-label">Prestation</div>
                 <div class="presta-title">Évènements professionnels</div>
                 <div class="presta-text">
-                    Ambiance élégante, moderne, en cohérence avec l’image de votre entreprise ou de votre marque.
+                    Ambiance moderne, élégante, en cohérence avec votre image.
                 </div>
             </div>
 
-            <div class="presta-box">
+            <div class="card">
                 <div class="presta-label">Prestation</div>
                 <div class="presta-title">Anniversaires & occasions</div>
                 <div class="presta-text">
-                    Une prestation festive, structurée, avec des temps forts et des moments plus calmes.
+                    Soirée structurée avec temps forts et moments plus calmes.
                 </div>
             </div>
         </div>
@@ -676,15 +622,14 @@
                 </form>
 
                 <div style="font-size:13px; color:var(--muted);">
-                    <strong>Comment cela fonctionne ?</strong>
+                    <strong>Fonctionnement :</strong>
                     <p style="margin-top:8px;">
-                        1. Vous remplissez le formulaire avec les informations principales de votre évènement.<br>
+                        1. Vous remplissez le formulaire avec les informations principales.<br>
                         2. Une fenêtre récapitulative vous indique l’adresse e‑mail et les éléments à envoyer.<br>
-                        3. Vous envoyez votre demande à <strong>maxens.gv@djmax38.com</strong> pour finaliser l’échange.
+                        3. Vous envoyez votre demande à <strong>maxens.gv@djmax38.com</strong>.
                     </p>
                     <p>
-                        Cela permet de garder une trace claire de votre demande et de poursuivre les échanges
-                        de manière professionnelle par e‑mail.
+                        Les échanges se poursuivent ensuite par e‑mail pour affiner la prestation et valider les détails.
                     </p>
                 </div>
             </div>
@@ -701,7 +646,6 @@
         </div>
 
         <div class="products">
-
             <div class="card">
                 <div class="product-image">
                     Visuel chaussettes DJ MAX
@@ -725,7 +669,6 @@
                     Réserver cet article
                 </button>
             </div>
-
         </div>
     </section>
 
@@ -740,12 +683,12 @@
         </div>
     </div>
 
-    <!-- MENTIONS LÉGALES -->
+    <!-- LEGAL -->
     <section class="section" id="legal">
         <div class="section-header">
             <div>
                 <div class="section-title">Mentions légales</div>
-                <div class="section-sub">Informations obligatoires concernant l’éditeur et l’hébergement du site.</div>
+                <div class="section-sub">Informations concernant l’éditeur et l’hébergement du site.</div>
             </div>
         </div>
 
@@ -760,8 +703,8 @@
             </p>
 
             <p><strong>Propriété intellectuelle :</strong><br>
-                L’ensemble du contenu du site (textes, images, logos, design) est protégé. Toute reproduction,
-                représentation, modification ou diffusion, totale ou partielle, est interdite sans autorisation préalable.
+                L’ensemble du contenu du site (textes, images, logos, design, musique) est protégé.
+                Toute reproduction, représentation, modification ou diffusion, totale ou partielle, est interdite sans autorisation préalable.
             </p>
 
             <p><strong>Données personnelles :</strong><br>
