@@ -2,9 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJ MAX – Club & Boutique</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         :root {
@@ -28,18 +27,18 @@
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #1b1024 0, #050509 55%);
+            background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
         }
 
         a { color: inherit; text-decoration: none; }
 
-        /* FOND NÉONS ROUGES FINES */
+        /* FOND GLOBAL NÉONS ROUGES (LASER CLUB) */
         .neon-bg {
             position: fixed;
             inset: 0;
-            z-index: -1;
+            z-index: -2;
             background: radial-gradient(circle at top, #1b1024 0, #050509 55%);
             overflow: hidden;
         }
@@ -54,11 +53,11 @@
             animation: moveNeon 14s linear infinite;
         }
 
-        .neon-line:nth-child(1) { top: 15%; animation-duration: 16s; }
-        .neon-line:nth-child(2) { top: 32%; animation-duration: 12s; }
-        .neon-line:nth-child(3) { top: 50%; animation-duration: 18s; }
-        .neon-line:nth-child(4) { top: 68%; animation-duration: 14s; }
-        .neon-line:nth-child(5) { top: 85%; animation-duration: 20s; }
+        .neon-line:nth-child(1) { top: 18%; animation-duration: 16s; }
+        .neon-line:nth-child(2) { top: 34%; animation-duration: 12s; }
+        .neon-line:nth-child(3) { top: 52%; animation-duration: 18s; }
+        .neon-line:nth-child(4) { top: 70%; animation-duration: 14s; }
+        .neon-line:nth-child(5) { top: 86%; animation-duration: 20s; }
 
         @keyframes moveNeon {
             from { transform: translateX(-50%); }
@@ -80,39 +79,12 @@
             z-index: 1000;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .nav-left {
             font-weight: 800;
-            font-size: 20px;
-        }
-
-        .logo-fanion {
-            width: 30px;
-            height: 34px;
-            border-radius: 6px 6px 2px 2px;
-            background: linear-gradient(145deg, var(--primary), var(--accent));
-            position: relative;
-            box-shadow: 0 0 16px rgba(255, 43, 107, 0.7);
-        }
-
-        .logo-fanion::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 10px solid var(--primary-soft);
-        }
-
-        .logo span {
+            font-size: 18px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             color: var(--primary-soft);
-            letter-spacing: 0.08em;
         }
 
         .nav-links {
@@ -140,12 +112,15 @@
             gap: 10px;
         }
 
-        .badge {
-            font-size: 11px;
-            padding: 2px 8px;
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
             border-radius: 999px;
-            background: rgba(91, 91, 255, 0.18);
-            color: #e5e7ff;
+            font-size: 12px;
+            background: rgba(255, 43, 107, 0.18);
+            color: #fecdd3;
         }
 
         .icon-btn {
@@ -168,17 +143,114 @@
             box-shadow: 0 0 12px rgba(255, 43, 107, 0.4);
         }
 
-        main { padding-top: 90px; }
+        main { padding-top: 70px; }
+
+        /* NOTIF BAR */
+        .notif {
+            position: fixed;
+            top: 72px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111827;
+            color: var(--text);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            border: 1px solid #374151;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            display: none;
+            z-index: 1200;
+        }
+
+        /* HERO FULL SCREEN */
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 18px 60px;
+            position: relative;
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: rgba(91, 91, 255, 0.18);
+            color: #e5e7ff;
+            margin-bottom: 14px;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 46px);
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 0 22px rgba(255, 43, 107, 0.8);
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--primary-soft);
+            background: transparent;
+            color: var(--primary-soft);
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-soft);
+            color: #050509;
+            box-shadow: 0 0 18px rgba(255, 43, 107, 0.7);
+        }
+
+        .btn-ghost {
+            border-color: #3b3b4f;
+            color: var(--muted);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: #e5e7ff;
+            background: rgba(91, 91, 255, 0.18);
+        }
 
         /* SECTIONS */
         .section {
-            padding: 50px 18px;
+            padding: 60px 18px;
             max-width: 1120px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             margin-bottom: 6px;
             color: #fef2f7;
@@ -216,37 +288,6 @@
             z-index: 1;
         }
 
-        /* BOUTONS */
-        .btn {
-            display: inline-block;
-            padding: 9px 18px;
-            border-radius: 999px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid var(--primary-soft);
-            background: transparent;
-            color: var(--primary-soft);
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            background: var(--primary-soft);
-            color: #050509;
-            box-shadow: 0 0 18px rgba(255, 43, 107, 0.7);
-        }
-
-        .btn-ghost {
-            border-color: #3b3b4f;
-            color: var(--muted);
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--accent);
-            color: #e5e7ff;
-            background: rgba(91, 91, 255, 0.18);
-        }
-
         /* AUDIO */
         .audio-block {
             margin-top: 10px;
@@ -258,7 +299,7 @@
 
         audio { width: 100%; margin-top: 6px; }
 
-        /* GRID BOUTIQUE */
+        /* BOUTIQUE GRID */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -284,24 +325,56 @@
             margin-bottom: 10px;
         }
 
-        /* PANIER / FIDÉLITÉ */
-        .pill {
-            display: inline-flex;
+        /* PANIER SLIDE-IN */
+        .cart-panel {
+            position: fixed;
+            top: 70px;
+            right: 0;
+            width: 320px;
+            max-width: 90%;
+            height: calc(100vh - 70px);
+            background: #050509;
+            border-left: 1px solid #1f2933;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            transform: translateX(100%);
+            transition: transform 0.25s ease-out;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-panel.open {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            padding: 14px 14px 10px;
+            border-bottom: 1px solid #1f2933;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 12px;
-            background: rgba(91, 91, 255, 0.18);
-            color: #e5e7ff;
+            font-size: 14px;
         }
 
-        .pill.red {
-            background: rgba(255, 43, 107, 0.18);
-            color: #fecdd3;
+        .cart-body {
+            flex: 1;
+            padding: 12px 14px;
+            overflow-y: auto;
+            font-size: 13px;
+            color: var(--muted);
         }
 
-        /* MODAL COMPTE / LOGIN */
+        .cart-footer {
+            padding: 12px 14px 16px;
+            border-top: 1px solid #1f2933;
+            font-size: 13px;
+        }
+
+        .cart-item {
+            margin-bottom: 8px;
+        }
+
+        /* MODAL COMPTE */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -309,7 +382,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 1200;
         }
 
         .modal {
@@ -403,7 +476,6 @@
         }
     </style>
 </head>
-
 <body>
 
 <div class="neon-bg">
@@ -415,10 +487,7 @@
 </div>
 
 <nav>
-    <div class="logo">
-        <div class="logo-fanion"></div>
-        <div>DJ <span>MAX</span></div>
-    </div>
+    <div class="nav-left">DJ MAX CLUB</div>
     <div class="nav-links">
         <a href="#accueil">Accueil</a>
         <a href="#events">Évènements</a>
@@ -427,38 +496,47 @@
         <a href="#legal">Mentions légales</a>
     </div>
     <div class="nav-actions">
-        <div id="loyalty-pill" class="pill red" style="display:none;">
-            ❤️ Fidélité : <span id="loyalty-points">0</span> pts
+        <div id="loyalty-pill" class="pill" style="display:none;">
+            ❤️ <span id="loyalty-points">0</span> pts
         </div>
         <button class="icon-btn" id="cart-btn">🛒 <span id="cart-count">0</span></button>
         <button class="icon-btn" id="account-btn">👤 <span id="account-label">Compte</span></button>
     </div>
 </nav>
 
+<div class="notif" id="notif"></div>
+
+<div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+        <span>Panier</span>
+        <button class="icon-btn" style="padding:4px 8px;font-size:12px;" id="cart-close">Fermer</button>
+    </div>
+    <div class="cart-body" id="cart-items">Aucun article pour le moment.</div>
+    <div class="cart-footer">
+        Total : <span id="cart-total">0,00 €</span><br>
+        <button class="btn" style="margin-top:8px;" onclick="checkout()">Valider ma réservation</button>
+    </div>
+</div>
+
 <main>
 
-<!-- ACCUEIL -->
-<section class="section" id="accueil">
-    <div class="section-title">Bienvenue dans le club DJ MAX</div>
-    <div class="section-sub">Ambiance boîte de nuit, créations originales, évènements et boutique officielle.</div>
-
-    <div class="card">
-        <div class="card-inner">
-            <p style="font-size:15px; color:var(--muted);">
-                Crée ton compte, réserve tes articles, cumule des points de fidélité à chaque soirée et profite de l’univers DJ MAX.
-            </p>
-            <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:10px;">
-                <button class="btn" id="cta-create-account">Créer mon compte</button>
-                <a href="#events" class="btn btn-ghost">Voir les évènements</a>
-            </div>
+<section class="hero" id="accueil">
+    <div class="hero-inner">
+        <div class="hero-badge">Ambiance club • Boutique • Fidélité</div>
+        <div class="hero-title">ENTRE DANS LE CLUB DJ MAX</div>
+        <div class="hero-sub">
+            Page d’accueil animée, néons rouges, évènements, créations, boutique, compte client et système de fidélité.
+        </div>
+        <div class="hero-actions">
+            <button class="btn" id="hero-enter">Entrer dans le club</button>
+            <button class="btn btn-ghost" id="hero-account">Créer / gérer mon compte</button>
         </div>
     </div>
 </section>
 
-<!-- ÉVÈNEMENTS -->
 <section class="section" id="events">
     <div class="section-title">Évènements</div>
-    <div class="section-sub">Valide ta présence et gagne des points de fidélité (10 pts par soirée, compte obligatoire).</div>
+    <div class="section-sub">Valide ta présence et gagne 10 points de fidélité par soirée (compte obligatoire).</div>
 
     <div class="card">
         <div class="card-inner">
@@ -478,8 +556,8 @@
             <p style="font-size:14px; color:var(--muted); margin:6px 0;">
                 📅 26 février 2026 • 🕒 19h – 22h
             </p>
-            <button class="btn" data-event-id="event-26" onclick="validatePresence('event-26')">
-                Valider ma présence à l’évènement (+10 pts)
+            <button class="btn" onclick="validatePresence('event-26')">
+                Valider ma présence (+10 pts)
             </button>
         </div>
     </div>
@@ -490,14 +568,13 @@
             <p style="font-size:14px; color:var(--muted); margin:6px 0;">
                 📅 28 février 2026 • 🕒 21h – 22h
             </p>
-            <button class="btn" data-event-id="event-28" onclick="validatePresence('event-28')">
-                Valider ma présence à l’évènement (+10 pts)
+            <button class="btn" onclick="validatePresence('event-28')">
+                Valider ma présence (+10 pts)
             </button>
         </div>
     </div>
 </section>
 
-<!-- CRÉATIONS DJ -->
 <section class="section" id="creation">
     <div class="section-title">Créations du DJ</div>
     <div class="section-sub">Titres officiels DJ MAX.</div>
@@ -528,7 +605,6 @@
     </div>
 </section>
 
-<!-- BOUTIQUE -->
 <section class="section" id="shop">
     <div class="section-title">Boutique officielle</div>
     <div class="section-sub">Ajoute au panier et réserve tes articles.</div>
@@ -554,28 +630,6 @@
     </div>
 </section>
 
-<!-- RÉSERVATION / PANIER -->
-<section class="section" id="achat">
-    <div class="section-title">Panier & Réservation</div>
-    <div class="section-sub">Valide ta commande et reçois un récapitulatif par e‑mail.</div>
-
-    <div class="card">
-        <div class="card-inner">
-            <p style="font-size:14px; color:var(--muted); margin-bottom:10px;">
-                Panier actuel :
-            </p>
-            <div id="cart-items" style="font-size:14px; color:var(--muted); margin-bottom:10px;">
-                Aucun article pour le moment.
-            </div>
-            <p style="font-size:14px; margin-bottom:10px;">
-                Total : <span id="cart-total">0,00 €</span>
-            </p>
-            <button class="btn" onclick="checkout()">Valider ma réservation</button>
-        </div>
-    </div>
-</section>
-
-<!-- MENTIONS LÉGALES -->
 <section class="section" id="legal">
     <div class="section-title">Mentions légales</div>
     <div class="section-sub">Informations officielles.</div>
@@ -585,7 +639,7 @@
             <p><strong>Éditeur :</strong> DJ MAX – Seyssinet-Pariset</p>
             <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
             <p><strong>Hébergement :</strong> GitHub Pages</p>
-            <p><strong>Données personnelles :</strong> Les informations saisies dans le formulaire de réservation sont utilisées uniquement pour traiter la demande.</p>
+            <p><strong>Données personnelles :</strong> Les informations saisies sont utilisées uniquement pour traiter les demandes.</p>
         </div>
     </div>
 </section>
@@ -605,7 +659,6 @@
 </div>
 
 <script>
-    // ====== LOCALSTORAGE KEYS ======
     const LS_USER = "djmax_user";
     const LS_LOYALTY = "djmax_loyalty";
     const LS_EVENTS = "djmax_events_validated";
@@ -616,19 +669,43 @@
     let validatedEvents = {};
     let cart = [];
 
+    const accountLabel = document.getElementById("account-label");
+    const loyaltyPill = document.getElementById("loyalty-pill");
+    const loyaltySpan = document.getElementById("loyalty-points");
+    const cartCount = document.getElementById("cart-count");
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const cartPanel = document.getElementById("cart-panel");
+    const notif = document.getElementById("notif");
+
+    const accountModal = document.getElementById("account-modal");
+    const accountModalContent = document.getElementById("account-modal-content");
+
+    function showNotif(msg) {
+        notif.textContent = msg;
+        notif.style.display = "block";
+        setTimeout(() => { notif.style.display = "none"; }, 2500);
+    }
+
     function loadState() {
-        const u = localStorage.getItem(LS_USER);
-        if (u) currentUser = JSON.parse(u);
+        try {
+            const u = localStorage.getItem(LS_USER);
+            if (u) currentUser = JSON.parse(u);
 
-        const l = localStorage.getItem(LS_LOYALTY);
-        if (l) loyaltyPoints = parseInt(l, 10) || 0;
+            const l = localStorage.getItem(LS_LOYALTY);
+            if (l) loyaltyPoints = parseInt(l, 10) || 0;
 
-        const e = localStorage.getItem(LS_EVENTS);
-        if (e) validatedEvents = JSON.parse(e);
+            const e = localStorage.getItem(LS_EVENTS);
+            if (e) validatedEvents = JSON.parse(e);
 
-        const c = localStorage.getItem(LS_CART);
-        if (c) cart = JSON.parse(c);
-
+            const c = localStorage.getItem(LS_CART);
+            if (c) cart = JSON.parse(c);
+        } catch (err) {
+            currentUser = null;
+            loyaltyPoints = 0;
+            validatedEvents = {};
+            cart = [];
+        }
         updateUI();
     }
 
@@ -653,15 +730,8 @@
     }
 
     function updateUI() {
-        const accountLabel = document.getElementById("account-label");
-        const loyaltyPill = document.getElementById("loyalty-pill");
-        const loyaltySpan = document.getElementById("loyalty-points");
-        const cartCount = document.getElementById("cart-count");
-        const cartItems = document.getElementById("cart-items");
-        const cartTotal = document.getElementById("cart-total");
-
         if (currentUser) {
-            accountLabel.textContent = currentUser.name || "Mon compte";
+            accountLabel.textContent = currentUser.name || currentUser.id || "Mon compte";
             loyaltyPill.style.display = "inline-flex";
         } else {
             accountLabel.textContent = "Compte";
@@ -680,6 +750,7 @@
             let total = 0;
             cart.forEach(item => {
                 const line = document.createElement("div");
+                line.className = "cart-item";
                 line.textContent = item.name + " – " + item.price.toFixed(2) + " €";
                 cartItems.appendChild(line);
                 total += item.price;
@@ -688,15 +759,11 @@
         }
     }
 
-    // ====== COMPTE / MODAL ======
-    const accountModal = document.getElementById("account-modal");
-    const accountModalContent = document.getElementById("account-modal-content");
-
     function openAccountModal(mode) {
         if (mode === "login") {
             accountModalContent.innerHTML = `
                 <div class="modal-title">Connexion</div>
-                <div class="modal-sub">Connecte-toi avec ton identifiant et ton mot de passe.</div>
+                <div class="modal-sub">Connecte-toi avec ton identifiant et ton mot de passe (enregistrés sur cet appareil).</div>
                 <div class="field">
                     <label>Identifiant</label>
                     <input type="text" id="login-id" placeholder="Ton identifiant">
@@ -714,7 +781,7 @@
         } else if (mode === "register") {
             accountModalContent.innerHTML = `
                 <div class="modal-title">Création de compte</div>
-                <div class="modal-sub">Ton compte sera enregistré sur cet appareil et gardera tes infos pour les commandes.</div>
+                <div class="modal-sub">Compte enregistré sur cet appareil, pour le panier et la fidélité.</div>
                 <div class="field">
                     <label>Nom / Pseudo</label>
                     <input type="text" id="reg-name" placeholder="DJ MAX Fan">
@@ -763,7 +830,7 @@
         const pass = document.getElementById("reg-pass").value.trim();
 
         if (!name || !email || !id || !pass) {
-            alert("Merci de remplir tous les champs.");
+            showNotif("Merci de remplir tous les champs.");
             return;
         }
 
@@ -774,7 +841,7 @@
         saveLoyalty();
         saveEvents();
         closeAccountModal();
-        alert("Compte créé avec succès. Tu es maintenant connecté.");
+        showNotif("Compte créé et connecté.");
     }
 
     function doLogin() {
@@ -782,13 +849,13 @@
         const pass = document.getElementById("login-pass").value.trim();
 
         if (!id || !pass) {
-            alert("Merci de remplir identifiant et mot de passe.");
+            showNotif("Merci de remplir identifiant et mot de passe.");
             return;
         }
 
         const u = localStorage.getItem(LS_USER);
         if (!u) {
-            alert("Aucun compte enregistré sur cet appareil.");
+            showNotif("Aucun compte enregistré sur cet appareil.");
             return;
         }
         const stored = JSON.parse(u);
@@ -798,9 +865,9 @@
             validatedEvents = JSON.parse(localStorage.getItem(LS_EVENTS) || "{}");
             updateUI();
             closeAccountModal();
-            alert("Connexion réussie.");
+            showNotif("Connexion réussie.");
         } else {
-            alert("Identifiant ou mot de passe incorrect.");
+            showNotif("Identifiant ou mot de passe incorrect.");
         }
     }
 
@@ -808,58 +875,64 @@
         currentUser = null;
         saveUser();
         closeAccountModal();
+        showNotif("Déconnecté.");
     }
 
-    // ====== FIDÉLITÉ ======
     function validatePresence(eventId) {
         if (!currentUser) {
-            alert("Tu dois avoir un compte et être connecté pour valider ta présence.");
-            openAccountModal("register");
+            showNotif("Compte obligatoire pour valider ta présence.");
+            openAccountModal("login");
             return;
         }
         if (validatedEvents[eventId]) {
-            alert("Ta présence à cet évènement est déjà validée.");
+            showNotif("Présence déjà validée pour cet évènement.");
             return;
         }
         validatedEvents[eventId] = true;
         loyaltyPoints += 10;
         saveEvents();
         saveLoyalty();
-        alert("Présence validée ! +10 points de fidélité.");
+        showNotif("Présence validée : +10 points de fidélité.");
     }
 
-    // ====== PANIER ======
     function addToCart(name, price) {
         cart.push({ name, price });
         saveCart();
-        alert("Article ajouté au panier.");
+        showNotif("Article ajouté au panier.");
     }
 
     function checkout() {
         if (!currentUser) {
-            alert("Tu dois être connecté pour valider ta réservation.");
-            openAccountModal("register");
+            showNotif("Tu dois être connecté pour valider ta réservation.");
+            openAccountModal("login");
             return;
         }
         if (cart.length === 0) {
-            alert("Ton panier est vide.");
+            showNotif("Ton panier est vide.");
             return;
         }
-        alert("Ta réservation est enregistrée. Tu peux envoyer un e‑mail à maxens.gv@djmax38.com avec ton identifiant pour finaliser.");
+        showNotif("Réservation enregistrée. Contacte maxens.gv@djmax38.com avec ton identifiant.");
     }
 
-    // ====== BOUTONS NAV ======
+    document.getElementById("cart-btn").addEventListener("click", () => {
+        cartPanel.classList.add("open");
+    });
+
+    document.getElementById("cart-close").addEventListener("click", () => {
+        cartPanel.classList.remove("open");
+    });
+
     document.getElementById("account-btn").addEventListener("click", () => {
         if (currentUser) openAccountModal("profile");
         else openAccountModal("login");
     });
 
-    document.getElementById("cta-create-account").addEventListener("click", () => {
-        openAccountModal("register");
+    document.getElementById("hero-enter").addEventListener("click", () => {
+        document.getElementById("events").scrollIntoView({ behavior: "smooth" });
     });
 
-    document.getElementById("cart-btn").addEventListener("click", () => {
-        document.location.hash = "#achat";
+    document.getElementById("hero-account").addEventListener("click", () => {
+        openAccountModal(currentUser ? "profile" : "register");
     });
 
     window.addEventListener("click", (e) => {
