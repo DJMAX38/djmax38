@@ -72,7 +72,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 26px;
+            padding: 0 16px;
             z-index: 1000;
         }
 
@@ -86,7 +86,7 @@
 
         .nav-links {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
 
         .nav-links button {
@@ -96,6 +96,7 @@
             border-radius: 999px;
             color: var(--muted);
             cursor: pointer;
+            font-size: 14px;
             transition: 0.2s;
         }
 
@@ -164,7 +165,7 @@
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .pill {
@@ -185,7 +186,13 @@
             color: var(--muted);
             padding: 6px 10px;
             cursor: pointer;
+            font-size: 13px;
             transition: 0.2s;
+        }
+
+        .icon-btn.small {
+            font-size: 12px;
+            padding: 4px 8px;
         }
 
         .icon-btn:hover {
@@ -211,6 +218,8 @@
         }
 
         /* PAGES */
+        main { padding-top: 70px; }
+
         .page {
             display: none;
             min-height: calc(100vh - 70px);
@@ -260,6 +269,7 @@
             color: var(--pink);
             cursor: pointer;
             transition: 0.2s;
+            font-size: 14px;
         }
 
         .btn:hover {
@@ -350,17 +360,24 @@
             border-bottom: 1px solid #1f2933;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .cart-body {
             flex: 1;
             padding: 14px;
             overflow-y: auto;
+            font-size: 13px;
         }
 
         .cart-footer {
             padding: 14px;
             border-top: 1px solid #1f2933;
+            font-size: 13px;
+        }
+
+        .cart-item {
+            margin-bottom: 8px;
         }
 
         /* MODAL COMPTE */
@@ -386,10 +403,34 @@
         .modal-title {
             font-size: 18px;
             font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .modal-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-size: 18px;
+            cursor: pointer;
         }
 
         .field {
             margin-bottom: 12px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
         }
 
         .field input {
@@ -399,12 +440,35 @@
             border: 1px solid #2f2f44;
             background: #05050b;
             color: var(--text);
+            font-size: 13px;
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: var(--pink);
+            box-shadow: 0 0 0 1px rgba(255,127,191,0.4);
+        }
+
+        .modal-footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .modal-footer button {
+            border: none;
+            background: transparent;
+            color: var(--pink);
+            cursor: pointer;
+            padding: 0;
+            font-size: 12px;
         }
 
         footer {
             padding: 22px;
             text-align: center;
             color: var(--muted);
+            font-size: 12px;
         }
     </style>
 </head>
@@ -469,7 +533,8 @@
         <div class="hero-inner">
             <div class="hero-title">ENTRE DANS LE CLUB DJ MAX</div>
             <div class="hero-sub">
-                Évènements, créations, boutique, compte client et fidélité géolocalisée.
+                Évènements, créations, boutique, compte client et fidélité géolocalisée.  
+                À 100 points, tu gagnes un calendrier DJ MAX.
             </div>
             <button class="btn" onclick="openPage('events')">Voir les évènements</button>
         </div>
@@ -479,7 +544,7 @@
 <section class="page" id="page-events">
     <div class="section">
         <div class="section-title">Évènements</div>
-        <div class="section-sub">Valide ta présence (moins de 1 km) et gagne 10 points.</div>
+        <div class="section-sub">Valide ta présence (moins de 1 km) et gagne 10 points de fidélité.</div>
 
         <div class="card">
             <h3>DJ MAX au Restaurant Le Local</h3>
@@ -516,4 +581,410 @@
                 </audio>
             </div>
 
-            <h3 style="margin-top:25px
+            <h3 style="margin-top:25px;">Ne m'arrête pas maintenant – DJ MAX</h3>
+            <div class="audio-block">
+                <audio controls>
+                    <source src="Ne m'arrête pas maintenant.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page" id="page-shop">
+    <div class="section">
+        <div class="section-title">Boutique officielle</div>
+        <div class="section-sub">Ajoute au panier et réserve tes articles.</div>
+
+        <div class="products">
+            <div class="card">
+                <div class="product-title">Chaussettes DJ MAX – Logo 2026</div>
+                <div class="product-price">4,50 €</div>
+                <button class="btn" onclick="addToCart('Chaussettes DJ MAX – Logo 2026', 4.5)">Ajouter au panier</button>
+            </div>
+
+            <div class="card">
+                <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
+                <div class="product-price">13,00 €</div>
+                <button class="btn" onclick="addToCart('Veste zippée DJ MAX – Logo blanc', 13)">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page" id="page-legal">
+    <div class="section">
+        <div class="section-title">Mentions légales</div>
+
+        <div class="card">
+            <p><strong>Éditeur :</strong> DJ MAX – 38450 Noyarey</p>
+            <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
+            <p><strong>Hébergement :</strong> GitHub Pages</p>
+            <p><strong>Données personnelles :</strong> Stockées localement sur l’appareil (compte, fidélité, panier).</p>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    © 2026 – DJ MAX • Tous droits réservés
+</footer>
+
+<div class="modal-backdrop" id="account-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeAccountModal()">×</button>
+        <div id="account-modal-content"></div>
+    </div>
+</div>
+
+<script>
+    const LS_USER = "djmax_user";
+    const LS_LOYALTY = "djmax_loyalty";
+    const LS_EVENTS = "djmax_events_validated";
+    const LS_CART = "djmax_cart";
+
+    let currentUser = null;
+    let loyaltyPoints = 0;
+    let validatedEvents = {};
+    let cart = [];
+
+    const pages = {
+        home: document.getElementById("page-home"),
+        events: document.getElementById("page-events"),
+        creations: document.getElementById("page-creations"),
+        shop: document.getElementById("page-shop"),
+        legal: document.getElementById("page-legal")
+    };
+
+    const accountLabel = document.getElementById("account-label");
+    const loyaltyPill = document.getElementById("loyalty-pill");
+    const loyaltySpan = document.getElementById("loyalty-points");
+    const cartCount = document.getElementById("cart-count");
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const cartPanel = document.getElementById("cart-panel");
+    const notif = document.getElementById("notif");
+
+    const accountModal = document.getElementById("account-modal");
+    const accountModalContent = document.getElementById("account-modal-content");
+
+    function showNotif(msg) {
+        notif.textContent = msg;
+        notif.style.display = "block";
+        setTimeout(() => { notif.style.display = "none"; }, 2500);
+    }
+
+    function openPage(name) {
+        Object.values(pages).forEach(p => p.classList.remove("active"));
+        if (pages[name]) pages[name].classList.add("active");
+        window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        menu.classList.toggle("open");
+    }
+
+    function loadState() {
+        try {
+            const u = localStorage.getItem(LS_USER);
+            if (u) currentUser = JSON.parse(u);
+
+            const l = localStorage.getItem(LS_LOYALTY);
+            if (l) loyaltyPoints = parseInt(l, 10) || 0;
+
+            const e = localStorage.getItem(LS_EVENTS);
+            if (e) validatedEvents = JSON.parse(e);
+
+            const c = localStorage.getItem(LS_CART);
+            if (c) cart = JSON.parse(c);
+        } catch (err) {
+            currentUser = null;
+            loyaltyPoints = 0;
+            validatedEvents = {};
+            cart = [];
+        }
+        updateUI();
+    }
+
+    function saveUser() {
+        if (currentUser) localStorage.setItem(LS_USER, JSON.stringify(currentUser));
+        else localStorage.removeItem(LS_USER);
+        updateUI();
+    }
+
+    function saveLoyalty() {
+        localStorage.setItem(LS_LOYALTY, String(loyaltyPoints));
+        updateUI();
+    }
+
+    function saveEvents() {
+        localStorage.setItem(LS_EVENTS, JSON.stringify(validatedEvents));
+    }
+
+    function saveCart() {
+        localStorage.setItem(LS_CART, JSON.stringify(cart));
+        updateUI();
+    }
+
+    function checkLoyaltyReward() {
+        if (loyaltyPoints >= 100) {
+            showNotif("Bravo ! Tu as gagné un calendrier DJ MAX. Parle-en à DJ MAX avec ton identifiant.");
+        }
+    }
+
+    function updateUI() {
+        if (currentUser) {
+            accountLabel.textContent = currentUser.name || currentUser.id || "Mon compte";
+            loyaltyPill.style.display = "inline-flex";
+        } else {
+            accountLabel.textContent = "Compte";
+            loyaltyPill.style.display = "none";
+        }
+
+        loyaltySpan.textContent = loyaltyPoints;
+
+        cartCount.textContent = cart.length;
+
+        if (cart.length === 0) {
+            cartItems.textContent = "Aucun article pour le moment.";
+            cartTotal.textContent = "0,00 €";
+        } else {
+            cartItems.innerHTML = "";
+            let total = 0;
+            cart.forEach(item => {
+                const line = document.createElement("div");
+                line.className = "cart-item";
+                line.textContent = item.name + " – " + item.price.toFixed(2) + " €";
+                cartItems.appendChild(line);
+                total += item.price;
+            });
+            cartTotal.textContent = total.toFixed(2) + " €";
+        }
+    }
+
+    function openAccount(mode) {
+        if (!mode) mode = currentUser ? "profile" : "login";
+
+        if (mode === "login") {
+            accountModalContent.innerHTML = `
+                <div class="modal-title">Connexion</div>
+                <div class="modal-sub">Connecte-toi avec ton identifiant et ton mot de passe (enregistrés sur cet appareil).</div>
+                <div class="field">
+                    <label>Identifiant</label>
+                    <input type="text" id="login-id" placeholder="Ton identifiant">
+                </div>
+                <div class="field">
+                    <label>Mot de passe</label>
+                    <input type="password" id="login-pass" placeholder="Ton mot de passe">
+                </div>
+                <button class="btn" style="margin-top:8px;" onclick="doLogin()">Se connecter</button>
+                <div class="modal-footer">
+                    Pas encore de compte ?
+                    <button onclick="openAccount('register')">Créer un compte</button>
+                </div>
+            `;
+        } else if (mode === "register") {
+            accountModalContent.innerHTML = `
+                <div class="modal-title">Création de compte</div>
+                <div class="modal-sub">Compte enregistré sur cet appareil, pour le panier et la fidélité.</div>
+                <div class="field">
+                    <label>Nom / Pseudo</label>
+                    <input type="text" id="reg-name" placeholder="DJ MAX Fan">
+                </div>
+                <div class="field">
+                    <label>Adresse e‑mail</label>
+                    <input type="email" id="reg-mail" placeholder="ton.email@example.com">
+                </div>
+                <div class="field">
+                    <label>Identifiant</label>
+                    <input type="text" id="reg-id" placeholder="Choisis ton identifiant">
+                </div>
+                <div class="field">
+                    <label>Mot de passe</label>
+                    <input type="password" id="reg-pass" placeholder="Choisis ton mot de passe">
+                </div>
+                <button class="btn" style="margin-top:8px;" onclick="doRegister()">Créer mon compte</button>
+                <div class="modal-footer">
+                    Tu as déjà un compte ?
+                    <button onclick="openAccount('login')">Se connecter</button>
+                </div>
+            `;
+        } else if (mode === "profile" && currentUser) {
+            accountModalContent.innerHTML = `
+                <div class="modal-title">Mon compte</div>
+                <div class="modal-sub">Connecté en tant que <strong>${currentUser.name || currentUser.id}</strong>.</div>
+                <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">
+                    Identifiant : <strong>${currentUser.id}</strong><br>
+                    E‑mail : <strong>${currentUser.email || "non renseigné"}</strong><br>
+                    Points fidélité : <strong>${loyaltyPoints}</strong>
+                </p>
+                <button class="btn" onclick="logout()">Se déconnecter</button>
+            `;
+        }
+        accountModal.style.display = "flex";
+    }
+
+    function closeAccountModal() {
+        accountModal.style.display = "none";
+    }
+
+    function doRegister() {
+        const name = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-mail").value.trim();
+        const id = document.getElementById("reg-id").value.trim();
+        const pass = document.getElementById("reg-pass").value.trim();
+
+        if (!name || !email || !id || !pass) {
+            showNotif("Merci de remplir tous les champs.");
+            return;
+        }
+
+        currentUser = { name, email, id, pass };
+        loyaltyPoints = 0;
+        validatedEvents = {};
+        saveUser();
+        saveLoyalty();
+        saveEvents();
+        closeAccountModal();
+        showNotif("Compte créé et connecté.");
+    }
+
+    function doLogin() {
+        const id = document.getElementById("login-id").value.trim();
+        const pass = document.getElementById("login-pass").value.trim();
+
+        if (!id || !pass) {
+            showNotif("Merci de remplir identifiant et mot de passe.");
+            return;
+        }
+
+        const u = localStorage.getItem(LS_USER);
+        if (!u) {
+            showNotif("Aucun compte enregistré sur cet appareil.");
+            return;
+        }
+        const stored = JSON.parse(u);
+        if (stored.id === id && stored.pass === pass) {
+            currentUser = stored;
+            loyaltyPoints = parseInt(localStorage.getItem(LS_LOYALTY) || "0", 10);
+            validatedEvents = JSON.parse(localStorage.getItem(LS_EVENTS) || "{}");
+            updateUI();
+            closeAccountModal();
+            showNotif("Connexion réussie.");
+        } else {
+            showNotif("Identifiant ou mot de passe incorrect.");
+        }
+    }
+
+    function logout() {
+        currentUser = null;
+        saveUser();
+        closeAccountModal();
+        showNotif("Déconnecté.");
+    }
+
+    // Haversine pour distance en km
+    function distanceKm(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const toRad = d => d * Math.PI / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    // Coordonnées approximatives
+    const EVENT_COORDS = {
+        "event-26": { lat: 45.214, lon: 5.69 },  // Rue Fernand Forest, Saint-Égrève
+        "event-28": { lat: 45.23,  lon: 5.65 }   // Rue Luce Douady, Noyarey
+    };
+
+    function validatePresence(eventId) {
+        if (!currentUser) {
+            showNotif("Compte obligatoire pour valider ta présence.");
+            openAccount("login");
+            return;
+        }
+        if (validatedEvents[eventId]) {
+            showNotif("Présence déjà validée pour cet évènement.");
+            return;
+        }
+
+        if (!navigator.geolocation) {
+            showNotif("Géolocalisation non disponible sur cet appareil.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                const userLat = pos.coords.latitude;
+                const userLon = pos.coords.longitude;
+                const target = EVENT_COORDS[eventId];
+                if (!target) {
+                    showNotif("Erreur de configuration de l’évènement.");
+                    return;
+                }
+                const d = distanceKm(userLat, userLon, target.lat, target.lon);
+                if (d <= 1) {
+                    validatedEvents[eventId] = true;
+                    loyaltyPoints += 10;
+                    saveEvents();
+                    saveLoyalty();
+                    showNotif("Présence validée : +10 points de fidélité.");
+                    checkLoyaltyReward();
+                } else {
+                    showNotif("Tu es trop loin du lieu (distance > 1 km).");
+                }
+            },
+            err => {
+                showNotif("Géolocalisation refusée ou indisponible.");
+            }
+        );
+    }
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        saveCart();
+        showNotif("Article ajouté au panier.");
+    }
+
+    function checkout() {
+        if (!currentUser) {
+            showNotif("Tu dois être connecté pour valider ta réservation.");
+            openAccount("login");
+            return;
+        }
+        if (cart.length === 0) {
+            showNotif("Ton panier est vide.");
+            return;
+        }
+        showNotif("Réservation enregistrée. Contacte maxens.gv@djmax38.com avec ton identifiant.");
+    }
+
+    document.getElementById("cart-btn").addEventListener("click", () => {
+        cartPanel.classList.add("open");
+    });
+
+    document.getElementById("cart-close").addEventListener("click", () => {
+        cartPanel.classList.remove("open");
+    });
+
+    document.getElementById("account-btn").addEventListener("click", () => {
+        openAccount();
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === accountModal) closeAccountModal();
+    });
+
+    loadState();
+</script>
+
+</body>
+</html>
