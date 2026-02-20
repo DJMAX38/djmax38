@@ -14,8 +14,9 @@
             --text: #f9fafb;
             --muted: #9ca3af;
 
-            --primary: #ff2b6b;
-            --primary-soft: #ff5c8f;
+            --red: #ff2b4f;
+            --red-soft: #ff5c7a;
+            --pink: #ff7fbf;      /* rose pastel lumineux */
             --accent: #5b5bff;
 
             --radius: 14px;
@@ -32,9 +33,11 @@
             overflow-x: hidden;
         }
 
-        a { color: inherit; text-decoration: none; }
+        button {
+            font-family: inherit;
+        }
 
-        /* FOND GLOBAL NÉONS ROUGES (LASER CLUB) */
+        /* FOND NÉONS ROUGE + ROSE */
         .neon-bg {
             position: fixed;
             inset: 0;
@@ -47,7 +50,7 @@
             position: absolute;
             width: 220%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--primary-soft), transparent);
+            background: linear-gradient(90deg, transparent, var(--red), var(--pink), transparent);
             opacity: 0.25;
             filter: blur(2px);
             animation: moveNeon 14s linear infinite;
@@ -84,26 +87,29 @@
             font-size: 18px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--primary-soft);
+            color: var(--pink);
         }
 
         .nav-links {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             font-size: 14px;
         }
 
-        .nav-links a {
+        .nav-links button {
             padding: 6px 10px;
             border-radius: 999px;
+            border: none;
+            background: transparent;
             color: var(--muted);
             font-weight: 500;
+            cursor: pointer;
             transition: 0.18s;
         }
 
-        .nav-links a:hover {
-            color: var(--primary-soft);
-            background: rgba(255, 43, 107, 0.12);
+        .nav-links button:hover {
+            color: var(--pink);
+            background: rgba(255, 127, 191, 0.12);
         }
 
         .nav-actions {
@@ -119,8 +125,8 @@
             padding: 4px 10px;
             border-radius: 999px;
             font-size: 12px;
-            background: rgba(255, 43, 107, 0.18);
-            color: #fecdd3;
+            background: rgba(255, 127, 191, 0.18);
+            color: #ffe4f3;
         }
 
         .icon-btn {
@@ -137,15 +143,22 @@
             transition: 0.18s;
         }
 
-        .icon-btn:hover {
-            border-color: var(--primary-soft);
-            color: var(--primary-soft);
-            box-shadow: 0 0 12px rgba(255, 43, 107, 0.4);
+        .icon-btn.small {
+            padding: 4px 8px;
+            font-size: 12px;
         }
 
-        main { padding-top: 70px; }
+        .icon-btn:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 12px rgba(255, 127, 191, 0.4);
+        }
 
-        /* NOTIF BAR */
+        main {
+            padding-top: 70px;
+        }
+
+        /* NOTIF */
         .notif {
             position: fixed;
             top: 72px;
@@ -162,14 +175,43 @@
             z-index: 1200;
         }
 
-        /* HERO FULL SCREEN */
+        /* PAGES (ONE-PAGE APP) */
+        .page {
+            display: none;
+            min-height: calc(100vh - 70px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .section {
+            padding: 60px 18px;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #fef2f7;
+            text-shadow: 0 0 18px rgba(255, 127, 191, 0.6);
+        }
+
+        .section-sub {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        /* HERO ACCUEIL */
         .hero {
             min-height: calc(100vh - 70px);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px 18px 60px;
-            position: relative;
         }
 
         .hero-inner {
@@ -195,7 +237,9 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 10px;
-            text-shadow: 0 0 22px rgba(255, 43, 107, 0.8);
+            text-shadow:
+                0 0 22px rgba(255, 43, 79, 0.8),
+                0 0 32px rgba(255, 127, 191, 0.7);
         }
 
         .hero-sub {
@@ -219,16 +263,16 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            border: 1px solid var(--primary-soft);
+            border: 1px solid var(--pink);
             background: transparent;
-            color: var(--primary-soft);
+            color: var(--pink);
             transition: 0.2s;
         }
 
         .btn:hover {
-            background: var(--primary-soft);
+            background: var(--pink);
             color: #050509;
-            box-shadow: 0 0 18px rgba(255, 43, 107, 0.7);
+            box-shadow: 0 0 18px rgba(255, 127, 191, 0.7);
         }
 
         .btn-ghost {
@@ -242,45 +286,15 @@
             background: rgba(91, 91, 255, 0.18);
         }
 
-        /* SECTIONS */
-        .section {
-            padding: 60px 18px;
-            max-width: 1120px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            color: #fef2f7;
-            text-shadow: 0 0 18px rgba(255, 43, 107, 0.6);
-        }
-
-        .section-sub {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
         /* CARDS */
         .card {
-            background: linear-gradient(145deg, #10101a, #090910);
+            background: radial-gradient(circle at top left, rgba(255,127,191,0.12), transparent 55%), #090910;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
             padding: 20px;
             position: relative;
             overflow: hidden;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: radial-gradient(circle at top left, rgba(255,43,107,0.12), transparent 55%);
-            opacity: 0.7;
-            pointer-events: none;
         }
 
         .card-inner {
@@ -314,14 +328,8 @@
 
         .product-price {
             font-size: 14px;
-            color: var(--primary-soft);
+            color: var(--pink);
             font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .product-meta {
-            font-size: 12px;
-            color: var(--muted);
             margin-bottom: 10px;
         }
 
@@ -441,8 +449,8 @@
 
         .field input:focus {
             outline: none;
-            border-color: var(--primary-soft);
-            box-shadow: 0 0 0 1px rgba(255, 43, 107, 0.4);
+            border-color: var(--pink);
+            box-shadow: 0 0 0 1px rgba(255, 127, 191, 0.4);
         }
 
         .modal-footer {
@@ -454,13 +462,12 @@
         .modal-footer button {
             border: none;
             background: transparent;
-            color: var(--primary-soft);
+            color: var(--pink);
             cursor: pointer;
             padding: 0;
             font-size: 12px;
         }
 
-        /* FOOTER */
         footer {
             padding: 22px 20px;
             text-align: center;
@@ -476,6 +483,7 @@
         }
     </style>
 </head>
+
 <body>
 
 <div class="neon-bg">
@@ -488,13 +496,15 @@
 
 <nav>
     <div class="nav-left">DJ MAX CLUB</div>
+
     <div class="nav-links">
-        <a href="#accueil">Accueil</a>
-        <a href="#events">Évènements</a>
-        <a href="#creation">Créations DJ</a>
-        <a href="#shop">Boutique</a>
-        <a href="#legal">Mentions légales</a>
+        <button onclick="openPage('home')">Accueil</button>
+        <button onclick="openPage('events')">Évènements</button>
+        <button onclick="openPage('creations')">Créations DJ</button>
+        <button onclick="openPage('shop')">Boutique</button>
+        <button onclick="openPage('legal')">Mentions légales</button>
     </div>
+
     <div class="nav-actions">
         <div id="loyalty-pill" class="pill" style="display:none;">
             ❤️ <span id="loyalty-points">0</span> pts
@@ -509,7 +519,7 @@
 <div class="cart-panel" id="cart-panel">
     <div class="cart-header">
         <span>Panier</span>
-        <button class="icon-btn" style="padding:4px 8px;font-size:12px;" id="cart-close">Fermer</button>
+        <button class="icon-btn small" id="cart-close">Fermer</button>
     </div>
     <div class="cart-body" id="cart-items">Aucun article pour le moment.</div>
     <div class="cart-footer">
@@ -520,126 +530,122 @@
 
 <main>
 
-<section class="hero" id="accueil">
-    <div class="hero-inner">
-        <div class="hero-badge">Ambiance club • Boutique • Fidélité</div>
-        <div class="hero-title">ENTRE DANS LE CLUB DJ MAX</div>
-        <div class="hero-sub">
-            Page d’accueil animée, néons rouges, évènements, créations, boutique, compte client et système de fidélité.
-        </div>
-        <div class="hero-actions">
-            <button class="btn" id="hero-enter">Entrer dans le club</button>
-            <button class="btn btn-ghost" id="hero-account">Créer / gérer mon compte</button>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="events">
-    <div class="section-title">Évènements</div>
-    <div class="section-sub">Valide ta présence et gagne 10 points de fidélité par soirée (compte obligatoire).</div>
-
-    <div class="card">
-        <div class="card-inner">
-            <h3>DJ MAX au Restaurant Le Local</h3>
-            <p style="font-size:14px; color:var(--muted); margin:6px 0;">
-                📅 19 février 2026 • 🕒 19h – 23h
-            </p>
-            <div style="margin-top:8px; padding:6px 12px; border-radius:999px; background:#3a0000; color:#ff9ca3; display:inline-block; font-size:12px;">
-                ● ÉVÈNEMENT ANNULÉ
+<section class="page active" id="page-home">
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Ambiance club • Boutique • Fidélité</div>
+            <div class="hero-title">ENTRE DANS LE CLUB DJ MAX</div>
+            <div class="hero-sub">
+                Accueil animée, néons rouges & rose pastel, évènements, créations, boutique, compte client et fidélité géolocalisée.
             </div>
-        </div>
-    </div>
-
-    <div class="card" style="margin-top:18px;">
-        <div class="card-inner">
-            <h3>DJ MAX au Restaurant Le Local</h3>
-            <p style="font-size:14px; color:var(--muted); margin:6px 0;">
-                📅 26 février 2026 • 🕒 19h – 22h
-            </p>
-            <button class="btn" onclick="validatePresence('event-26')">
-                Valider ma présence (+10 pts)
-            </button>
-        </div>
-    </div>
-
-    <div class="card" style="margin-top:18px;">
-        <div class="card-inner">
-            <h3>Jeu du DJ animé par DJ MAX</h3>
-            <p style="font-size:14px; color:var(--muted); margin:6px 0;">
-                📅 28 février 2026 • 🕒 21h – 22h
-            </p>
-            <button class="btn" onclick="validatePresence('event-28')">
-                Valider ma présence (+10 pts)
-            </button>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="creation">
-    <div class="section-title">Créations du DJ</div>
-    <div class="section-sub">Titres officiels DJ MAX.</div>
-
-    <div class="card">
-        <div class="card-inner">
-            <h3>I’m Still Standing – DJ MAX</h3>
-            <div class="audio-block">
-                <audio controls>
-                    <source src="Im Still Standing.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-
-            <h3 style="margin-top:25px;">Phénoménal – DJ MAX</h3>
-            <div class="audio-block">
-                <audio controls>
-                    <source src="Phénoménal.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-
-            <h3 style="margin-top:25px;">Ne m'arrête pas maintenant – DJ MAX</h3>
-            <div class="audio-block">
-                <audio controls>
-                    <source src="Ne m'arrête pas maintenant.mp3" type="audio/mpeg">
-                </audio>
+            <div class="hero-actions">
+                <button class="btn" onclick="openPage('events')">Voir les évènements</button>
+                <button class="btn btn-ghost" onclick="openAccount()">Créer / gérer mon compte</button>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section" id="shop">
-    <div class="section-title">Boutique officielle</div>
-    <div class="section-sub">Ajoute au panier et réserve tes articles.</div>
-
-    <div class="products">
-        <div class="card">
-            <div class="card-inner">
-                <div class="product-title">Chaussettes DJ MAX – Logo 2026</div>
-                <div class="product-price">4,50 €</div>
-                <div class="product-meta">Taille unique – édition club</div>
-                <button class="btn" onclick="addToCart('Chaussettes DJ MAX – Logo 2026', 4.5)">Ajouter au panier</button>
-            </div>
+<section class="page" id="page-events">
+    <div class="section">
+        <div class="section-title">Évènements</div>
+        <div class="section-sub">
+            Valide ta présence (moins de 1 km du lieu) et gagne 10 points de fidélité. Compte obligatoire.
         </div>
 
         <div class="card">
             <div class="card-inner">
-                <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
-                <div class="product-price">13,00 €</div>
-                <div class="product-meta">Taille S à XL – édition limitée</div>
-                <button class="btn" onclick="addToCart('Veste zippée DJ MAX – Logo blanc', 13)">Ajouter au panier</button>
+                <h3>DJ MAX au Restaurant Le Local</h3>
+                <p>📍 Rue Fernand Forest, 38120 Saint-Égrève</p>
+                <p>📅 26 février 2026 • 🕒 19h – 22h</p>
+                <button class="btn" onclick="validatePresence('event-26')">
+                    Valider ma présence (+10 pts)
+                </button>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+            <div class="card-inner">
+                <h3>Jeu du DJ animé par DJ MAX</h3>
+                <p>📍 Rue Luce Douady, 38450 Noyarey</p>
+                <p>📅 28 février 2026 • 🕒 21h – 22h</p>
+                <button class="btn" onclick="validatePresence('event-28')">
+                    Valider ma présence (+10 pts)
+                </button>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section" id="legal">
-    <div class="section-title">Mentions légales</div>
-    <div class="section-sub">Informations officielles.</div>
+<section class="page" id="page-creations">
+    <div class="section">
+        <div class="section-title">Créations du DJ</div>
+        <div class="section-sub">Titres officiels DJ MAX.</div>
 
-    <div class="card">
-        <div class="card-inner">
-            <p><strong>Éditeur :</strong> DJ MAX – Seyssinet-Pariset</p>
-            <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
-            <p><strong>Hébergement :</strong> GitHub Pages</p>
-            <p><strong>Données personnelles :</strong> Les informations saisies sont utilisées uniquement pour traiter les demandes.</p>
+        <div class="card">
+            <div class="card-inner">
+                <h3>I’m Still Standing – DJ MAX</h3>
+                <div class="audio-block">
+                    <audio controls>
+                        <source src="Im Still Standing.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <h3 style="margin-top:25px;">Phénoménal – DJ MAX</h3>
+                <div class="audio-block">
+                    <audio controls>
+                        <source src="Phénoménal.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <h3 style="margin-top:25px;">Ne m'arrête pas maintenant – DJ MAX</h3>
+                <div class="audio-block">
+                    <audio controls>
+                        <source src="Ne m'arrête pas maintenant.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page" id="page-shop">
+    <div class="section">
+        <div class="section-title">Boutique officielle</div>
+        <div class="section-sub">Ajoute au panier et réserve tes articles.</div>
+
+        <div class="products">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="product-title">Chaussettes DJ MAX – Logo 2026</div>
+                    <div class="product-price">4,50 €</div>
+                    <button class="btn" onclick="addToCart('Chaussettes DJ MAX – Logo 2026', 4.5)">Ajouter au panier</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
+                    <div class="product-price">13,00 €</div>
+                    <button class="btn" onclick="addToCart('Veste zippée DJ MAX – Logo blanc', 13)">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page" id="page-legal">
+    <div class="section">
+        <div class="section-title">Mentions légales</div>
+        <div class="section-sub">Informations officielles.</div>
+
+        <div class="card">
+            <div class="card-inner">
+                <p><strong>Éditeur :</strong> DJ MAX – Noyarey</p>
+                <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
+                <p><strong>Hébergement :</strong> GitHub Pages</p>
+                <p><strong>Données personnelles :</strong> Stockées localement sur l’appareil (compte, fidélité, panier).</p>
+            </div>
         </div>
     </div>
 </section>
@@ -650,7 +656,6 @@
     © 2026 – DJ MAX • Tous droits réservés
 </footer>
 
-<!-- MODAL COMPTE -->
 <div class="modal-backdrop" id="account-modal">
     <div class="modal">
         <button class="modal-close" onclick="closeAccountModal()">×</button>
@@ -669,6 +674,14 @@
     let validatedEvents = {};
     let cart = [];
 
+    const pages = {
+        home: document.getElementById("page-home"),
+        events: document.getElementById("page-events"),
+        creations: document.getElementById("page-creations"),
+        shop: document.getElementById("page-shop"),
+        legal: document.getElementById("page-legal")
+    };
+
     const accountLabel = document.getElementById("account-label");
     const loyaltyPill = document.getElementById("loyalty-pill");
     const loyaltySpan = document.getElementById("loyalty-points");
@@ -685,6 +698,12 @@
         notif.textContent = msg;
         notif.style.display = "block";
         setTimeout(() => { notif.style.display = "none"; }, 2500);
+    }
+
+    function openPage(name) {
+        Object.values(pages).forEach(p => p.classList.remove("active"));
+        if (pages[name]) pages[name].classList.add("active");
+        window.scrollTo({ top: 0, behavior: "instant" });
     }
 
     function loadState() {
@@ -759,7 +778,10 @@
         }
     }
 
-    function openAccountModal(mode) {
+    function openAccount(mode) {
+        if (!mode) {
+            mode = currentUser ? "profile" : "login";
+        }
         if (mode === "login") {
             accountModalContent.innerHTML = `
                 <div class="modal-title">Connexion</div>
@@ -775,7 +797,7 @@
                 <button class="btn" style="margin-top:8px;" onclick="doLogin()">Se connecter</button>
                 <div class="modal-footer">
                     Pas encore de compte ?
-                    <button onclick="openAccountModal('register')">Créer un compte</button>
+                    <button onclick="openAccount('register')">Créer un compte</button>
                 </div>
             `;
         } else if (mode === "register") {
@@ -801,7 +823,7 @@
                 <button class="btn" style="margin-top:8px;" onclick="doRegister()">Créer mon compte</button>
                 <div class="modal-footer">
                     Tu as déjà un compte ?
-                    <button onclick="openAccountModal('login')">Se connecter</button>
+                    <button onclick="openAccount('login')">Se connecter</button>
                 </div>
             `;
         } else if (mode === "profile" && currentUser) {
@@ -878,21 +900,66 @@
         showNotif("Déconnecté.");
     }
 
+    // Haversine pour distance en km
+    function distanceKm(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const toRad = d => d * Math.PI / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    // Coordonnées approximatives
+    const EVENT_COORDS = {
+        "event-26": { lat: 45.214, lon: 5.69 },  // Rue Fernand Forest, Saint-Égrève
+        "event-28": { lat: 45.23,  lon: 5.65 }   // Rue Luce Douady, Noyarey
+    };
+
     function validatePresence(eventId) {
         if (!currentUser) {
             showNotif("Compte obligatoire pour valider ta présence.");
-            openAccountModal("login");
+            openAccount("login");
             return;
         }
         if (validatedEvents[eventId]) {
             showNotif("Présence déjà validée pour cet évènement.");
             return;
         }
-        validatedEvents[eventId] = true;
-        loyaltyPoints += 10;
-        saveEvents();
-        saveLoyalty();
-        showNotif("Présence validée : +10 points de fidélité.");
+
+        if (!navigator.geolocation) {
+            showNotif("Géolocalisation non disponible sur cet appareil.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                const userLat = pos.coords.latitude;
+                const userLon = pos.coords.longitude;
+                const target = EVENT_COORDS[eventId];
+                if (!target) {
+                    showNotif("Erreur de configuration de l’évènement.");
+                    return;
+                }
+                const d = distanceKm(userLat, userLon, target.lat, target.lon);
+                if (d <= 1) {
+                    validatedEvents[eventId] = true;
+                    loyaltyPoints += 10;
+                    saveEvents();
+                    saveLoyalty();
+                    showNotif("Présence validée : +10 points de fidélité.");
+                } else {
+                    showNotif("Tu es trop loin du lieu (distance > 1 km).");
+                }
+            },
+            err => {
+                showNotif("Géolocalisation refusée ou indisponible.");
+            }
+        );
     }
 
     function addToCart(name, price) {
@@ -904,7 +971,7 @@
     function checkout() {
         if (!currentUser) {
             showNotif("Tu dois être connecté pour valider ta réservation.");
-            openAccountModal("login");
+            openAccount("login");
             return;
         }
         if (cart.length === 0) {
@@ -923,16 +990,7 @@
     });
 
     document.getElementById("account-btn").addEventListener("click", () => {
-        if (currentUser) openAccountModal("profile");
-        else openAccountModal("login");
-    });
-
-    document.getElementById("hero-enter").addEventListener("click", () => {
-        document.getElementById("events").scrollIntoView({ behavior: "smooth" });
-    });
-
-    document.getElementById("hero-account").addEventListener("click", () => {
-        openAccountModal(currentUser ? "profile" : "register");
+        openAccount();
     });
 
     window.addEventListener("click", (e) => {
