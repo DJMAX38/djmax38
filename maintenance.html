@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>DJ MAX – Site en maintenance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --bg: #050509;
+            --text: #ffffff;
+            --muted: #b3b3b3;
+
+            --red: #ff2b4f;
+            --pink: #ff7fbf;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* FOND NÉONS */
+        .neon-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at top, #1b1024 0, #050509 60%);
+            overflow: hidden;
+        }
+
+        .neon-line {
+            position: absolute;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), var(--pink), transparent);
+            opacity: 0.25;
+            filter: blur(2px);
+            animation: move 14s linear infinite;
+        }
+
+        .neon-line:nth-child(1) { top: 20%; animation-duration: 16s; }
+        .neon-line:nth-child(2) { top: 40%; animation-duration: 12s; }
+        .neon-line:nth-child(3) { top: 60%; animation-duration: 18s; }
+        .neon-line:nth-child(4) { top: 80%; animation-duration: 14s; }
+
+        @keyframes move {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(50%); }
+        }
+
+        /* CONTENU */
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            text-shadow:
+                0 0 18px rgba(255, 43, 79, 0.8),
+                0 0 28px rgba(255, 127, 191, 0.7);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top-color: var(--pink);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 20px;
+        }
+
+        .contact {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--pink);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="neon-bg">
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+</div>
+
+<div class="container">
+    <div class="title">SITE EN MAINTENANCE</div>
+    <div class="subtitle">DJ MAX prépare une nouvelle version du site, encore plus stylée et professionnelle.</div>
+
+    <div class="loader"></div>
+
+    <div class="info">Merci de revenir un peu plus tard.</div>
+    <div class="contact">Contact : maxens.gv@djmax38.com</div>
+</div>
+
+</body>
+</html>
