@@ -12,11 +12,10 @@
             --card: #10101a;
             --border: #26263a;
             --text: #f9fafb;
-            --muted: #9ca3af;
+            --muted: #b3b3b3;
 
             --red: #ff2b4f;
-            --red-soft: #ff5c7a;
-            --pink: #ff7fbf;      /* rose pastel lumineux */
+            --pink: #ff7fbf; /* rose pastel lumineux */
             --accent: #5b5bff;
 
             --radius: 14px;
@@ -27,42 +26,37 @@
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
         }
 
-        button {
-            font-family: inherit;
-        }
-
-        /* FOND NÉONS ROUGE + ROSE */
+        /* FOND NÉONS */
         .neon-bg {
             position: fixed;
             inset: 0;
             z-index: -2;
-            background: radial-gradient(circle at top, #1b1024 0, #050509 55%);
+            background: radial-gradient(circle at top, #1b1024 0, #050509 60%);
             overflow: hidden;
         }
 
         .neon-line {
             position: absolute;
-            width: 220%;
+            width: 200%;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--red), var(--pink), transparent);
             opacity: 0.25;
             filter: blur(2px);
-            animation: moveNeon 14s linear infinite;
+            animation: move 14s linear infinite;
         }
 
-        .neon-line:nth-child(1) { top: 18%; animation-duration: 16s; }
-        .neon-line:nth-child(2) { top: 34%; animation-duration: 12s; }
-        .neon-line:nth-child(3) { top: 52%; animation-duration: 18s; }
-        .neon-line:nth-child(4) { top: 70%; animation-duration: 14s; }
-        .neon-line:nth-child(5) { top: 86%; animation-duration: 20s; }
+        .neon-line:nth-child(1) { top: 20%; animation-duration: 16s; }
+        .neon-line:nth-child(2) { top: 40%; animation-duration: 12s; }
+        .neon-line:nth-child(3) { top: 60%; animation-duration: 18s; }
+        .neon-line:nth-child(4) { top: 80%; animation-duration: 14s; }
 
-        @keyframes moveNeon {
+        @keyframes move {
             from { transform: translateX(-50%); }
             to   { transform: translateX(50%); }
         }
@@ -93,25 +87,80 @@
         .nav-links {
             display: flex;
             gap: 12px;
-            font-size: 14px;
         }
 
         .nav-links button {
+            background: transparent;
+            border: none;
             padding: 6px 10px;
             border-radius: 999px;
-            border: none;
-            background: transparent;
             color: var(--muted);
-            font-weight: 500;
             cursor: pointer;
-            transition: 0.18s;
+            transition: 0.2s;
         }
 
         .nav-links button:hover {
             color: var(--pink);
-            background: rgba(255, 127, 191, 0.12);
+            background: rgba(255,127,191,0.12);
         }
 
+        /* BOUTON MOBILE */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--pink);
+            color: var(--pink);
+            font-size: 20px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* MENU MOBILE */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: #0b0b12;
+            border-right: 1px solid #1f1f2b;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+            transform: translateX(-100%);
+            transition: transform 0.25s ease-out;
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 12px;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu button {
+            background: transparent;
+            border: 1px solid var(--pink);
+            color: var(--pink);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .mobile-menu button:hover {
+            background: var(--pink);
+            color: #050509;
+        }
+
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+
+        /* ACTIONS NAV */
         .nav-actions {
             display: flex;
             align-items: center;
@@ -125,7 +174,7 @@
             padding: 4px 10px;
             border-radius: 999px;
             font-size: 12px;
-            background: rgba(255, 127, 191, 0.18);
+            background: rgba(255,127,191,0.18);
             color: #ffe4f3;
         }
 
@@ -135,27 +184,13 @@
             background: #0b0b12;
             color: var(--muted);
             padding: 6px 10px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
             cursor: pointer;
-            transition: 0.18s;
-        }
-
-        .icon-btn.small {
-            padding: 4px 8px;
-            font-size: 12px;
+            transition: 0.2s;
         }
 
         .icon-btn:hover {
             border-color: var(--pink);
             color: var(--pink);
-            box-shadow: 0 0 12px rgba(255, 127, 191, 0.4);
-        }
-
-        main {
-            padding-top: 70px;
         }
 
         /* NOTIF */
@@ -175,7 +210,7 @@
             z-index: 1200;
         }
 
-        /* PAGES (ONE-PAGE APP) */
+        /* PAGES */
         .page {
             display: none;
             min-height: calc(100vh - 70px);
@@ -185,50 +220,18 @@
             display: block;
         }
 
-        .section {
-            padding: 60px 18px;
-            max-width: 1120px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            color: #fef2f7;
-            text-shadow: 0 0 18px rgba(255, 127, 191, 0.6);
-        }
-
-        .section-sub {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
-        /* HERO ACCUEIL */
+        /* HERO */
         .hero {
             min-height: calc(100vh - 70px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 18px 60px;
+            padding: 40px 18px;
         }
 
         .hero-inner {
             max-width: 900px;
             text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 12px;
-            background: rgba(91, 91, 255, 0.18);
-            color: #e5e7ff;
-            margin-bottom: 14px;
         }
 
         .hero-title {
@@ -249,57 +252,49 @@
             margin: 0 auto 22px;
         }
 
-        .hero-actions {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
         .btn {
-            display: inline-block;
             padding: 9px 18px;
             border-radius: 999px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
             border: 1px solid var(--pink);
             background: transparent;
             color: var(--pink);
+            cursor: pointer;
             transition: 0.2s;
         }
 
         .btn:hover {
             background: var(--pink);
             color: #050509;
-            box-shadow: 0 0 18px rgba(255, 127, 191, 0.7);
         }
 
-        .btn-ghost {
-            border-color: #3b3b4f;
+        /* SECTIONS */
+        .section {
+            padding: 60px 18px;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--pink);
+        }
+
+        .section-sub {
+            font-size: 14px;
             color: var(--muted);
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--accent);
-            color: #e5e7ff;
-            background: rgba(91, 91, 255, 0.18);
+            margin-bottom: 24px;
         }
 
         /* CARDS */
         .card {
-            background: radial-gradient(circle at top left, rgba(255,127,191,0.12), transparent 55%), #090910;
+            background: #090910;
             border-radius: var(--radius);
             border: 1px solid var(--border);
-            box-shadow: var(--shadow);
             padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-inner {
-            position: relative;
-            z-index: 1;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
         }
 
         /* AUDIO */
@@ -308,12 +303,11 @@
             padding: 12px;
             border-radius: 12px;
             background: #151520;
-            box-shadow: 0 0 12px rgba(91, 91, 255, 0.4);
         }
 
-        audio { width: 100%; margin-top: 6px; }
+        audio { width: 100%; }
 
-        /* BOUTIQUE GRID */
+        /* BOUTIQUE */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -323,29 +317,25 @@
         .product-title {
             font-size: 15px;
             font-weight: 600;
-            margin-bottom: 4px;
         }
 
         .product-price {
             font-size: 14px;
             color: var(--pink);
-            font-weight: 600;
             margin-bottom: 10px;
         }
 
-        /* PANIER SLIDE-IN */
+        /* PANIER */
         .cart-panel {
             position: fixed;
             top: 70px;
             right: 0;
             width: 320px;
-            max-width: 90%;
             height: calc(100vh - 70px);
             background: #050509;
             border-left: 1px solid #1f2933;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
             transform: translateX(100%);
-            transition: transform 0.25s ease-out;
+            transition: 0.25s;
             z-index: 1100;
             display: flex;
             flex-direction: column;
@@ -356,30 +346,21 @@
         }
 
         .cart-header {
-            padding: 14px 14px 10px;
+            padding: 14px;
             border-bottom: 1px solid #1f2933;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
         }
 
         .cart-body {
             flex: 1;
-            padding: 12px 14px;
+            padding: 14px;
             overflow-y: auto;
-            font-size: 13px;
-            color: var(--muted);
         }
 
         .cart-footer {
-            padding: 12px 14px 16px;
+            padding: 14px;
             border-top: 1px solid #1f2933;
-            font-size: 13px;
-        }
-
-        .cart-item {
-            margin-bottom: 8px;
         }
 
         /* MODAL COMPTE */
@@ -397,44 +378,18 @@
             background: #0b0b12;
             border-radius: 18px;
             border: 1px solid #2f2f44;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.9);
             width: 90%;
             max-width: 420px;
-            padding: 22px 20px 18px;
-            position: relative;
+            padding: 22px;
         }
 
         .modal-title {
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .modal-sub {
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 16px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            border: none;
-            background: transparent;
-            color: var(--muted);
-            cursor: pointer;
-            font-size: 18px;
         }
 
         .field {
             margin-bottom: 12px;
-        }
-
-        .field label {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 4px;
         }
 
         .field input {
@@ -444,42 +399,12 @@
             border: 1px solid #2f2f44;
             background: #05050b;
             color: var(--text);
-            font-size: 13px;
-        }
-
-        .field input:focus {
-            outline: none;
-            border-color: var(--pink);
-            box-shadow: 0 0 0 1px rgba(255, 127, 191, 0.4);
-        }
-
-        .modal-footer {
-            margin-top: 12px;
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        .modal-footer button {
-            border: none;
-            background: transparent;
-            color: var(--pink);
-            cursor: pointer;
-            padding: 0;
-            font-size: 12px;
         }
 
         footer {
-            padding: 22px 20px;
+            padding: 22px;
             text-align: center;
-            font-size: 12px;
             color: var(--muted);
-            border-top: 1px solid #1f1f2b;
-            background: #050509;
-        }
-
-        @media (max-width: 700px) {
-            nav { padding: 0 14px; }
-            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -491,11 +416,12 @@
     <div class="neon-line"></div>
     <div class="neon-line"></div>
     <div class="neon-line"></div>
-    <div class="neon-line"></div>
 </div>
 
 <nav>
     <div class="nav-left">DJ MAX CLUB</div>
+
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 
     <div class="nav-links">
         <button onclick="openPage('home')">Accueil</button>
@@ -514,6 +440,14 @@
     </div>
 </nav>
 
+<div id="mobile-menu" class="mobile-menu">
+    <button onclick="openPage('home'); toggleMobileMenu()">Accueil</button>
+    <button onclick="openPage('events'); toggleMobileMenu()">Évènements</button>
+    <button onclick="openPage('creations'); toggleMobileMenu()">Créations DJ</button>
+    <button onclick="openPage('shop'); toggleMobileMenu()">Boutique</button>
+    <button onclick="openPage('legal'); toggleMobileMenu()">Mentions légales</button>
+</div>
+
 <div class="notif" id="notif"></div>
 
 <div class="cart-panel" id="cart-panel">
@@ -524,7 +458,7 @@
     <div class="cart-body" id="cart-items">Aucun article pour le moment.</div>
     <div class="cart-footer">
         Total : <span id="cart-total">0,00 €</span><br>
-        <button class="btn" style="margin-top:8px;" onclick="checkout()">Valider ma réservation</button>
+        <button class="btn" onclick="checkout()">Valider ma réservation</button>
     </div>
 </div>
 
@@ -533,15 +467,11 @@
 <section class="page active" id="page-home">
     <div class="hero">
         <div class="hero-inner">
-            <div class="hero-badge">Ambiance club • Boutique • Fidélité</div>
             <div class="hero-title">ENTRE DANS LE CLUB DJ MAX</div>
             <div class="hero-sub">
-                Accueil animée, néons rouges & rose pastel, évènements, créations, boutique, compte client et fidélité géolocalisée.
+                Évènements, créations, boutique, compte client et fidélité géolocalisée.
             </div>
-            <div class="hero-actions">
-                <button class="btn" onclick="openPage('events')">Voir les évènements</button>
-                <button class="btn btn-ghost" onclick="openAccount()">Créer / gérer mon compte</button>
-            </div>
+            <button class="btn" onclick="openPage('events')">Voir les évènements</button>
         </div>
     </div>
 </section>
@@ -549,30 +479,20 @@
 <section class="page" id="page-events">
     <div class="section">
         <div class="section-title">Évènements</div>
-        <div class="section-sub">
-            Valide ta présence (moins de 1 km du lieu) et gagne 10 points de fidélité. Compte obligatoire.
+        <div class="section-sub">Valide ta présence (moins de 1 km) et gagne 10 points.</div>
+
+        <div class="card">
+            <h3>DJ MAX au Restaurant Le Local</h3>
+            <p>📍 Rue Fernand Forest, 38120 Saint-Égrève</p>
+            <p>📅 26 février 2026 • 🕒 19h – 22h</p>
+            <button class="btn" onclick="validatePresence('event-26')">Valider ma présence</button>
         </div>
 
         <div class="card">
-            <div class="card-inner">
-                <h3>DJ MAX au Restaurant Le Local</h3>
-                <p>📍 Rue Fernand Forest, 38120 Saint-Égrève</p>
-                <p>📅 26 février 2026 • 🕒 19h – 22h</p>
-                <button class="btn" onclick="validatePresence('event-26')">
-                    Valider ma présence (+10 pts)
-                </button>
-            </div>
-        </div>
-
-        <div class="card" style="margin-top:18px;">
-            <div class="card-inner">
-                <h3>Jeu du DJ animé par DJ MAX</h3>
-                <p>📍 Rue Luce Douady, 38450 Noyarey</p>
-                <p>📅 28 février 2026 • 🕒 21h – 22h</p>
-                <button class="btn" onclick="validatePresence('event-28')">
-                    Valider ma présence (+10 pts)
-                </button>
-            </div>
+            <h3>Jeu du DJ animé par DJ MAX</h3>
+            <p>📍 Rue Luce Douady, 38450 Noyarey</p>
+            <p>📅 28 février 2026 • 🕒 21h – 22h</p>
+            <button class="btn" onclick="validatePresence('event-28')">Valider ma présence</button>
         </div>
     </div>
 </section>
@@ -580,425 +500,20 @@
 <section class="page" id="page-creations">
     <div class="section">
         <div class="section-title">Créations du DJ</div>
-        <div class="section-sub">Titres officiels DJ MAX.</div>
 
         <div class="card">
-            <div class="card-inner">
-                <h3>I’m Still Standing – DJ MAX</h3>
-                <div class="audio-block">
-                    <audio controls>
-                        <source src="Im Still Standing.mp3" type="audio/mpeg">
-                    </audio>
-                </div>
-
-                <h3 style="margin-top:25px;">Phénoménal – DJ MAX</h3>
-                <div class="audio-block">
-                    <audio controls>
-                        <source src="Phénoménal.mp3" type="audio/mpeg">
-                    </audio>
-                </div>
-
-                <h3 style="margin-top:25px;">Ne m'arrête pas maintenant – DJ MAX</h3>
-                <div class="audio-block">
-                    <audio controls>
-                        <source src="Ne m'arrête pas maintenant.mp3" type="audio/mpeg">
-                    </audio>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="page" id="page-shop">
-    <div class="section">
-        <div class="section-title">Boutique officielle</div>
-        <div class="section-sub">Ajoute au panier et réserve tes articles.</div>
-
-        <div class="products">
-            <div class="card">
-                <div class="card-inner">
-                    <div class="product-title">Chaussettes DJ MAX – Logo 2026</div>
-                    <div class="product-price">4,50 €</div>
-                    <button class="btn" onclick="addToCart('Chaussettes DJ MAX – Logo 2026', 4.5)">Ajouter au panier</button>
-                </div>
+            <h3>I’m Still Standing – DJ MAX</h3>
+            <div class="audio-block">
+                <audio controls>
+                    <source src="Im Still Standing.mp3" type="audio/mpeg">
+                </audio>
             </div>
 
-            <div class="card">
-                <div class="card-inner">
-                    <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
-                    <div class="product-price">13,00 €</div>
-                    <button class="btn" onclick="addToCart('Veste zippée DJ MAX – Logo blanc', 13)">Ajouter au panier</button>
-                </div>
+            <h3 style="margin-top:25px;">Phénoménal – DJ MAX</h3>
+            <div class="audio-block">
+                <audio controls>
+                    <source src="Phénoménal.mp3" type="audio/mpeg">
+                </audio>
             </div>
-        </div>
-    </div>
-</section>
 
-<section class="page" id="page-legal">
-    <div class="section">
-        <div class="section-title">Mentions légales</div>
-        <div class="section-sub">Informations officielles.</div>
-
-        <div class="card">
-            <div class="card-inner">
-                <p><strong>Éditeur :</strong> DJ MAX – Noyarey</p>
-                <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
-                <p><strong>Hébergement :</strong> GitHub Pages</p>
-                <p><strong>Données personnelles :</strong> Stockées localement sur l’appareil (compte, fidélité, panier).</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-</main>
-
-<footer>
-    © 2026 – DJ MAX • Tous droits réservés
-</footer>
-
-<div class="modal-backdrop" id="account-modal">
-    <div class="modal">
-        <button class="modal-close" onclick="closeAccountModal()">×</button>
-        <div id="account-modal-content"></div>
-    </div>
-</div>
-
-<script>
-    const LS_USER = "djmax_user";
-    const LS_LOYALTY = "djmax_loyalty";
-    const LS_EVENTS = "djmax_events_validated";
-    const LS_CART = "djmax_cart";
-
-    let currentUser = null;
-    let loyaltyPoints = 0;
-    let validatedEvents = {};
-    let cart = [];
-
-    const pages = {
-        home: document.getElementById("page-home"),
-        events: document.getElementById("page-events"),
-        creations: document.getElementById("page-creations"),
-        shop: document.getElementById("page-shop"),
-        legal: document.getElementById("page-legal")
-    };
-
-    const accountLabel = document.getElementById("account-label");
-    const loyaltyPill = document.getElementById("loyalty-pill");
-    const loyaltySpan = document.getElementById("loyalty-points");
-    const cartCount = document.getElementById("cart-count");
-    const cartItems = document.getElementById("cart-items");
-    const cartTotal = document.getElementById("cart-total");
-    const cartPanel = document.getElementById("cart-panel");
-    const notif = document.getElementById("notif");
-
-    const accountModal = document.getElementById("account-modal");
-    const accountModalContent = document.getElementById("account-modal-content");
-
-    function showNotif(msg) {
-        notif.textContent = msg;
-        notif.style.display = "block";
-        setTimeout(() => { notif.style.display = "none"; }, 2500);
-    }
-
-    function openPage(name) {
-        Object.values(pages).forEach(p => p.classList.remove("active"));
-        if (pages[name]) pages[name].classList.add("active");
-        window.scrollTo({ top: 0, behavior: "instant" });
-    }
-
-    function loadState() {
-        try {
-            const u = localStorage.getItem(LS_USER);
-            if (u) currentUser = JSON.parse(u);
-
-            const l = localStorage.getItem(LS_LOYALTY);
-            if (l) loyaltyPoints = parseInt(l, 10) || 0;
-
-            const e = localStorage.getItem(LS_EVENTS);
-            if (e) validatedEvents = JSON.parse(e);
-
-            const c = localStorage.getItem(LS_CART);
-            if (c) cart = JSON.parse(c);
-        } catch (err) {
-            currentUser = null;
-            loyaltyPoints = 0;
-            validatedEvents = {};
-            cart = [];
-        }
-        updateUI();
-    }
-
-    function saveUser() {
-        if (currentUser) localStorage.setItem(LS_USER, JSON.stringify(currentUser));
-        else localStorage.removeItem(LS_USER);
-        updateUI();
-    }
-
-    function saveLoyalty() {
-        localStorage.setItem(LS_LOYALTY, String(loyaltyPoints));
-        updateUI();
-    }
-
-    function saveEvents() {
-        localStorage.setItem(LS_EVENTS, JSON.stringify(validatedEvents));
-    }
-
-    function saveCart() {
-        localStorage.setItem(LS_CART, JSON.stringify(cart));
-        updateUI();
-    }
-
-    function updateUI() {
-        if (currentUser) {
-            accountLabel.textContent = currentUser.name || currentUser.id || "Mon compte";
-            loyaltyPill.style.display = "inline-flex";
-        } else {
-            accountLabel.textContent = "Compte";
-            loyaltyPill.style.display = "none";
-        }
-
-        loyaltySpan.textContent = loyaltyPoints;
-
-        cartCount.textContent = cart.length;
-
-        if (cart.length === 0) {
-            cartItems.textContent = "Aucun article pour le moment.";
-            cartTotal.textContent = "0,00 €";
-        } else {
-            cartItems.innerHTML = "";
-            let total = 0;
-            cart.forEach(item => {
-                const line = document.createElement("div");
-                line.className = "cart-item";
-                line.textContent = item.name + " – " + item.price.toFixed(2) + " €";
-                cartItems.appendChild(line);
-                total += item.price;
-            });
-            cartTotal.textContent = total.toFixed(2) + " €";
-        }
-    }
-
-    function openAccount(mode) {
-        if (!mode) {
-            mode = currentUser ? "profile" : "login";
-        }
-        if (mode === "login") {
-            accountModalContent.innerHTML = `
-                <div class="modal-title">Connexion</div>
-                <div class="modal-sub">Connecte-toi avec ton identifiant et ton mot de passe (enregistrés sur cet appareil).</div>
-                <div class="field">
-                    <label>Identifiant</label>
-                    <input type="text" id="login-id" placeholder="Ton identifiant">
-                </div>
-                <div class="field">
-                    <label>Mot de passe</label>
-                    <input type="password" id="login-pass" placeholder="Ton mot de passe">
-                </div>
-                <button class="btn" style="margin-top:8px;" onclick="doLogin()">Se connecter</button>
-                <div class="modal-footer">
-                    Pas encore de compte ?
-                    <button onclick="openAccount('register')">Créer un compte</button>
-                </div>
-            `;
-        } else if (mode === "register") {
-            accountModalContent.innerHTML = `
-                <div class="modal-title">Création de compte</div>
-                <div class="modal-sub">Compte enregistré sur cet appareil, pour le panier et la fidélité.</div>
-                <div class="field">
-                    <label>Nom / Pseudo</label>
-                    <input type="text" id="reg-name" placeholder="DJ MAX Fan">
-                </div>
-                <div class="field">
-                    <label>Adresse e‑mail</label>
-                    <input type="email" id="reg-mail" placeholder="ton.email@example.com">
-                </div>
-                <div class="field">
-                    <label>Identifiant</label>
-                    <input type="text" id="reg-id" placeholder="Choisis ton identifiant">
-                </div>
-                <div class="field">
-                    <label>Mot de passe</label>
-                    <input type="password" id="reg-pass" placeholder="Choisis ton mot de passe">
-                </div>
-                <button class="btn" style="margin-top:8px;" onclick="doRegister()">Créer mon compte</button>
-                <div class="modal-footer">
-                    Tu as déjà un compte ?
-                    <button onclick="openAccount('login')">Se connecter</button>
-                </div>
-            `;
-        } else if (mode === "profile" && currentUser) {
-            accountModalContent.innerHTML = `
-                <div class="modal-title">Mon compte</div>
-                <div class="modal-sub">Connecté en tant que <strong>${currentUser.name || currentUser.id}</strong>.</div>
-                <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">
-                    Identifiant : <strong>${currentUser.id}</strong><br>
-                    E‑mail : <strong>${currentUser.email || "non renseigné"}</strong><br>
-                    Points fidélité : <strong>${loyaltyPoints}</strong>
-                </p>
-                <button class="btn btn-ghost" onclick="logout()">Se déconnecter</button>
-            `;
-        }
-        accountModal.style.display = "flex";
-    }
-
-    function closeAccountModal() {
-        accountModal.style.display = "none";
-    }
-
-    function doRegister() {
-        const name = document.getElementById("reg-name").value.trim();
-        const email = document.getElementById("reg-mail").value.trim();
-        const id = document.getElementById("reg-id").value.trim();
-        const pass = document.getElementById("reg-pass").value.trim();
-
-        if (!name || !email || !id || !pass) {
-            showNotif("Merci de remplir tous les champs.");
-            return;
-        }
-
-        currentUser = { name, email, id, pass };
-        loyaltyPoints = 0;
-        validatedEvents = {};
-        saveUser();
-        saveLoyalty();
-        saveEvents();
-        closeAccountModal();
-        showNotif("Compte créé et connecté.");
-    }
-
-    function doLogin() {
-        const id = document.getElementById("login-id").value.trim();
-        const pass = document.getElementById("login-pass").value.trim();
-
-        if (!id || !pass) {
-            showNotif("Merci de remplir identifiant et mot de passe.");
-            return;
-        }
-
-        const u = localStorage.getItem(LS_USER);
-        if (!u) {
-            showNotif("Aucun compte enregistré sur cet appareil.");
-            return;
-        }
-        const stored = JSON.parse(u);
-        if (stored.id === id && stored.pass === pass) {
-            currentUser = stored;
-            loyaltyPoints = parseInt(localStorage.getItem(LS_LOYALTY) || "0", 10);
-            validatedEvents = JSON.parse(localStorage.getItem(LS_EVENTS) || "{}");
-            updateUI();
-            closeAccountModal();
-            showNotif("Connexion réussie.");
-        } else {
-            showNotif("Identifiant ou mot de passe incorrect.");
-        }
-    }
-
-    function logout() {
-        currentUser = null;
-        saveUser();
-        closeAccountModal();
-        showNotif("Déconnecté.");
-    }
-
-    // Haversine pour distance en km
-    function distanceKm(lat1, lon1, lat2, lon2) {
-        const R = 6371;
-        const toRad = d => d * Math.PI / 180;
-        const dLat = toRad(lat2 - lat1);
-        const dLon = toRad(lon2 - lon1);
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
-
-    // Coordonnées approximatives
-    const EVENT_COORDS = {
-        "event-26": { lat: 45.214, lon: 5.69 },  // Rue Fernand Forest, Saint-Égrève
-        "event-28": { lat: 45.23,  lon: 5.65 }   // Rue Luce Douady, Noyarey
-    };
-
-    function validatePresence(eventId) {
-        if (!currentUser) {
-            showNotif("Compte obligatoire pour valider ta présence.");
-            openAccount("login");
-            return;
-        }
-        if (validatedEvents[eventId]) {
-            showNotif("Présence déjà validée pour cet évènement.");
-            return;
-        }
-
-        if (!navigator.geolocation) {
-            showNotif("Géolocalisation non disponible sur cet appareil.");
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            pos => {
-                const userLat = pos.coords.latitude;
-                const userLon = pos.coords.longitude;
-                const target = EVENT_COORDS[eventId];
-                if (!target) {
-                    showNotif("Erreur de configuration de l’évènement.");
-                    return;
-                }
-                const d = distanceKm(userLat, userLon, target.lat, target.lon);
-                if (d <= 1) {
-                    validatedEvents[eventId] = true;
-                    loyaltyPoints += 10;
-                    saveEvents();
-                    saveLoyalty();
-                    showNotif("Présence validée : +10 points de fidélité.");
-                } else {
-                    showNotif("Tu es trop loin du lieu (distance > 1 km).");
-                }
-            },
-            err => {
-                showNotif("Géolocalisation refusée ou indisponible.");
-            }
-        );
-    }
-
-    function addToCart(name, price) {
-        cart.push({ name, price });
-        saveCart();
-        showNotif("Article ajouté au panier.");
-    }
-
-    function checkout() {
-        if (!currentUser) {
-            showNotif("Tu dois être connecté pour valider ta réservation.");
-            openAccount("login");
-            return;
-        }
-        if (cart.length === 0) {
-            showNotif("Ton panier est vide.");
-            return;
-        }
-        showNotif("Réservation enregistrée. Contacte maxens.gv@djmax38.com avec ton identifiant.");
-    }
-
-    document.getElementById("cart-btn").addEventListener("click", () => {
-        cartPanel.classList.add("open");
-    });
-
-    document.getElementById("cart-close").addEventListener("click", () => {
-        cartPanel.classList.remove("open");
-    });
-
-    document.getElementById("account-btn").addEventListener("click", () => {
-        openAccount();
-    });
-
-    window.addEventListener("click", (e) => {
-        if (e.target === accountModal) closeAccountModal();
-    });
-
-    loadState();
-</script>
-
-</body>
-</html>
+            <h3 style="margin-top:25px
