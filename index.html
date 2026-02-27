@@ -15,7 +15,7 @@
             --muted: #b3b3b3;
 
             --red: #ff2b4f;
-            --pink: #ff7fbf; /* rose pastel lumineux */
+            --pink: #ff7fbf;
             --accent: #5b5bff;
 
             --radius: 14px;
@@ -32,7 +32,6 @@
             overflow-x: hidden;
         }
 
-        /* FOND NÉONS */
         .neon-bg {
             position: fixed;
             inset: 0;
@@ -61,7 +60,6 @@
             to   { transform: translateX(50%); }
         }
 
-        /* NAVBAR */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -105,7 +103,6 @@
             background: rgba(255,127,191,0.12);
         }
 
-        /* BOUTON MOBILE */
         .mobile-menu-btn {
             display: none;
             background: transparent;
@@ -117,7 +114,6 @@
             cursor: pointer;
         }
 
-        /* MENU MOBILE */
         .mobile-menu {
             position: fixed;
             top: 70px;
@@ -161,7 +157,6 @@
             .mobile-menu-btn { display: block; }
         }
 
-        /* ACTIONS NAV */
         .nav-actions {
             display: flex;
             align-items: center;
@@ -200,7 +195,6 @@
             color: var(--pink);
         }
 
-        /* NOTIF */
         .notif {
             position: fixed;
             top: 72px;
@@ -217,7 +211,6 @@
             z-index: 1200;
         }
 
-        /* PAGES */
         main { padding-top: 70px; }
 
         .page {
@@ -229,7 +222,6 @@
             display: block;
         }
 
-        /* HERO */
         .hero {
             min-height: calc(100vh - 70px);
             display: flex;
@@ -277,7 +269,6 @@
             color: #050509;
         }
 
-        /* SECTIONS */
         .section {
             padding: 60px 18px;
             max-width: 1120px;
@@ -297,7 +288,6 @@
             margin-bottom: 24px;
         }
 
-        /* CARDS */
         .card {
             background: #090910;
             border-radius: var(--radius);
@@ -307,7 +297,6 @@
             margin-bottom: 20px;
         }
 
-        /* AUDIO */
         .audio-block {
             margin-top: 10px;
             padding: 12px;
@@ -317,7 +306,6 @@
 
         audio { width: 100%; }
 
-        /* BOUTIQUE */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -335,7 +323,6 @@
             margin-bottom: 10px;
         }
 
-        /* PANIER */
         .cart-panel {
             position: fixed;
             top: 70px;
@@ -380,7 +367,6 @@
             margin-bottom: 8px;
         }
 
-        /* MODAL COMPTE */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -398,6 +384,7 @@
             width: 90%;
             max-width: 420px;
             padding: 22px;
+            position: relative;
         }
 
         .modal-title {
@@ -547,17 +534,17 @@
         <div class="section-sub">Valide ta présence (moins de 1 km) et gagne 10 points de fidélité.</div>
 
         <div class="card">
-            <h3>DJ MAX au Restaurant Le Local</h3>
-            <p>📍 Rue Fernand Forest, 38120 Saint-Égrève</p>
-            <p>📅 26 février 2026 • 🕒 19h – 22h</p>
-            <button class="btn" onclick="validatePresence('event-26')">Valider ma présence</button>
-        </div>
-
-        <div class="card">
             <h3>Jeu du DJ animé par DJ MAX</h3>
             <p>📍 Rue Luce Douady, 38450 Noyarey</p>
             <p>📅 28 février 2026 • 🕒 21h – 22h</p>
             <button class="btn" onclick="validatePresence('event-28')">Valider ma présence</button>
+        </div>
+
+        <div class="card">
+            <h3>MIX DJ MAX</h3>
+            <p>📍 Chemin du Pré Tarachou, 38350 Miribel-Lanchâtre</p>
+            <p>📅 27 février 2026 • 🕒 18h – 20h</p>
+            <button class="btn" onclick="validatePresence('event-27')">Valider ma présence</button>
         </div>
     </div>
 </section>
@@ -885,7 +872,6 @@
         showNotif("Déconnecté.");
     }
 
-    // Haversine pour distance en km
     function distanceKm(lat1, lon1, lat2, lon2) {
         const R = 6371;
         const toRad = d => d * Math.PI / 180;
@@ -899,10 +885,9 @@
         return R * c;
     }
 
-    // Coordonnées approximatives
     const EVENT_COORDS = {
-        "event-26": { lat: 45.214, lon: 5.69 },  // Rue Fernand Forest, Saint-Égrève
-        "event-28": { lat: 45.23,  lon: 5.65 }   // Rue Luce Douady, Noyarey
+        "event-28": { lat: 45.23,  lon: 5.65 },   // Noyarey
+        "event-27": { lat: 45.024, lon: 5.676 }   // Miribel-Lanchâtre
     };
 
     function validatePresence(eventId) {
