@@ -13,17 +13,13 @@
             --border: #26263a;
             --text: #f9fafb;
             --muted: #b3b3b3;
-
             --red: #ff2b4f;
             --pink: #ff7fbf;
             --accent: #5b5bff;
-
             --radius: 14px;
             --shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
         }
-
         * { box-sizing: border-box; }
-
         body {
             margin: 0;
             font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -31,7 +27,6 @@
             color: var(--text);
             overflow-x: hidden;
         }
-
         .neon-bg {
             position: fixed;
             inset: 0;
@@ -39,7 +34,6 @@
             background: radial-gradient(circle at top, #1b1024 0, #050509 60%);
             overflow: hidden;
         }
-
         .neon-line {
             position: absolute;
             width: 200%;
@@ -49,17 +43,14 @@
             filter: blur(2px);
             animation: move 14s linear infinite;
         }
-
         .neon-line:nth-child(1) { top: 20%; animation-duration: 16s; }
         .neon-line:nth-child(2) { top: 40%; animation-duration: 12s; }
         .neon-line:nth-child(3) { top: 60%; animation-duration: 18s; }
         .neon-line:nth-child(4) { top: 80%; animation-duration: 14s; }
-
         @keyframes move {
             from { transform: translateX(-50%); }
             to   { transform: translateX(50%); }
         }
-
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -73,7 +64,6 @@
             padding: 0 16px;
             z-index: 1000;
         }
-
         .nav-left {
             font-weight: 800;
             font-size: 18px;
@@ -81,12 +71,10 @@
             text-transform: uppercase;
             color: var(--pink);
         }
-
         .nav-links {
             display: flex;
             gap: 10px;
         }
-
         .nav-links button {
             background: transparent;
             border: none;
@@ -97,12 +85,10 @@
             font-size: 14px;
             transition: 0.2s;
         }
-
         .nav-links button:hover {
             color: var(--pink);
             background: rgba(255,127,191,0.12);
         }
-
         .mobile-menu-btn {
             display: none;
             background: transparent;
@@ -113,7 +99,6 @@
             border-radius: 8px;
             cursor: pointer;
         }
-
         .mobile-menu {
             position: fixed;
             top: 70px;
@@ -131,11 +116,7 @@
             padding: 20px;
             gap: 12px;
         }
-
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-
+        .mobile-menu.open { transform: translateX(0); }
         .mobile-menu button {
             background: transparent;
             border: 1px solid var(--pink);
@@ -146,23 +127,19 @@
             text-align: left;
             cursor: pointer;
         }
-
         .mobile-menu button:hover {
             background: var(--pink);
             color: #050509;
         }
-
         @media (max-width: 700px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
         }
-
         .nav-actions {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
         .pill {
             display: inline-flex;
             align-items: center;
@@ -173,7 +150,6 @@
             background: rgba(255,127,191,0.18);
             color: #ffe4f3;
         }
-
         .icon-btn {
             border-radius: 999px;
             border: 1px solid #2b2b3f;
@@ -184,17 +160,14 @@
             font-size: 13px;
             transition: 0.2s;
         }
-
         .icon-btn.small {
             font-size: 12px;
             padding: 4px 8px;
         }
-
         .icon-btn:hover {
             border-color: var(--pink);
             color: var(--pink);
         }
-
         .notif {
             position: fixed;
             top: 72px;
@@ -210,18 +183,12 @@
             display: none;
             z-index: 1200;
         }
-
         main { padding-top: 70px; }
-
         .page {
             display: none;
             min-height: calc(100vh - 70px);
         }
-
-        .page.active {
-            display: block;
-        }
-
+        .page.active { display: block; }
         .hero {
             min-height: calc(100vh - 70px);
             display: flex;
@@ -229,12 +196,10 @@
             justify-content: center;
             padding: 40px 18px;
         }
-
         .hero-inner {
             max-width: 900px;
             text-align: center;
         }
-
         .hero-title {
             font-size: clamp(32px, 5vw, 46px);
             font-weight: 800;
@@ -245,14 +210,12 @@
                 0 0 22px rgba(255, 43, 79, 0.8),
                 0 0 32px rgba(255, 127, 191, 0.7);
         }
-
         .hero-sub {
             font-size: 15px;
             color: var(--muted);
             max-width: 520px;
             margin: 0 auto 22px;
         }
-
         .btn {
             padding: 9px 18px;
             border-radius: 999px;
@@ -263,31 +226,26 @@
             transition: 0.2s;
             font-size: 14px;
         }
-
         .btn:hover {
             background: var(--pink);
             color: #050509;
         }
-
         .section {
             padding: 60px 18px;
             max-width: 1120px;
             margin: 0 auto;
         }
-
         .section-title {
             font-size: 24px;
             font-weight: 800;
             margin-bottom: 6px;
             color: var(--pink);
         }
-
         .section-sub {
             font-size: 14px;
             color: var(--muted);
             margin-bottom: 24px;
         }
-
         .card {
             background: #090910;
             border-radius: var(--radius);
@@ -296,33 +254,27 @@
             box-shadow: var(--shadow);
             margin-bottom: 20px;
         }
-
         .audio-block {
             margin-top: 10px;
             padding: 12px;
             border-radius: 12px;
             background: #151520;
         }
-
         audio { width: 100%; }
-
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 18px;
         }
-
         .product-title {
             font-size: 15px;
             font-weight: 600;
         }
-
         .product-price {
             font-size: 14px;
             color: var(--pink);
             margin-bottom: 10px;
         }
-
         .cart-panel {
             position: fixed;
             top: 70px;
@@ -337,11 +289,7 @@
             display: flex;
             flex-direction: column;
         }
-
-        .cart-panel.open {
-            transform: translateX(0);
-        }
-
+        .cart-panel.open { transform: translateX(0); }
         .cart-header {
             padding: 14px;
             border-bottom: 1px solid #1f2933;
@@ -349,24 +297,18 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .cart-body {
             flex: 1;
             padding: 14px;
             overflow-y: auto;
             font-size: 13px;
         }
-
         .cart-footer {
             padding: 14px;
             border-top: 1px solid #1f2933;
             font-size: 13px;
         }
-
-        .cart-item {
-            margin-bottom: 8px;
-        }
-
+        .cart-item { margin-bottom: 8px; }
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -376,7 +318,6 @@
             justify-content: center;
             z-index: 1200;
         }
-
         .modal {
             background: #0b0b12;
             border-radius: 18px;
@@ -386,19 +327,16 @@
             padding: 22px;
             position: relative;
         }
-
         .modal-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 6px;
         }
-
         .modal-sub {
             font-size: 13px;
             color: var(--muted);
             margin-bottom: 14px;
         }
-
         .modal-close {
             position: absolute;
             top: 10px;
@@ -409,17 +347,12 @@
             font-size: 18px;
             cursor: pointer;
         }
-
-        .field {
-            margin-bottom: 12px;
-        }
-
+        .field { margin-bottom: 12px; }
         .field label {
             display: block;
             font-size: 13px;
             margin-bottom: 4px;
         }
-
         .field input {
             width: 100%;
             padding: 8px 10px;
@@ -429,19 +362,16 @@
             color: var(--text);
             font-size: 13px;
         }
-
         .field input:focus {
             outline: none;
             border-color: var(--pink);
             box-shadow: 0 0 0 1px rgba(255,127,191,0.4);
         }
-
         .modal-footer {
             margin-top: 10px;
             font-size: 12px;
             color: var(--muted);
         }
-
         .modal-footer button {
             border: none;
             background: transparent;
@@ -450,7 +380,6 @@
             padding: 0;
             font-size: 12px;
         }
-
         footer {
             padding: 22px;
             text-align: center;
@@ -478,7 +407,7 @@
         <button onclick="openPage('home')">Accueil</button>
         <button onclick="openPage('events')">Évènements</button>
         <button onclick="openPage('creations')">Créations DJ</button>
-        <button onclick="openPage('shop')">Boutique</button>
+        <button onclick="window.location.href='https://693850231e2a5.site123.me/'">Boutique</button>
         <button onclick="openPage('legal')">Mentions légales</button>
     </div>
 
@@ -495,7 +424,7 @@
     <button onclick="openPage('home'); toggleMobileMenu()">Accueil</button>
     <button onclick="openPage('events'); toggleMobileMenu()">Évènements</button>
     <button onclick="openPage('creations'); toggleMobileMenu()">Créations DJ</button>
-    <button onclick="openPage('shop'); toggleMobileMenu()">Boutique</button>
+    <button onclick="window.location.href='https://693850231e2a5.site123.me/'; toggleMobileMenu()">Boutique</button>
     <button onclick="openPage('legal'); toggleMobileMenu()">Mentions légales</button>
 </div>
 
@@ -546,6 +475,7 @@
             <p>📅 27 février 2026 • 🕒 18h – 20h</p>
             <button class="btn" onclick="validatePresence('event-27')">Valider ma présence</button>
         </div>
+
     </div>
 </section>
 
@@ -578,27 +508,6 @@
     </div>
 </section>
 
-<section class="page" id="page-shop">
-    <div class="section">
-        <div class="section-title">Boutique officielle</div>
-        <div class="section-sub">Ajoute au panier et réserve tes articles.</div>
-
-        <div class="products">
-            <div class="card">
-                <div class="product-title">Chaussettes DJ MAX – Logo 2026</div>
-                <div class="product-price">4,50 €</div>
-                <button class="btn" onclick="addToCart('Chaussettes DJ MAX – Logo 2026', 4.5)">Ajouter au panier</button>
-            </div>
-
-            <div class="card">
-                <div class="product-title">Veste zippée DJ MAX – Logo blanc</div>
-                <div class="product-price">13,00 €</div>
-                <button class="btn" onclick="addToCart('Veste zippée DJ MAX – Logo blanc', 13)">Ajouter au panier</button>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="page" id="page-legal">
     <div class="section">
         <div class="section-title">Mentions légales</div>
@@ -625,6 +534,25 @@
     </div>
 </div>
 
+<!-- POPUP IMAGE -->
+<div id="popup" style="
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+">
+    <div style="max-width: 90%; max-height: 90%; text-align:center;">
+        <img src="popup.jpg" alt="Nouvelle collection DJ MAX" style="width:100%; height:auto; border-radius:12px;">
+        <button onclick="document.getElementById('popup').style.display='none'"
+            style="margin-top:15px; padding:10px 20px; border-radius:8px; border:none; background:#ff7fbf; color:#000; cursor:pointer;">
+            Fermer
+        </button>
+    </div>
+</div>
+
 <script>
     const LS_USER = "djmax_user";
     const LS_LOYALTY = "djmax_loyalty";
@@ -640,7 +568,6 @@
         home: document.getElementById("page-home"),
         events: document.getElementById("page-events"),
         creations: document.getElementById("page-creations"),
-        shop: document.getElementById("page-shop"),
         legal: document.getElementById("page-legal")
     };
 
@@ -968,7 +895,11 @@
         if (e.target === accountModal) closeAccountModal();
     });
 
-    loadState();
+    window.addEventListener("load", () => {
+        const popup = document.getElementById("popup");
+        if (popup) popup.style.display = "flex";
+        loadState();
+    });
 </script>
 
 </body>
