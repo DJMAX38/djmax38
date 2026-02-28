@@ -1,969 +1,217 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>DJ MAX – Club & Boutique</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <div style="
-        position: relative;
-        background: #0b0b12;
-        padding: 12px;
-        border-radius: 14px;
-        width: 320px;
-        max-width: 90%;
-        box-shadow: 0 0 25px rgba(255,127,191,0.35);
-        animation: fadeIn 0.3s ease-out;
-        text-align: center;
-    ">
-        <!-- CROIX -->
-        <button onclick="document.getElementById('popup').style.display='none'"
-            style="
-                position:absolute;
-                top:6px;
-                right:8px;
-                background:transparent;
-                border:none;
-                color:#fff;
-                font-size:22px;
-                cursor:pointer;
-                line-height: 1;
-            ">
-            ×
-        </button>
-
-        <!-- IMAGE PROMO -->
-        <img src="popup.jpg" alt="Nouvelle collection DJ MAX"
-            style="width:100%; border-radius:10px;">
-
-        <!-- BOUTON FERMER -->
-        <button onclick="document.getElementById('popup').style.display='none'"
-            style="
-                margin-top:12px;
-                padding:8px 18px;
-                border-radius:8px;
-                border:none;
-                background:#ff7fbf;
-                color:#000;
-                cursor:pointer;
-                font-weight:600;
-            ">
-            Fermer
-        </button>
-    </div>
-</div>
-
-<script>
-window.onload = () => {
-    document.getElementById("popup").style.display = "flex";
-};
-</script>
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJ MAX – Club & Boutique</title>
 
 <style>
-@keyframes fadeIn {
-    from { opacity:0; transform:scale(0.9); }
-    to   { opacity:1; transform:scale(1); }
-}
+:root{--bg:#050509;--card:#10101a;--border:#26263a;--text:#f9fafb;--muted:#b3b3b3;--pink:#ff7fbf;--radius:14px;}
+body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text);}
+nav{position:fixed;top:0;left:0;right:0;height:70px;background:#0b0b12cc;backdrop-filter:blur(18px);border-bottom:1px solid #1f1f2b;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;}
+.nav-left{font-weight:800;font-size:18px;color:var(--pink);}
+.nav-links{display:flex;gap:10px;}
+.nav-links button,.mobile-menu button{background:transparent;border:none;color:var(--muted);padding:6px 10px;border-radius:999px;cursor:pointer;}
+.nav-links button:hover,.mobile-menu button:hover{background:#ff7fbf33;color:var(--pink);}
+.mobile-menu-btn{display:none;border:1px solid var(--pink);color:var(--pink);background:transparent;padding:6px 12px;border-radius:8px;}
+@media(max-width:700px){.nav-links{display:none}.mobile-menu-btn{display:block}}
+.mobile-menu{position:fixed;top:70px;left:0;width:260px;height:calc(100vh - 70px);background:#0b0b12;border-right:1px solid #1f1f2b;transform:translateX(-100%);transition:.25s;padding:20px;display:flex;flex-direction:column;gap:12px;z-index:1500;}
+.mobile-menu.open{transform:translateX(0);}
+.nav-actions{display:flex;gap:8px;}
+.pill{background:#ff7fbf33;padding:4px 10px;border-radius:999px;font-size:12px;}
+.icon-btn{border:1px solid #2b2b3f;background:#0b0b12;color:var(--muted);padding:6px 10px;border-radius:999px;}
+.page{display:none;padding-top:80px;}
+.page.active{display:block;}
+.section{max-width:1100px;margin:auto;padding:20px;}
+.section-title{font-size:24px;font-weight:800;color:var(--pink);}
+.card{background:#090910;border:1px solid var(--border);padding:20px;border-radius:var(--radius);margin-bottom:20px;}
+audio{width:100%;}
+footer{text-align:center;color:var(--muted);padding:20px;}
+.modal-backdrop{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:2000;}
+.modal{background:#0b0b12;border:1px solid #2f2f44;padding:20px;border-radius:14px;width:90%;max-width:400px;position:relative;}
+.modal-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
+.field{margin-bottom:12px;}
+.field input{width:100%;padding:8px;border-radius:999px;border:1px solid #2f2f44;background:#05050b;color:#fff;}
+.notif{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#111827;padding:8px 14px;border-radius:999px;display:none;}
+.cart-panel{position:fixed;top:70px;right:0;width:300px;height:calc(100vh - 70px);background:#050509;border-left:1px solid #1f2933;transform:translateX(100%);transition:.25s;z-index:1600;display:flex;flex-direction:column;}
+.cart-panel.open{transform:translateX(0);}
+.cart-body{flex:1;overflow:auto;padding:10px;}
 </style>
-
-    <style>
-        :root {
-            --bg: #050509;
-            --bg-soft: #0b0b12;
-            --card: #10101a;
-            --border: #26263a;
-            --text: #f9fafb;
-            --muted: #b3b3b3;
-            --red: #ff2b4f;
-            --pink: #ff7fbf;
-            --accent: #5b5bff;
-            --radius: 14px;
-            --shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
-        }
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-        .neon-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background: radial-gradient(circle at top, #1b1024 0, #050509 60%);
-            overflow: hidden;
-        }
-        .neon-line {
-            position: absolute;
-            width: 200%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--red), var(--pink), transparent);
-            opacity: 0.25;
-            filter: blur(2px);
-            animation: move 14s linear infinite;
-        }
-        .neon-line:nth-child(1) { top: 20%; animation-duration: 16s; }
-        .neon-line:nth-child(2) { top: 40%; animation-duration: 12s; }
-        .neon-line:nth-child(3) { top: 60%; animation-duration: 18s; }
-        .neon-line:nth-child(4) { top: 80%; animation-duration: 14s; }
-        @keyframes move {
-            from { transform: translateX(-50%); }
-            to   { transform: translateX(50%); }
-        }
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 70px;
-            background: rgba(5,5,10,0.9);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid #1f1f2b;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            z-index: 1000;
-        }
-        .nav-left {
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--pink);
-        }
-        .nav-links {
-            display: flex;
-            gap: 10px;
-        }
-        .nav-links button {
-            background: transparent;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 999px;
-            color: var(--muted);
-            cursor: pointer;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-        .nav-links button:hover {
-            color: var(--pink);
-            background: rgba(255,127,191,0.12);
-        }
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: 1px solid var(--pink);
-            color: var(--pink);
-            font-size: 20px;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 260px;
-            height: calc(100vh - 70px);
-            background: #0b0b12;
-            border-right: 1px solid #1f1f2b;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.8);
-            transform: translateX(-100%);
-            transition: transform 0.25s ease-out;
-            z-index: 1500;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            gap: 12px;
-        }
-        .mobile-menu.open { transform: translateX(0); }
-        .mobile-menu button {
-            background: transparent;
-            border: 1px solid var(--pink);
-            color: var(--pink);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 15px;
-            text-align: left;
-            cursor: pointer;
-        }
-        .mobile-menu button:hover {
-            background: var(--pink);
-            color: #050509;
-        }
-        @media (max-width: 700px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-        }
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 12px;
-            background: rgba(255,127,191,0.18);
-            color: #ffe4f3;
-        }
-        .icon-btn {
-            border-radius: 999px;
-            border: 1px solid #2b2b3f;
-            background: #0b0b12;
-            color: var(--muted);
-            padding: 6px 10px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: 0.2s;
-        }
-        .icon-btn.small {
-            font-size: 12px;
-            padding: 4px 8px;
-        }
-        .icon-btn:hover {
-            border-color: var(--pink);
-            color: var(--pink);
-        }
-        .notif {
-            position: fixed;
-            top: 72px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #111827;
-            color: var(--text);
-            padding: 8px 14px;
-            border-radius: 999px;
-            font-size: 13px;
-            border: 1px solid #374151;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            display: none;
-            z-index: 1200;
-        }
-        main { padding-top: 70px; }
-        .page {
-            display: none;
-            min-height: calc(100vh - 70px);
-        }
-        .page.active { display: block; }
-        .hero {
-            min-height: calc(100vh - 70px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 18px;
-        }
-        .hero-inner {
-            max-width: 900px;
-            text-align: center;
-        }
-        .hero-title {
-            font-size: clamp(32px, 5vw, 46px);
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow:
-                0 0 22px rgba(255, 43, 79, 0.8),
-                0 0 32px rgba(255, 127, 191, 0.7);
-        }
-        .hero-sub {
-            font-size: 15px;
-            color: var(--muted);
-            max-width: 520px;
-            margin: 0 auto 22px;
-        }
-        .btn {
-            padding: 9px 18px;
-            border-radius: 999px;
-            border: 1px solid var(--pink);
-            background: transparent;
-            color: var(--pink);
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 14px;
-        }
-        .btn:hover {
-            background: var(--pink);
-            color: #050509;
-        }
-        .section {
-            padding: 60px 18px;
-            max-width: 1120px;
-            margin: 0 auto;
-        }
-        .section-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            color: var(--pink);
-        }
-        .section-sub {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-        .card {
-            background: #090910;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-        }
-        .audio-block {
-            margin-top: 10px;
-            padding: 12px;
-            border-radius: 12px;
-            background: #151520;
-        }
-        audio { width: 100%; }
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 18px;
-        }
-        .product-title {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .product-price {
-            font-size: 14px;
-            color: var(--pink);
-            margin-bottom: 10px;
-        }
-        .cart-panel {
-            position: fixed;
-            top: 70px;
-            right: 0;
-            width: 320px;
-            height: calc(100vh - 70px);
-            background: #050509;
-            border-left: 1px solid #1f2933;
-            transform: translateX(100%);
-            transition: 0.25s;
-            z-index: 1100;
-            display: flex;
-            flex-direction: column;
-        }
-        .cart-panel.open { transform: translateX(0); }
-        .cart-header {
-            padding: 14px;
-            border-bottom: 1px solid #1f2933;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .cart-body {
-            flex: 1;
-            padding: 14px;
-            overflow-y: auto;
-            font-size: 13px;
-        }
-        .cart-footer {
-            padding: 14px;
-            border-top: 1px solid #1f2933;
-            font-size: 13px;
-        }
-        .cart-item { margin-bottom: 8px; }
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.75);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1200;
-        }
-        .modal {
-            background: #0b0b12;
-            border-radius: 18px;
-            border: 1px solid #2f2f44;
-            width: 90%;
-            max-width: 420px;
-            padding: 22px;
-            position: relative;
-        }
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .modal-sub {
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 14px;
-        }
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            background: transparent;
-            border: none;
-            color: var(--muted);
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .field { margin-bottom: 12px; }
-        .field label {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-        .field input {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 999px;
-            border: 1px solid #2f2f44;
-            background: #05050b;
-            color: var(--text);
-            font-size: 13px;
-        }
-        .field input:focus {
-            outline: none;
-            border-color: var(--pink);
-            box-shadow: 0 0 0 1px rgba(255,127,191,0.4);
-        }
-        .modal-footer {
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--muted);
-        }
-        .modal-footer button {
-            border: none;
-            background: transparent;
-            color: var(--pink);
-            cursor: pointer;
-            padding: 0;
-            font-size: 12px;
-        }
-        footer {
-            padding: 22px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 12px;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="neon-bg">
-    <div class="neon-line"></div>
-    <div class="neon-line"></div>
-    <div class="neon-line"></div>
-    <div class="neon-line"></div>
-</div>
-
 <nav>
-    <div class="nav-left">DJ MAX CLUB</div>
-
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-
-    <div class="nav-links">
-        <button onclick="openPage('home')">Accueil</button>
-        <button onclick="openPage('events')">Évènements</button>
-        <button onclick="openPage('creations')">Créations DJ</button>
-        <button onclick="window.location.href='https://693850231e2a5.site123.me/'">Boutique</button>
-        <button onclick="openPage('legal')">Mentions légales</button>
-    </div>
-
-    <div class="nav-actions">
-        <div id="loyalty-pill" class="pill" style="display:none;">
-            ❤️ <span id="loyalty-points">0</span> pts
-        </div>
-        <button class="icon-btn" id="cart-btn">🛒 <span id="cart-count">0</span></button>
-        <button class="icon-btn" id="account-btn">👤 <span id="account-label">Compte</span></button>
-    </div>
+<div class="nav-left">DJ MAX CLUB</div>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+<div class="nav-links">
+<button onclick="openPage('home')">Accueil</button>
+<button onclick="openPage('events')">Évènements</button>
+<button onclick="openPage('creations')">Créations DJ</button>
+<button onclick="window.location.href='https://693850231e2a5.site123.me/'">Boutique</button>
+<button onclick="openPage('legal')">Mentions légales</button>
+</div>
+<div class="nav-actions">
+<div id="loyalty-pill" class="pill" style="display:none;">❤️ <span id="loyalty-points">0</span></div>
+<button class="icon-btn" id="cart-btn">🛒 <span id="cart-count">0</span></button>
+<button class="icon-btn" id="account-btn">👤 <span id="account-label">Compte</span></button>
+</div>
 </nav>
 
 <div id="mobile-menu" class="mobile-menu">
-    <button onclick="openPage('home'); toggleMobileMenu()">Accueil</button>
-    <button onclick="openPage('events'); toggleMobileMenu()">Évènements</button>
-    <button onclick="openPage('creations'); toggleMobileMenu()">Créations DJ</button>
-    <button onclick="window.location.href='https://693850231e2a5.site123.me/'; toggleMobileMenu()">Boutique</button>
-    <button onclick="openPage('legal'); toggleMobileMenu()">Mentions légales</button>
+<button onclick="openPage('home');toggleMobileMenu()">Accueil</button>
+<button onclick="openPage('events');toggleMobileMenu()">Évènements</button>
+<button onclick="openPage('creations');toggleMobileMenu()">Créations DJ</button>
+<button onclick="window.location.href='https://693850231e2a5.site123.me/';toggleMobileMenu()">Boutique</button>
+<button onclick="openPage('legal');toggleMobileMenu()">Mentions légales</button>
 </div>
 
-<div class="notif" id="notif"></div>
+<div id="notif" class="notif"></div>
 
-<div class="cart-panel" id="cart-panel">
-    <div class="cart-header">
-        <span>Panier</span>
-        <button class="icon-btn small" id="cart-close">Fermer</button>
-    </div>
-    <div class="cart-body" id="cart-items">Aucun article pour le moment.</div>
-    <div class="cart-footer">
-        Total : <span id="cart-total">0,00 €</span><br>
-        <button class="btn" onclick="checkout()">Valider ma réservation</button>
-    </div>
+<div id="cart-panel" class="cart-panel">
+<div style="padding:10px;border-bottom:1px solid #1f2933;display:flex;justify-content:space-between;">
+<span>Panier</span><button class="icon-btn" id="cart-close">Fermer</button>
+</div>
+<div id="cart-items" class="cart-body">Aucun article.</div>
+<div style="padding:10px;border-top:1px solid #1f2933;">Total : <span id="cart-total">0,00 €</span></div>
 </div>
 
 <main>
 
-<section class="page active" id="page-home">
-    <div class="hero">
-        <div class="hero-inner">
-            <div class="hero-title">ENTRE DANS LE CLUB DJ MAX</div>
-            <div class="hero-sub">
-                Évènements, créations, boutique, compte client et fidélité géolocalisée.  
-                À 100 points, tu gagnes un calendrier DJ MAX.
-            </div>
-            <button class="btn" onclick="openPage('events')">Voir les évènements</button>
-        </div>
-    </div>
+<section id="home" class="page active">
+<div class="section">
+<h1 class="section-title">Bienvenue dans le Club DJ MAX</h1>
+<p>Évènements, créations, boutique, fidélité géolocalisée.</p>
+<button onclick="openPage('events')" class="icon-btn">Voir les évènements</button>
+</div>
 </section>
 
-<section class="page" id="page-events">
-    <div class="section">
-        <div class="section-title">Évènements</div>
-        <div class="section-sub">Valide ta présence (moins de 1 km) et gagne 10 points de fidélité.</div>
+<section id="events" class="page">
+<div class="section">
+<h2 class="section-title">Évènements</h2>
 
-        <div class="card">
-            <h3>Jeu du DJ animé par DJ MAX</h3>
-            <p>📍 Rue Luce Douady, 38450 Noyarey</p>
-            <p>📅 28 février 2026 • 🕒 21h – 22h</p>
-            <button class="btn" onclick="validatePresence('event-28')">Valider ma présence</button>
-        </div>
+<div class="card">
+<h3>Jeu du DJ animé par DJ MAX</h3>
+<p>📍 Rue Luce Douady, 38450 Noyarey</p>
+<p>📅 28 février 2026 • 21h – 22h</p>
+<button class="icon-btn" onclick="validatePresence('event-28')">Valider ma présence</button>
+</div>
 
-        <div class="card">
-            <h3>MIX DJ MAX</h3>
-            <p>📍 Chemin du Pré Tarachou, 38350 Miribel-Lanchâtre</p>
-            <p>📅 27 février 2026 • 🕒 18h – 20h</p>
-            <button class="btn" onclick="validatePresence('event-27')">Valider ma présence</button>
-        </div>
+<div class="card">
+<h3>MIX DJ MAX</h3>
+<p>📍 Chemin du Pré Tarachou, 38350 Miribel-Lanchâtre</p>
+<p>📅 27 février 2026 • 18h – 20h</p>
+<button class="icon-btn" onclick="validatePresence('event-27')">Valider ma présence</button>
+</div>
 
-    </div>
+</div>
 </section>
 
-<section class="page" id="page-creations">
-    <div class="section">
-        <div class="section-title">Créations du DJ</div>
-
-        <div class="card">
-            <h3>I’m Still Standing – DJ MAX</h3>
-            <div class="audio-block">
-                <audio controls>
-                    <source src="Im Still Standing.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-
-            <h3 style="margin-top:25px;">Phénoménal – DJ MAX</h3>
-            <div class="audio-block">
-                <audio controls>
-                    <source src="Phénoménal.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-
-            <h3 style="margin-top:25px;">Ne m'arrête pas maintenant – DJ MAX</h3>
-            <div class="audio-block">
-                <audio controls>
-                    <source src="Ne m'arrête pas maintenant.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-        </div>
-    </div>
+<section id="creations" class="page">
+<div class="section">
+<h2 class="section-title">Créations DJ MAX</h2>
+<div class="card"><h3>I’m Still Standing</h3><audio controls><source src="Im Still Standing.mp3"></audio></div>
+<div class="card"><h3>Phénoménal</h3><audio controls><source src="Phénoménal.mp3"></audio></div>
+<div class="card"><h3>Ne m'arrête pas maintenant</h3><audio controls><source src="Ne m'arrête pas maintenant.mp3"></audio></div>
+</div>
 </section>
 
-<section class="page" id="page-legal">
-    <div class="section">
-        <div class="section-title">Mentions légales</div>
-
-        <div class="card">
-            <p><strong>Éditeur :</strong> DJ MAX – 38450 Noyarey</p>
-            <p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
-            <p><strong>Hébergement :</strong> GitHub Pages</p>
-            <p><strong>Données personnelles :</strong> Stockées localement sur l’appareil (compte, fidélité, panier).</p>
-        </div>
-    </div>
+<section id="legal" class="page">
+<div class="section">
+<h2 class="section-title">Mentions légales</h2>
+<div class="card">
+<p><strong>Éditeur :</strong> DJ MAX – 38450 Noyarey</p>
+<p><strong>Contact :</strong> maxens.gv@djmax38.com</p>
+<p><strong>Données :</strong> Stockées localement.</p>
+</div>
+</div>
 </section>
 
 </main>
 
-<footer>
-    © 2026 – DJ MAX • Tous droits réservés
-</footer>
+<footer>© 2026 – DJ MAX</footer>
 
-<div class="modal-backdrop" id="account-modal">
-    <div class="modal">
-        <button class="modal-close" onclick="closeAccountModal()">×</button>
-        <div id="account-modal-content"></div>
-    </div>
+<div id="account-modal" class="modal-backdrop">
+<div class="modal">
+<button class="modal-close" onclick="closeAccountModal()">×</button>
+<div id="account-modal-content"></div>
 </div>
-
-<!-- POPUP IMAGE -->
-<div id="popup" style="
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5000;
-">
-    <div style="max-width: 90%; max-height: 90%; text-align:center;">
-        <img src="popup.jpg" alt="Nouvelle collection DJ MAX" style="width:100%; height:auto; border-radius:12px;">
-        <button onclick="document.getElementById('popup').style.display='none'"
-            style="margin-top:15px; padding:10px 20px; border-radius:8px; border:none; background:#ff7fbf; color:#000; cursor:pointer;">
-            Fermer
-        </button>
-    </div>
 </div>
 
 <script>
-    const LS_USER = "djmax_user";
-    const LS_LOYALTY = "djmax_loyalty";
-    const LS_EVENTS = "djmax_events_validated";
-    const LS_CART = "djmax_cart";
+const LS_USER="djmax_user",LS_LOYALTY="djmax_loyalty",LS_EVENTS="djmax_events",LS_CART="djmax_cart";
+let currentUser=null,loyalty=0,events={},cart=[];
 
-    let currentUser = null;
-    let loyaltyPoints = 0;
-    let validatedEvents = {};
-    let cart = [];
+function openPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);}
+function toggleMobileMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
+function notif(t){const n=document.getElementById("notif");n.innerText=t;n.style.display="block";setTimeout(()=>n.style.display="none",2000);}
 
-    const pages = {
-        home: document.getElementById("page-home"),
-        events: document.getElementById("page-events"),
-        creations: document.getElementById("page-creations"),
-        legal: document.getElementById("page-legal")
-    };
+function load(){currentUser=JSON.parse(localStorage.getItem(LS_USER)||"null");
+loyalty=parseInt(localStorage.getItem(LS_LOYALTY)||"0");
+events=JSON.parse(localStorage.getItem(LS_EVENTS)||"{}");
+cart=JSON.parse(localStorage.getItem(LS_CART)||"[]");
+update();}
+function save(){localStorage.setItem(LS_USER,JSON.stringify(currentUser));}
+function update(){
+document.getElementById("account-label").innerText=currentUser?currentUser.name:"Compte";
+document.getElementById("loyalty-pill").style.display=currentUser?"inline-flex":"none";
+document.getElementById("loyalty-points").innerText=loyalty;
+document.getElementById("cart-count").innerText=cart.length;
+let total=0,html="";
+cart.forEach(i=>{html+=i.name+" – "+i.price+"€<br>";total+=i.price;});
+document.getElementById("cart-items").innerHTML=html||"Aucun article.";
+document.getElementById("cart-total").innerText=total.toFixed(2)+" €";
+}
 
-    const accountLabel = document.getElementById("account-label");
-    const loyaltyPill = document.getElementById("loyalty-pill");
-    const loyaltySpan = document.getElementById("loyalty-points");
-    const cartCount = document.getElementById("cart-count");
-    const cartItems = document.getElementById("cart-items");
-    const cartTotal = document.getElementById("cart-total");
-    const cartPanel = document.getElementById("cart-panel");
-    const notif = document.getElementById("notif");
+function openAccount(mode){
+const m=document.getElementById("account-modal"),c=document.getElementById("account-modal-content");
+m.style.display="flex";
+if(!currentUser && mode!=="register"){
+c.innerHTML=`<h3>Connexion</h3>
+<div class="field"><input id="id" placeholder="Identifiant"></div>
+<div class="field"><input id="pass" type="password" placeholder="Mot de passe"></div>
+<button class="icon-btn" onclick="login()">Se connecter</button>
+<br><button onclick="openAccount('register')" class="icon-btn">Créer un compte</button>`;
+return;}
+if(mode==="register"){
+c.innerHTML=`<h3>Créer un compte</h3>
+<div class="field"><input id="name" placeholder="Nom"></div>
+<div class="field"><input id="email" placeholder="Email"></div>
+<div class="field"><input id="id" placeholder="Identifiant"></div>
+<div class="field"><input id="pass" type="password" placeholder="Mot de passe"></div>
+<button class="icon-btn" onclick="register()">Créer</button>`;
+return;}
+c.innerHTML=`<h3>Mon compte</h3>
+<p>${currentUser.name}</p>
+<p>Points : ${loyalty}</p>
+<button class="icon-btn" onclick="logout()">Déconnexion</button>`;
+}
+function closeAccountModal(){document.getElementById("account-modal").style.display="none";}
+function register(){
+const name=document.getElementById("name").value,id=document.getElementById("id").value,pass=document.getElementById("pass").value;
+if(!name||!id||!pass)return notif("Champs manquants");
+currentUser={name,id,pass};save();update();closeAccountModal();notif("Compte créé");
+}
+function login(){
+const id=document.getElementById("id").value,pass=document.getElementById("pass").value;
+if(!currentUser||currentUser.id!==id||currentUser.pass!==pass)return notif("Identifiants incorrects");
+update();closeAccountModal();notif("Connecté");
+}
+function logout(){currentUser=null;localStorage.removeItem(LS_USER);update();closeAccountModal();}
 
-    const accountModal = document.getElementById("account-modal");
-    const accountModalContent = document.getElementById("account-modal-content");
+const COORDS={"event-28":{lat:45.23,lon:5.65},"event-27":{lat:45.024,lon:5.676}};
+function dist(a,b,c,d){const R=6371,toRad=x=>x*Math.PI/180;let dLat=toRad(c-a),dLon=toRad(d-b);let A=Math.sin(dLat/2)**2+Math.cos(toRad(a))*Math.cos(toRad(c))*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(A),Math.sqrt(1-A));}
+function validatePresence(e){
+if(!currentUser)return notif("Connecte-toi");
+if(events[e])return notif("Déjà validé");
+navigator.geolocation.getCurrentPosition(p=>{
+let d=dist(p.coords.latitude,p.coords.longitude,COORDS[e].lat,COORDS[e].lon);
+if(d<=1){events[e]=true;loyalty+=10;localStorage.setItem(LS_EVENTS,JSON.stringify(events));localStorage.setItem(LS_LOYALTY,loyalty);update();notif("+10 points");}
+else notif("Trop loin");
+},()=>notif("Géolocalisation refusée"));
+}
 
-    function showNotif(msg) {
-        notif.textContent = msg;
-        notif.style.display = "block";
-        setTimeout(() => { notif.style.display = "none"; }, 2500);
-    }
+document.getElementById("cart-btn").onclick=()=>document.getElementById("cart-panel").classList.add("open");
+document.getElementById("cart-close").onclick=()=>document.getElementById("cart-panel").classList.remove("open");
 
-    function openPage(name) {
-        Object.values(pages).forEach(p => p.classList.remove("active"));
-        if (pages[name]) pages[name].classList.add("active");
-        window.scrollTo({ top: 0, behavior: "instant" });
-    }
-
-    function toggleMobileMenu() {
-        const menu = document.getElementById("mobile-menu");
-        menu.classList.toggle("open");
-    }
-
-    function loadState() {
-        try {
-            const u = localStorage.getItem(LS_USER);
-            if (u) currentUser = JSON.parse(u);
-
-            const l = localStorage.getItem(LS_LOYALTY);
-            if (l) loyaltyPoints = parseInt(l, 10) || 0;
-
-            const e = localStorage.getItem(LS_EVENTS);
-            if (e) validatedEvents = JSON.parse(e);
-
-            const c = localStorage.getItem(LS_CART);
-            if (c) cart = JSON.parse(c);
-        } catch (err) {
-            currentUser = null;
-            loyaltyPoints = 0;
-            validatedEvents = {};
-            cart = [];
-        }
-        updateUI();
-    }
-
-    function saveUser() {
-        if (currentUser) localStorage.setItem(LS_USER, JSON.stringify(currentUser));
-        else localStorage.removeItem(LS_USER);
-        updateUI();
-    }
-
-    function saveLoyalty() {
-        localStorage.setItem(LS_LOYALTY, String(loyaltyPoints));
-        updateUI();
-    }
-
-    function saveEvents() {
-        localStorage.setItem(LS_EVENTS, JSON.stringify(validatedEvents));
-    }
-
-    function saveCart() {
-        localStorage.setItem(LS_CART, JSON.stringify(cart));
-        updateUI();
-    }
-
-    function checkLoyaltyReward() {
-        if (loyaltyPoints >= 100) {
-            showNotif("Bravo ! Tu as gagné un calendrier DJ MAX. Parle-en à DJ MAX avec ton identifiant.");
-        }
-    }
-
-    function updateUI() {
-        if (currentUser) {
-            accountLabel.textContent = currentUser.name || currentUser.id || "Mon compte";
-            loyaltyPill.style.display = "inline-flex";
-        } else {
-            accountLabel.textContent = "Compte";
-            loyaltyPill.style.display = "none";
-        }
-
-        loyaltySpan.textContent = loyaltyPoints;
-
-        cartCount.textContent = cart.length;
-
-        if (cart.length === 0) {
-            cartItems.textContent = "Aucun article pour le moment.";
-            cartTotal.textContent = "0,00 €";
-        } else {
-            cartItems.innerHTML = "";
-            let total = 0;
-            cart.forEach(item => {
-                const line = document.createElement("div");
-                line.className = "cart-item";
-                line.textContent = item.name + " – " + item.price.toFixed(2) + " €";
-                cartItems.appendChild(line);
-                total += item.price;
-            });
-            cartTotal.textContent = total.toFixed(2) + " €";
-        }
-    }
-
-    function openAccount(mode) {
-        if (!mode) mode = currentUser ? "profile" : "login";
-
-        if (mode === "login") {
-            accountModalContent.innerHTML = `
-                <div class="modal-title">Connexion</div>
-                <div class="modal-sub">Connecte-toi avec ton identifiant et ton mot de passe (enregistrés sur cet appareil).</div>
-                <div class="field">
-                    <label>Identifiant</label>
-                    <input type="text" id="login-id" placeholder="Ton identifiant">
-                </div>
-                <div class="field">
-                    <label>Mot de passe</label>
-                    <input type="password" id="login-pass" placeholder="Ton mot de passe">
-                </div>
-                <button class="btn" style="margin-top:8px;" onclick="doLogin()">Se connecter</button>
-                <div class="modal-footer">
-                    Pas encore de compte ?
-                    <button onclick="openAccount('register')">Créer un compte</button>
-                </div>
-            `;
-        } else if (mode === "register") {
-            accountModalContent.innerHTML = `
-                <div class="modal-title">Création de compte</div>
-                <div class="modal-sub">Compte enregistré sur cet appareil, pour le panier et la fidélité.</div>
-                <div class="field">
-                    <label>Nom / Pseudo</label>
-                    <input type="text" id="reg-name" placeholder="DJ MAX Fan">
-                </div>
-                <div class="field">
-                    <label>Adresse e‑mail</label>
-                    <input type="email" id="reg-mail" placeholder="ton.email@example.com">
-                </div>
-                <div class="field">
-                    <label>Identifiant</label>
-                    <input type="text" id="reg-id" placeholder="Choisis ton identifiant">
-                </div>
-                <div class="field">
-                    <label>Mot de passe</label>
-                    <input type="password" id="reg-pass" placeholder="Choisis ton mot de passe">
-                </div>
-                <button class="btn" style="margin-top:8px;" onclick="doRegister()">Créer mon compte</button>
-                <div class="modal-footer">
-                    Tu as déjà un compte ?
-                    <button onclick="openAccount('login')">Se connecter</button>
-                </div>
-            `;
-        } else if (mode === "profile" && currentUser) {
-            accountModalContent.innerHTML = `
-                <div class="modal-title">Mon compte</div>
-                <div class="modal-sub">Connecté en tant que <strong>${currentUser.name || currentUser.id}</strong>.</div>
-                <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">
-                    Identifiant : <strong>${currentUser.id}</strong><br>
-                    E‑mail : <strong>${currentUser.email || "non renseigné"}</strong><br>
-                    Points fidélité : <strong>${loyaltyPoints}</strong>
-                </p>
-                <button class="btn" onclick="logout()">Se déconnecter</button>
-            `;
-        }
-        accountModal.style.display = "flex";
-    }
-
-    function closeAccountModal() {
-        accountModal.style.display = "none";
-    }
-
-    function doRegister() {
-        const name = document.getElementById("reg-name").value.trim();
-        const email = document.getElementById("reg-mail").value.trim();
-        const id = document.getElementById("reg-id").value.trim();
-        const pass = document.getElementById("reg-pass").value.trim();
-
-        if (!name || !email || !id || !pass) {
-            showNotif("Merci de remplir tous les champs.");
-            return;
-        }
-
-        currentUser = { name, email, id, pass };
-        loyaltyPoints = 0;
-        validatedEvents = {};
-        saveUser();
-        saveLoyalty();
-        saveEvents();
-        closeAccountModal();
-        showNotif("Compte créé et connecté.");
-    }
-
-    function doLogin() {
-        const id = document.getElementById("login-id").value.trim();
-        const pass = document.getElementById("login-pass").value.trim();
-
-        if (!id || !pass) {
-            showNotif("Merci de remplir identifiant et mot de passe.");
-            return;
-        }
-
-        const u = localStorage.getItem(LS_USER);
-        if (!u) {
-            showNotif("Aucun compte enregistré sur cet appareil.");
-            return;
-        }
-        const stored = JSON.parse(u);
-        if (stored.id === id && stored.pass === pass) {
-            currentUser = stored;
-            loyaltyPoints = parseInt(localStorage.getItem(LS_LOYALTY) || "0", 10);
-            validatedEvents = JSON.parse(localStorage.getItem(LS_EVENTS) || "{}");
-            updateUI();
-            closeAccountModal();
-            showNotif("Connexion réussie.");
-        } else {
-            showNotif("Identifiant ou mot de passe incorrect.");
-        }
-    }
-
-    function logout() {
-        currentUser = null;
-        saveUser();
-        closeAccountModal();
-        showNotif("Déconnecté.");
-    }
-
-    function distanceKm(lat1, lon1, lat2, lon2) {
-        const R = 6371;
-        const toRad = d => d * Math.PI / 180;
-        const dLat = toRad(lat2 - lat1);
-        const dLon = toRad(lon2 - lon1);
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
-
-    const EVENT_COORDS = {
-        "event-28": { lat: 45.23,  lon: 5.65 },   // Noyarey
-        "event-27": { lat: 45.024, lon: 5.676 }   // Miribel-Lanchâtre
-    };
-
-    function validatePresence(eventId) {
-        if (!currentUser) {
-            showNotif("Compte obligatoire pour valider ta présence.");
-            openAccount("login");
-            return;
-        }
-        if (validatedEvents[eventId]) {
-            showNotif("Présence déjà validée pour cet évènement.");
-            return;
-        }
-
-        if (!navigator.geolocation) {
-            showNotif("Géolocalisation non disponible sur cet appareil.");
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            pos => {
-                const userLat = pos.coords.latitude;
-                const userLon = pos.coords.longitude;
-                const target = EVENT_COORDS[eventId];
-                if (!target) {
-                    showNotif("Erreur de configuration de l’évènement.");
-                    return;
-                }
-                const d = distanceKm(userLat, userLon, target.lat, target.lon);
-                if (d <= 1) {
-                    validatedEvents[eventId] = true;
-                    loyaltyPoints += 10;
-                    saveEvents();
-                    saveLoyalty();
-                    showNotif("Présence validée : +10 points de fidélité.");
-                    checkLoyaltyReward();
-                } else {
-                    showNotif("Tu es trop loin du lieu (distance > 1 km).");
-                }
-            },
-            err => {
-                showNotif("Géolocalisation refusée ou indisponible.");
-            }
-        );
-    }
-
-    function addToCart(name, price) {
-        cart.push({ name, price });
-        saveCart();
-        showNotif("Article ajouté au panier.");
-    }
-
-    function checkout() {
-        if (!currentUser) {
-            showNotif("Tu dois être connecté pour valider ta réservation.");
-            openAccount("login");
-            return;
-        }
-        if (cart.length === 0) {
-            showNotif("Ton panier est vide.");
-            return;
-        }
-        showNotif("Réservation enregistrée. Contacte maxens.gv@djmax38.com avec ton identifiant.");
-    }
-
-    document.getElementById("cart-btn").addEventListener("click", () => {
-        cartPanel.classList.add("open");
-    });
-
-    document.getElementById("cart-close").addEventListener("click", () => {
-        cartPanel.classList.remove("open");
-    });
-
-    document.getElementById("account-btn").addEventListener("click", () => {
-        openAccount();
-    });
-
-    window.addEventListener("click", (e) => {
-        if (e.target === accountModal) closeAccountModal();
-    });
-
-    window.addEventListener("load", () => {
-        const popup = document.getElementById("popup");
-        if (popup) popup.style.display = "flex";
-        loadState();
-    });
+load();
 </script>
 
-</body>
-</html>
-
-
+</body></html>
