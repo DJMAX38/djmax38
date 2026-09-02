@@ -2,58 +2,955 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Pronote - Année 2026/2027</title>
+    <title>Pronote - 2026/2027</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #4b6cb7, #182848);
             color: #fff;
+        }
+        header {
+            background: rgba(0,0,0,0.4);
+            padding: 10px 20px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
         }
-
-        .container {
-            text-align: center;
-            padding: 30px 40px;
-            background: rgba(0, 0, 0, 0.35);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        header h1 {
+            margin: 0;
+            font-size: 1.6rem;
         }
-
-        h1 {
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
+        header .year {
+            font-size: 0.95rem;
+            opacity: 0.8;
         }
-
-        .year {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
+        main {
+            padding: 20px;
         }
-
+        .card {
+            background: rgba(0,0,0,0.35);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        h2 {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin: 6px 0 2px;
+            font-size: 0.9rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: none;
+            margin-bottom: 8px;
+        }
+        textarea {
+            min-height: 60px;
+        }
+        button {
+            border: none;
+            border-radius: 6px;
+            padding: 8px 14px;
+            margin: 4px 4px 4px 0;
+            cursor: pointer;
+            background: #4b6cb7;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        button.secondary {
+            background: #222;
+        }
+        button.danger {
+            background: #c0392b;
+        }
+        .row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .col {
+            flex: 1 1 280px;
+        }
+        ul {
+            padding-left: 18px;
+        }
         .status {
-            font-size: 1.1rem;
-            margin: 8px 0;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            opacity: 0.85;
         }
-
+        .hidden {
+            display: none;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            margin-right: 4px;
+        }
         .butterfly {
-            font-size: 2.5rem;
-            margin-top: 18px;
+            font-size: 1.4rem;
+            margin-left: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 4px;
+            text-align: left;
+        }
+        th {
+            background: rgba(255,255,255,0.05);
+        }
+        .nav {
+            margin-top: 10px;
+        }
+        .nav button {
+            background: rgba(255,255,255,0.08);
+        }
+        .nav button.active {
+            background: #4b6cb7;
+        }
+        .checkbox-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Pronote</h1>
+<header>
+    <div>
+        <h1>Pronote maison 🦋</h1>
         <div class="year">Année 2026 / 2027</div>
-
-        <div class="status">Paramétrage utilisateur en cours...</div>
-        <div class="status">Connexion impossible 🛑</div>
-
-        <div class="butterfly">🦋</div>
     </div>
+    <div id="headerStatus" class="status">
+        Paramétrage utilisateur en cours... Connexion impossible sans papillon <span class="butterfly">🦋</span>
+    </div>
+</header>
+
+<main>
+    <!-- Connexion / création comptes -->
+    <section class="card" id="authCard">
+        <h2>Connexion</h2>
+        <div class="row">
+            <div class="col">
+                <h3>Se connecter</h3>
+                <label for="loginRole">Rôle</label>
+                <select id="loginRole">
+                    <option value="eleve">Élève</option>
+                    <option value="prof">Professeur</option>
+                </select>
+
+                <label for="loginUser">Identifiant</label>
+                <input id="loginUser" type="text" placeholder="ex : prenom.nom">
+
+                <label for="loginPass">Mot de passe</label>
+                <input id="loginPass" type="password" placeholder="Mot de passe">
+
+                <button id="btnLogin">Connexion</button>
+                <div id="loginMsg" class="status"></div>
+            </div>
+
+            <div class="col">
+                <h3>Créer un compte</h3>
+                <label for="createRole">Rôle</label>
+                <select id="createRole">
+                    <option value="eleve">Élève</option>
+                    <option value="prof">Professeur</option>
+                </select>
+
+                <label for="createUser">Identifiant</label>
+                <input id="createUser" type="text" placeholder="ex : prenom.nom">
+
+                <label for="createPass">Mot de passe</label>
+                <input id="createPass" type="password" placeholder="Mot de passe">
+
+                <button id="btnCreateUser">Créer le compte</button>
+                <div id="createMsg" class="status"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interface PROF -->
+    <section class="card hidden" id="profCard">
+        <h2>Interface professeur</h2>
+        <div class="status" id="profWelcome"></div>
+
+        <div class="nav">
+            <button data-prof-tab="classes" class="active">Classes & élèves</button>
+            <button data-prof-tab="edt">Emploi du temps</button>
+            <button data-prof-tab="devoirs">Devoirs & QCM</button>
+            <button data-prof-tab="notes">Notes & bulletins</button>
+        </div>
+
+        <!-- Classes & élèves -->
+        <div id="profTab-classes">
+            <div class="row">
+                <div class="col">
+                    <h3>Créer une classe</h3>
+                    <label for="className">Nom de la classe</label>
+                    <input id="className" type="text" placeholder="ex : 5A, 3B...">
+                    <button id="btnAddClass">Ajouter la classe</button>
+                    <div id="classMsg" class="status"></div>
+
+                    <h4>Liste des classes</h4>
+                    <ul id="classList"></ul>
+                </div>
+                <div class="col">
+                    <h3>Ajouter un élève à une classe</h3>
+                    <label for="studentName">Nom de l'élève</label>
+                    <input id="studentName" type="text" placeholder="Nom Prénom">
+
+                    <label for="studentClass">Classe</label>
+                    <select id="studentClass"></select>
+
+                    <button id="btnAddStudent">Ajouter l'élève</button>
+                    <div id="studentMsg" class="status"></div>
+
+                    <h4>Élèves par classe</h4>
+                    <div id="studentsByClass"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emploi du temps -->
+        <div id="profTab-edt" class="hidden">
+            <div class="row">
+                <div class="col">
+                    <h3>Créer un cours</h3>
+                    <label for="edtClass">Classe</label>
+                    <select id="edtClass"></select>
+
+                    <label for="edtDay">Jour</label>
+                    <select id="edtDay">
+                        <option>Lundi</option>
+                        <option>Mardi</option>
+                        <option>Mercredi</option>
+                        <option>Jeudi</option>
+                        <option>Vendredi</option>
+                    </select>
+
+                    <label for="edtTime">Horaire</label>
+                    <input id="edtTime" type="text" placeholder="ex : 8h-9h">
+
+                    <label for="edtSubject">Matière</label>
+                    <input id="edtSubject" type="text" placeholder="ex : Maths">
+
+                    <button id="btnAddEdt">Ajouter au EDT</button>
+                    <div id="edtMsg" class="status"></div>
+                </div>
+                <div class="col">
+                    <h3>Emploi du temps par classe</h3>
+                    <label for="edtViewClass">Classe</label>
+                    <select id="edtViewClass"></select>
+                    <button id="btnViewEdt">Afficher</button>
+
+                    <table id="edtTable">
+                        <thead>
+                            <tr>
+                                <th>Jour</th>
+                                <th>Horaire</th>
+                                <th>Matière</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Devoirs & QCM -->
+        <div id="profTab-devoirs" class="hidden">
+            <div class="row">
+                <div class="col">
+                    <h3>Créer un devoir</h3>
+                    <label for="hwClass">Classe</label>
+                    <select id="hwClass"></select>
+
+                    <label for="hwTitle">Titre du devoir</label>
+                    <input id="hwTitle" type="text" placeholder="ex : DM n°1">
+
+                    <label for="hwDesc">Consignes</label>
+                    <textarea id="hwDesc" placeholder="Consignes du devoir"></textarea>
+
+                    <label for="hwDue">Date de rendu</label>
+                    <input id="hwDue" type="date">
+
+                    <button id="btnAddHw">Ajouter le devoir</button>
+                    <div id="hwMsg" class="status"></div>
+                </div>
+                <div class="col">
+                    <h3>Créer un QCM</h3>
+                    <label for="qcmClass">Classe</label>
+                    <select id="qcmClass"></select>
+
+                    <label for="qcmTitle">Titre du QCM</label>
+                    <input id="qcmTitle" type="text" placeholder="ex : QCM chapitre 1">
+
+                    <label for="qcmQuestion">Question</label>
+                    <input id="qcmQuestion" type="text" placeholder="Question">
+
+                    <label>Réponses (cocher la bonne)</label>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" id="qcmAok">
+                        <label for="qcmAok">A correcte</label>
+                    </div>
+                    <input id="qcmA" type="text" placeholder="Réponse A">
+
+                    <div class="checkbox-inline">
+                        <input type="checkbox" id="qcmBok">
+                        <label for="qcmBok">B correcte</label>
+                    </div>
+                    <input id="qcmB" type="text" placeholder="Réponse B">
+
+                    <div class="checkbox-inline">
+                        <input type="checkbox" id="qcmCok">
+                        <label for="qcmCok">C correcte</label>
+                    </div>
+                    <input id="qcmC" type="text" placeholder="Réponse C">
+
+                    <button id="btnAddQcm">Ajouter le QCM</button>
+                    <div id="qcmMsg" class="status"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes & bulletins -->
+        <div id="profTab-notes" class="hidden">
+            <div class="row">
+                <div class="col">
+                    <h3>Attribuer une note</h3>
+                    <label for="gradeClass">Classe</label>
+                    <select id="gradeClass"></select>
+
+                    <label for="gradeStudent">Élève</label>
+                    <select id="gradeStudent"></select>
+
+                    <label for="gradeSubject">Matière</label>
+                    <input id="gradeSubject" type="text" placeholder="ex : Français">
+
+                    <label for="gradeValue">Note /20</label>
+                    <input id="gradeValue" type="number" min="0" max="20" step="0.5">
+
+                    <button id="btnAddGrade">Enregistrer la note</button>
+                    <div id="gradeMsg" class="status"></div>
+                </div>
+                <div class="col">
+                    <h3>Bulletin simplifié</h3>
+                    <label for="bulletinClass">Classe</label>
+                    <select id="bulletinClass"></select>
+
+                    <label for="bulletinStudent">Élève</label>
+                    <select id="bulletinStudent"></select>
+
+                    <button id="btnViewBulletin">Afficher le bulletin</button>
+
+                    <table id="bulletinTable">
+                        <thead>
+                            <tr>
+                                <th>Matière</th>
+                                <th>Notes</th>
+                                <th>Moyenne</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interface ELEVE -->
+    <section class="card hidden" id="eleveCard">
+        <h2>Interface élève</h2>
+        <div class="status" id="eleveWelcome"></div>
+
+        <div class="nav">
+            <button data-eleve-tab="info" class="active">Infos & classe</button>
+            <button data-eleve-tab="edt">Emploi du temps</button>
+            <button data-eleve-tab="devoirs">Devoirs</button>
+            <button data-eleve-tab="qcm">QCM</button>
+            <button data-eleve-tab="notes">Notes</button>
+        </div>
+
+        <!-- Infos -->
+        <div id="eleveTab-info">
+            <h3>Informations</h3>
+            <p id="eleveInfo"></p>
+        </div>
+
+        <!-- EDT -->
+        <div id="eleveTab-edt" class="hidden">
+            <h3>Emploi du temps</h3>
+            <table id="eleveEdtTable">
+                <thead>
+                    <tr>
+                        <th>Jour</th>
+                        <th>Horaire</th>
+                        <th>Matière</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Devoirs -->
+        <div id="eleveTab-devoirs" class="hidden">
+            <h3>Devoirs</h3>
+            <table id="eleveHwTable">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Consignes</th>
+                        <th>Rendu</th>
+                        <th>Fait ?</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- QCM -->
+        <div id="eleveTab-qcm" class="hidden">
+            <h3>QCM</h3>
+            <div id="eleveQcmList"></div>
+        </div>
+
+        <!-- Notes -->
+        <div id="eleveTab-notes" class="hidden">
+            <h3>Notes</h3>
+            <table id="eleveNotesTable">
+                <thead>
+                    <tr>
+                        <th>Matière</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script>
+    // --- "Base de données" locale ---
+    const STORAGE_KEY = 'pronote_maison_db';
+
+    const defaultDb = {
+        users: [],       // {id, role, user, pass, classId?}
+        classes: [],     // {id, name}
+        students: [],    // {id, name, classId}
+        edt: [],         // {id, classId, day, time, subject}
+        homeworks: [],   // {id, classId, title, desc, due}
+        qcms: [],        // {id, classId, title, question, answers: [{text, correct}]}
+        grades: []       // {id, studentId, subject, value}
+    };
+
+    function loadDb() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(defaultDb);
+        try {
+            return JSON.parse(raw);
+        } catch {
+            return structuredClone(defaultDb);
+        }
+    }
+
+    function saveDb() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+    }
+
+    let db = loadDb();
+    let currentUser = null; // {id, role, user}
+
+    // --- Helpers ---
+    function genId(prefix) {
+        return prefix + '_' + Math.random().toString(36).substring(2, 9);
+    }
+
+    function setText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    }
+
+    function show(id) {
+        document.getElementById(id).classList.remove('hidden');
+    }
+
+    function hide(id) {
+        document.getElementById(id).classList.add('hidden');
+    }
+
+    function fillSelect(selectId, items, valueKey, labelKey) {
+        const sel = document.getElementById(selectId);
+        sel.innerHTML = '';
+        items.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item[valueKey];
+            opt.textContent = item[labelKey];
+            sel.appendChild(opt);
+        });
+    }
+
+    // --- Auth ---
+    document.getElementById('btnCreateUser').addEventListener('click', () => {
+        const role = document.getElementById('createRole').value;
+        const user = document.getElementById('createUser').value.trim();
+        const pass = document.getElementById('createPass').value.trim();
+        const msg = document.getElementById('createMsg');
+
+        if (!user || !pass) {
+            msg.textContent = 'Identifiant et mot de passe obligatoires.';
+            return;
+        }
+        if (db.users.some(u => u.user === user)) {
+            msg.textContent = 'Cet identifiant existe déjà.';
+            return;
+        }
+
+        const newUser = {
+            id: genId('u'),
+            role,
+            user,
+            pass,
+            classId: null
+        };
+        db.users.push(newUser);
+        saveDb();
+        msg.textContent = 'Compte créé (' + role + ').';
+    });
+
+    document.getElementById('btnLogin').addEventListener('click', () => {
+        const role = document.getElementById('loginRole').value;
+        const user = document.getElementById('loginUser').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+        const msg = document.getElementById('loginMsg');
+
+        const found = db.users.find(u => u.user === user && u.pass === pass && u.role === role);
+        if (!found) {
+            msg.textContent = 'Connexion impossible : identifiants invalides.';
+            return;
+        }
+        currentUser = found;
+        msg.textContent = 'Connexion réussie.';
+        document.getElementById('headerStatus').textContent = 'Connecté en tant que ' + role + ' : ' + user;
+
+        hide('authCard');
+        if (role === 'prof') {
+            showProfInterface();
+        } else {
+            showEleveInterface();
+        }
+    });
+
+    // --- PROF UI ---
+    function showProfInterface() {
+        show('profCard');
+        setText('profWelcome', 'Bienvenue, ' + currentUser.user + ' (professeur).');
+
+        refreshClassSelects();
+        refreshClassList();
+        refreshStudentsByClass();
+    }
+
+    function refreshClassSelects() {
+        const classes = db.classes;
+        fillSelect('studentClass', classes, 'id', 'name');
+        fillSelect('edtClass', classes, 'id', 'name');
+        fillSelect('edtViewClass', classes, 'id', 'name');
+        fillSelect('hwClass', classes, 'id', 'name');
+        fillSelect('qcmClass', classes, 'id', 'name');
+        fillSelect('gradeClass', classes, 'id', 'name');
+        fillSelect('bulletinClass', classes, 'id', 'name');
+    }
+
+    function refreshClassList() {
+        const ul = document.getElementById('classList');
+        ul.innerHTML = '';
+        db.classes.forEach(c => {
+            const li = document.createElement('li');
+            li.textContent = c.name;
+            ul.appendChild(li);
+        });
+    }
+
+    document.getElementById('btnAddClass').addEventListener('click', () => {
+        const name = document.getElementById('className').value.trim();
+        const msg = document.getElementById('classMsg');
+        if (!name) {
+            msg.textContent = 'Nom de classe obligatoire.';
+            return;
+        }
+        const newClass = { id: genId('c'), name };
+        db.classes.push(newClass);
+        saveDb();
+        msg.textContent = 'Classe ajoutée.';
+        document.getElementById('className').value = '';
+        refreshClassSelects();
+        refreshClassList();
+    });
+
+    document.getElementById('btnAddStudent').addEventListener('click', () => {
+        const name = document.getElementById('studentName').value.trim();
+        const classId = document.getElementById('studentClass').value;
+        const msg = document.getElementById('studentMsg');
+        if (!name || !classId) {
+            msg.textContent = 'Nom et classe obligatoires.';
+            return;
+        }
+        const newStudent = { id: genId('s'), name, classId };
+        db.students.push(newStudent);
+
+        // Optionnel : lier un compte élève existant à la classe
+        const user = db.users.find(u => u.user === name && u.role === 'eleve');
+        if (user) {
+            user.classId = classId;
+        }
+
+        saveDb();
+        msg.textContent = 'Élève ajouté à la classe.';
+        document.getElementById('studentName').value = '';
+        refreshStudentsByClass();
+    });
+
+    function refreshStudentsByClass() {
+        const container = document.getElementById('studentsByClass');
+        container.innerHTML = '';
+        db.classes.forEach(c => {
+            const div = document.createElement('div');
+            div.innerHTML = '<strong>' + c.name + '</strong>';
+            const ul = document.createElement('ul');
+            db.students
+                .filter(s => s.classId === c.id)
+                .forEach(s => {
+                    const li = document.createElement('li');
+                    li.textContent = s.name;
+                    ul.appendChild(li);
+                });
+            div.appendChild(ul);
+            container.appendChild(div);
+        });
+    }
+
+    // Tabs prof
+    document.querySelectorAll('[data-prof-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tab = btn.getAttribute('data-prof-tab');
+            document.querySelectorAll('[data-prof-tab]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            ['classes','edt','devoirs','notes'].forEach(t => {
+                const id = 'profTab-' + t;
+                if (t === tab) show(id); else hide(id);
+            });
+        });
+    });
+
+    // EDT
+    document.getElementById('btnAddEdt').addEventListener('click', () => {
+        const classId = document.getElementById('edtClass').value;
+        const day = document.getElementById('edtDay').value;
+        const time = document.getElementById('edtTime').value.trim();
+        const subject = document.getElementById('edtSubject').value.trim();
+        const msg = document.getElementById('edtMsg');
+
+        if (!classId || !day || !time || !subject) {
+            msg.textContent = 'Tous les champs sont obligatoires.';
+            return;
+        }
+        db.edt.push({ id: genId('e'), classId, day, time, subject });
+        saveDb();
+        msg.textContent = 'Cours ajouté au EDT.';
+        document.getElementById('edtTime').value = '';
+        document.getElementById('edtSubject').value = '';
+    });
+
+    document.getElementById('btnViewEdt').addEventListener('click', () => {
+        const classId = document.getElementById('edtViewClass').value;
+        const tbody = document.querySelector('#edtTable tbody');
+        tbody.innerHTML = '';
+        db.edt
+            .filter(e => e.classId === classId)
+            .forEach(e => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${e.day}</td><td>${e.time}</td><td>${e.subject}</td>`;
+                tbody.appendChild(tr);
+            });
+    });
+
+    // Devoirs
+    document.getElementById('btnAddHw').addEventListener('click', () => {
+        const classId = document.getElementById('hwClass').value;
+        const title = document.getElementById('hwTitle').value.trim();
+        const desc = document.getElementById('hwDesc').value.trim();
+        const due = document.getElementById('hwDue').value;
+        const msg = document.getElementById('hwMsg');
+
+        if (!classId || !title || !desc || !due) {
+            msg.textContent = 'Tous les champs sont obligatoires.';
+            return;
+        }
+        db.homeworks.push({ id: genId('h'), classId, title, desc, due });
+        saveDb();
+        msg.textContent = 'Devoir ajouté.';
+        document.getElementById('hwTitle').value = '';
+        document.getElementById('hwDesc').value = '';
+        document.getElementById('hwDue').value = '';
+    });
+
+    // QCM
+    document.getElementById('btnAddQcm').addEventListener('click', () => {
+        const classId = document.getElementById('qcmClass').value;
+        const title = document.getElementById('qcmTitle').value.trim();
+        const question = document.getElementById('qcmQuestion').value.trim();
+        const msg = document.getElementById('qcmMsg');
+
+        const answers = [];
+        const a = document.getElementById('qcmA').value.trim();
+        const b = document.getElementById('qcmB').value.trim();
+        const c = document.getElementById('qcmC').value.trim();
+        if (a) answers.push({ text: a, correct: document.getElementById('qcmAok').checked });
+        if (b) answers.push({ text: b, correct: document.getElementById('qcmBok').checked });
+        if (c) answers.push({ text: c, correct: document.getElementById('qcmCok').checked });
+
+        if (!classId || !title || !question || answers.length === 0) {
+            msg.textContent = 'Complète le QCM (classe, titre, question, réponses).';
+            return;
+        }
+
+        db.qcms.push({ id: genId('q'), classId, title, question, answers });
+        saveDb();
+        msg.textContent = 'QCM ajouté.';
+        document.getElementById('qcmTitle').value = '';
+        document.getElementById('qcmQuestion').value = '';
+        document.getElementById('qcmA').value = '';
+        document.getElementById('qcmB').value = '';
+        document.getElementById('qcmC').value = '';
+        document.getElementById('qcmAok').checked = false;
+        document.getElementById('qcmBok').checked = false;
+        document.getElementById('qcmCok').checked = false;
+    });
+
+    // Notes
+    document.getElementById('gradeClass').addEventListener('change', () => {
+        const classId = document.getElementById('gradeClass').value;
+        const students = db.students.filter(s => s.classId === classId);
+        fillSelect('gradeStudent', students, 'id', 'name');
+    });
+
+    document.getElementById('bulletinClass').addEventListener('change', () => {
+        const classId = document.getElementById('bulletinClass').value;
+        const students = db.students.filter(s => s.classId === classId);
+        fillSelect('bulletinStudent', students, 'id', 'name');
+    });
+
+    document.getElementById('btnAddGrade').addEventListener('click', () => {
+        const classId = document.getElementById('gradeClass').value;
+        const studentId = document.getElementById('gradeStudent').value;
+        const subject = document.getElementById('gradeSubject').value.trim();
+        const value = parseFloat(document.getElementById('gradeValue').value);
+        const msg = document.getElementById('gradeMsg');
+
+        if (!classId || !studentId || !subject || isNaN(value)) {
+            msg.textContent = 'Tous les champs sont obligatoires.';
+            return;
+        }
+        db.grades.push({ id: genId('g'), studentId, subject, value });
+        saveDb();
+        msg.textContent = 'Note enregistrée.';
+        document.getElementById('gradeSubject').value = '';
+        document.getElementById('gradeValue').value = '';
+    });
+
+    document.getElementById('btnViewBulletin').addEventListener('click', () => {
+        const studentId = document.getElementById('bulletinStudent').value;
+        const tbody = document.querySelector('#bulletinTable tbody');
+        tbody.innerHTML = '';
+
+        const grades = db.grades.filter(g => g.studentId === studentId);
+        const bySubject = {};
+        grades.forEach(g => {
+            if (!bySubject[g.subject]) bySubject[g.subject] = [];
+            bySubject[g.subject].push(g.value);
+        });
+
+        Object.keys(bySubject).forEach(subject => {
+            const values = bySubject[subject];
+            const avg = values.reduce((a,b) => a+b, 0) / values.length;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${subject}</td><td>${values.join(', ')}</td><td>${avg.toFixed(2)}</td>`;
+            tbody.appendChild(tr);
+        });
+    });
+
+    // --- ELEVE UI ---
+    function showEleveInterface() {
+        show('eleveCard');
+        setText('eleveWelcome', 'Bienvenue, ' + currentUser.user + ' (élève).');
+
+        const student = db.students.find(s => s.name === currentUser.user || s.id === currentUser.id);
+        let info = '';
+        if (student) {
+            const cls = db.classes.find(c => c.id === student.classId);
+            info = 'Tu es dans la classe ' + (cls ? cls.name : 'non définie') + '.';
+        } else {
+            info = 'Aucune classe associée pour le moment.';
+        }
+        setText('eleveInfo', info);
+
+        refreshEleveEdt();
+        refreshEleveHw();
+        refreshEleveQcm();
+        refreshEleveNotes();
+    }
+
+    function getEleveClassId() {
+        const student = db.students.find(s => s.name === currentUser.user || s.id === currentUser.id);
+        return student ? student.classId : null;
+    }
+
+    function refreshEleveEdt() {
+        const classId = getEleveClassId();
+        const tbody = document.querySelector('#eleveEdtTable tbody');
+        tbody.innerHTML = '';
+        if (!classId) return;
+        db.edt
+            .filter(e => e.classId === classId)
+            .forEach(e => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${e.day}</td><td>${e.time}</td><td>${e.subject}</td>`;
+                tbody.appendChild(tr);
+            });
+    }
+
+    function refreshEleveHw() {
+        const classId = getEleveClassId();
+        const tbody = document.querySelector('#eleveHwTable tbody');
+        tbody.innerHTML = '';
+        if (!classId) return;
+
+        const doneKey = 'hw_done_' + currentUser.id;
+        const doneMap = JSON.parse(localStorage.getItem(doneKey) || '{}');
+
+        db.homeworks
+            .filter(h => h.classId === classId)
+            .forEach(h => {
+                const tr = document.createElement('tr');
+                const checked = !!doneMap[h.id];
+                tr.innerHTML = `
+                    <td>${h.title}</td>
+                    <td>${h.desc}</td>
+                    <td>${h.due}</td>
+                    <td><input type="checkbox" data-hw-id="${h.id}" ${checked ? 'checked' : ''}></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+        tbody.querySelectorAll('input[type="checkbox"]').forEach(chk => {
+            chk.addEventListener('change', () => {
+                const id = chk.getAttribute('data-hw-id');
+                const map = JSON.parse(localStorage.getItem(doneKey) || '{}');
+                map[id] = chk.checked;
+                localStorage.setItem(doneKey, JSON.stringify(map));
+            });
+        });
+    }
+
+    function refreshEleveQcm() {
+        const classId = getEleveClassId();
+        const container = document.getElementById('eleveQcmList');
+        container.innerHTML = '';
+        if (!classId) return;
+
+        db.qcms
+            .filter(q => q.classId === classId)
+            .forEach(q => {
+                const div = document.createElement('div');
+                div.style.marginBottom = '12px';
+                div.innerHTML = `<strong>${q.title}</strong><br>${q.question}<br>`;
+                q.answers.forEach((a, idx) => {
+                    const id = q.id + '_ans_' + idx;
+                    const label = document.createElement('label');
+                    label.className = 'checkbox-inline';
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = q.id;
+                    input.value = idx;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(a.text));
+                    div.appendChild(label);
+                });
+                const result = document.createElement('div');
+                result.className = 'status';
+                const btn = document.createElement('button');
+                btn.textContent = 'Valider';
+                btn.addEventListener('click', () => {
+                    const selected = div.querySelector('input[type="radio"]:checked');
+                    if (!selected) {
+                        result.textContent = 'Choisis une réponse.';
+                        return;
+                    }
+                    const idx = parseInt(selected.value, 10);
+                    if (q.answers[idx].correct) {
+                        result.textContent = 'Bonne réponse ✅';
+                    } else {
+                        result.textContent = 'Mauvaise réponse ❌';
+                    }
+                });
+                div.appendChild(document.createElement('br'));
+                div.appendChild(btn);
+                div.appendChild(result);
+                container.appendChild(div);
+            });
+    }
+
+    function refreshEleveNotes() {
+        const student = db.students.find(s => s.name === currentUser.user || s.id === currentUser.id);
+        const tbody = document.querySelector('#eleveNotesTable tbody');
+        tbody.innerHTML = '';
+        if (!student) return;
+
+        db.grades
+            .filter(g => g.studentId === student.id)
+            .forEach(g => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${g.subject}</td><td>${g.value}</td>`;
+                tbody.appendChild(tr);
+            });
+    }
+
+    // Tabs élève
+    document.querySelectorAll('[data-eleve-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tab = btn.getAttribute('data-eleve-tab');
+            document.querySelectorAll('[data-eleve-tab]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            ['info','edt','devoirs','qcm','notes'].forEach(t => {
+                const id = 'eleveTab-' + t;
+                if (t === tab) show(id); else hide(id);
+            });
+        });
+    });
+</script>
 </body>
 </html>
