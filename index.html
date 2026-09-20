@@ -2,13 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Mini Windows École</title>
+  <title>Mini Windows 10 École</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1e1e1e;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: #000;
       color: #fff;
+      user-select: none;
     }
     #loginScreen, #desktop {
       width: 100vw;
@@ -22,10 +24,11 @@
       background: linear-gradient(135deg, #0078d7, #004a9f);
     }
     .login-box {
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.4);
       padding: 20px;
       border-radius: 8px;
-      width: 300px;
+      width: 320px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
     }
     .login-box h2 {
       margin-top: 0;
@@ -34,8 +37,9 @@
     .login-box label {
       display: block;
       margin-top: 10px;
+      font-size: 13px;
     }
-    .login-box input, .login-box select {
+    .login-box input {
       width: 100%;
       padding: 6px;
       margin-top: 4px;
@@ -55,60 +59,133 @@
     }
     #desktop {
       position: relative;
-      background: url('https://images.unsplash.com/photo-1517817748499-6f544c58c5a4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      background: url('https://wallpaperaccess.com/full/19085.jpg') center/cover no-repeat;
+      overflow: hidden;
     }
+    /* Bureau icônes */
+    #desktopIcons {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .desktop-icon {
+      width: 80px;
+      text-align: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 12px;
+    }
+    .desktop-icon .icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 4px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    /* Barre des tâches */
     #taskbar {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       height: 40px;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.85);
       display: flex;
       align-items: center;
       padding: 0 10px;
     }
     .taskbar-btn {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
       border-radius: 4px;
       padding: 5px 10px;
       margin-right: 5px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #fff;
+    }
+    .taskbar-btn .icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
     }
     #userInfo {
       margin-left: auto;
       font-size: 12px;
       opacity: 0.8;
     }
+    /* Fenêtres */
     .window {
       position: absolute;
-      top: 60px;
-      left: 60px;
-      width: 600px;
-      height: 400px;
+      top: 80px;
+      left: 120px;
+      width: 640px;
+      height: 420px;
       background: #2d2d2d;
-      border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
       display: none;
       flex-direction: column;
+      resize: both;
+      overflow: hidden;
     }
     .window-header {
-      height: 30px;
+      height: 32px;
       background: #0078d7;
-      border-radius: 6px 6px 0 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 10px;
+      padding: 0 8px;
+      cursor: move;
+      border-bottom: 2px solid rgba(0,0,0,0.3); /* trait sous le logiciel */
+    }
+    .window-header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 13px;
     }
-    .window-header .title {
-      font-weight: bold;
+    .window-header-left .icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
     }
-    .window-header .close-btn {
+    .window-header-right {
+      display: flex;
+      gap: 4px;
+    }
+    .window-btn {
+      width: 26px;
+      height: 22px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
       cursor: pointer;
-      font-weight: bold;
+    }
+    .window-btn.close {
+      background: #e81123;
     }
     .window-body {
       flex: 1;
@@ -123,21 +200,26 @@
       height: 100%;
     }
     #explorerSidebar {
-      width: 150px;
+      width: 160px;
       border-right: 1px solid #444;
       padding-right: 5px;
     }
     #explorerSidebar h4 {
       margin-top: 0;
+      font-size: 13px;
     }
     #explorerSidebar ul {
       list-style: none;
       padding-left: 0;
+      font-size: 12px;
     }
     #explorerSidebar li {
       cursor: pointer;
       padding: 4px;
       border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     #explorerSidebar li:hover {
       background: rgba(255,255,255,0.1);
@@ -146,18 +228,59 @@
       flex: 1;
       padding-left: 10px;
     }
+    #currentDriveTitle {
+      margin-top: 0;
+      font-size: 14px;
+    }
     .file-item {
       padding: 4px;
       border-radius: 4px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
     }
     .file-item:hover {
       background: rgba(255,255,255,0.1);
     }
+    .file-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
     /* Word / Excel */
+    .toolbar {
+      margin-bottom: 8px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 6px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .toolbar select {
+      padding: 4px;
+      border-radius: 4px;
+      border: none;
+      font-size: 12px;
+    }
+    .toolbar button {
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #0078d7;
+      color: #fff;
+    }
     textarea {
       width: 100%;
-      height: 80%;
+      height: calc(100% - 40px);
       background: #111;
       color: #fff;
       border: 1px solid #444;
@@ -166,32 +289,18 @@
       font-family: Consolas, monospace;
       font-size: 13px;
     }
-    .toolbar {
-      margin-bottom: 8px;
-    }
-    .toolbar button, .toolbar select {
-      margin-right: 5px;
-      padding: 4px 8px;
-      font-size: 12px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-    }
-    .toolbar button {
-      background: #0078d7;
-      color: #fff;
-    }
-    /* Navigateur web */
+    /* Navigateur */
     #browserUrl {
       width: 80%;
       padding: 4px;
       border-radius: 4px;
       border: none;
       margin-right: 5px;
+      font-size: 12px;
     }
     #browserFrame {
       width: 100%;
-      height: 80%;
+      height: calc(100% - 40px);
       border: 1px solid #444;
       border-radius: 4px;
       background: #000;
@@ -206,6 +315,7 @@
       padding: 4px;
       border-radius: 4px;
       border: none;
+      font-size: 12px;
     }
     #adminPanel button {
       padding: 6px 10px;
@@ -215,6 +325,7 @@
       color: #fff;
       cursor: pointer;
       margin-top: 5px;
+      font-size: 12px;
     }
     #userList {
       margin-top: 10px;
@@ -222,15 +333,40 @@
       padding-top: 10px;
       max-height: 150px;
       overflow-y: auto;
+      font-size: 12px;
     }
     .user-row {
-      font-size: 12px;
       margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .user-row span.role {
+      opacity: 0.8;
+    }
+    .user-row button {
+      padding: 2px 6px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #e81123;
+      color: #fff;
+    }
+    /* Export / import */
+    #backupSection {
+      margin-top: 10px;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+      font-size: 12px;
+    }
+    #backupSection input[type="file"] {
+      font-size: 11px;
     }
   </style>
 </head>
 <body>
-  <!-- Écran de login -->
+  <!-- Login -->
   <div id="loginScreen">
     <div class="login-box">
       <h2>Connexion</h2>
@@ -247,28 +383,70 @@
 
   <!-- Bureau -->
   <div id="desktop">
+    <!-- Icônes bureau -->
+    <div id="desktopIcons">
+      <div class="desktop-icon" data-open="explorerWindow">
+        <div class="icon">📁</div>
+        <div>Explorateur</div>
+      </div>
+      <div class="desktop-icon" data-open="wordWindow">
+        <div class="icon">📝</div>
+        <div>Word</div>
+      </div>
+      <div class="desktop-icon" data-open="excelWindow">
+        <div class="icon">📊</div>
+        <div>Excel</div>
+      </div>
+      <div class="desktop-icon" data-open="browserWindow">
+        <div class="icon">🌐</div>
+        <div>Navigateur</div>
+      </div>
+      <div class="desktop-icon" data-open="adminWindow">
+        <div class="icon">⚙️</div>
+        <div>Admin</div>
+      </div>
+    </div>
+
+    <!-- Barre des tâches -->
     <div id="taskbar">
-      <div class="taskbar-btn" data-open="explorerWindow">Explorateur</div>
-      <div class="taskbar-btn" data-open="wordWindow">Word</div>
-      <div class="taskbar-btn" data-open="excelWindow">Excel</div>
-      <div class="taskbar-btn" data-open="browserWindow">Navigateur web</div>
-      <div class="taskbar-btn" data-open="adminWindow">Admin</div>
+      <div class="taskbar-btn" data-open="explorerWindow">
+        <div class="icon">📁</div><span>Explorateur</span>
+      </div>
+      <div class="taskbar-btn" data-open="wordWindow">
+        <div class="icon">📝</div><span>Word</span>
+      </div>
+      <div class="taskbar-btn" data-open="excelWindow">
+        <div class="icon">📊</div><span>Excel</span>
+      </div>
+      <div class="taskbar-btn" data-open="browserWindow">
+        <div class="icon">🌐</div><span>Navigateur</span>
+      </div>
+      <div class="taskbar-btn" data-open="adminWindow">
+        <div class="icon">⚙️</div><span>Admin</span>
+      </div>
       <div id="userInfo"></div>
     </div>
 
-    <!-- Fenêtre Explorateur -->
+    <!-- Explorateur -->
     <div class="window" id="explorerWindow">
       <div class="window-header">
-        <span class="title">Explorateur de fichiers</span>
-        <span class="close-btn" data-close="explorerWindow">X</span>
+        <div class="window-header-left">
+          <div class="icon">📁</div>
+          <span>Explorateur de fichiers</span>
+        </div>
+        <div class="window-header-right">
+          <div class="window-btn minimize" data-win="explorerWindow">—</div>
+          <div class="window-btn maximize" data-win="explorerWindow">□</div>
+          <div class="window-btn close" data-win="explorerWindow">X</div>
+        </div>
       </div>
       <div class="window-body">
         <div id="explorerLayout">
           <div id="explorerSidebar">
             <h4>Lecteurs</h4>
             <ul>
-              <li data-drive="home">Home</li>
-              <li data-drive="donnees">donnees (réseau)</li>
+              <li data-drive="home"><div class="file-icon">H</div><span>Home</span></li>
+              <li data-drive="donnees"><div class="file-icon">D</div><span>donnees (réseau)</span></li>
             </ul>
           </div>
           <div id="explorerContent">
@@ -277,20 +455,30 @@
             <hr />
             <h4>Créer un fichier</h4>
             <input type="text" id="newFileName" placeholder="Nom du fichier" />
-            <button id="createFileBtn">Créer</button>
-            <p style="font-size:11px;opacity:0.8;">
-              Les profs peuvent créer des fichiers dans <b>donnees</b>, les élèves y ont accès.
+            <button id="createFileBtn">Créer fichier</button>
+            <h4 style="margin-top:10px;">Créer un dossier</h4>
+            <input type="text" id="newFolderName" placeholder="Nom du dossier" />
+            <button id="createFolderBtn">Créer dossier</button>
+            <p style="font-size:11px;opacity:0.8;margin-top:8px;">
+              Dans <b>donnees</b>, seuls les profs et l'admin peuvent créer des fichiers/dossiers.
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Fenêtre Word -->
+    <!-- Word -->
     <div class="window" id="wordWindow">
       <div class="window-header">
-        <span class="title">Word (texte)</span>
-        <span class="close-btn" data-close="wordWindow">X</span>
+        <div class="window-header-left">
+          <div class="icon">📝</div>
+          <span>Word (texte)</span>
+        </div>
+        <div class="window-header-right">
+          <div class="window-btn minimize" data-win="wordWindow">—</div>
+          <div class="window-btn maximize" data-win="wordWindow">□</div>
+          <div class="window-btn close" data-win="wordWindow">X</div>
+        </div>
       </div>
       <div class="window-body">
         <div class="toolbar">
@@ -302,11 +490,18 @@
       </div>
     </div>
 
-    <!-- Fenêtre Excel -->
+    <!-- Excel -->
     <div class="window" id="excelWindow">
       <div class="window-header">
-        <span class="title">Excel (tableur simple)</span>
-        <span class="close-btn" data-close="excelWindow">X</span>
+        <div class="window-header-left">
+          <div class="icon">📊</div>
+          <span>Excel (tableur simple)</span>
+        </div>
+        <div class="window-header-right">
+          <div class="window-btn minimize" data-win="excelWindow">—</div>
+          <div class="window-btn maximize" data-win="excelWindow">□</div>
+          <div class="window-btn close" data-win="excelWindow">X</div>
+        </div>
       </div>
       <div class="window-body">
         <div class="toolbar">
@@ -318,11 +513,18 @@
       </div>
     </div>
 
-    <!-- Fenêtre Navigateur web -->
+    <!-- Navigateur -->
     <div class="window" id="browserWindow">
       <div class="window-header">
-        <span class="title">Navigateur web</span>
-        <span class="close-btn" data-close="browserWindow">X</span>
+        <div class="window-header-left">
+          <div class="icon">🌐</div>
+          <span>Navigateur web</span>
+        </div>
+        <div class="window-header-right">
+          <div class="window-btn minimize" data-win="browserWindow">—</div>
+          <div class="window-btn maximize" data-win="browserWindow">□</div>
+          <div class="window-btn close" data-win="browserWindow">X</div>
+        </div>
       </div>
       <div class="window-body">
         <input type="text" id="browserUrl" placeholder="https://..." />
@@ -331,15 +533,22 @@
       </div>
     </div>
 
-    <!-- Fenêtre Admin -->
+    <!-- Admin -->
     <div class="window" id="adminWindow">
       <div class="window-header">
-        <span class="title">Panneau Admin</span>
-        <span class="close-btn" data-close="adminWindow">X</span>
+        <div class="window-header-left">
+          <div class="icon">⚙️</div>
+          <span>Panneau Admin</span>
+        </div>
+        <div class="window-header-right">
+          <div class="window-btn minimize" data-win="adminWindow">—</div>
+          <div class="window-btn maximize" data-win="adminWindow">□</div>
+          <div class="window-btn close" data-win="adminWindow">X</div>
+        </div>
       </div>
       <div class="window-body">
         <div id="adminPanel">
-          <h3>Créer un utilisateur</h3>
+          <h3>Gestion des utilisateurs</h3>
           <label>Identifiant</label>
           <input type="text" id="newUserId" />
           <label>Mot de passe</label>
@@ -348,27 +557,38 @@
           <select id="newUserRole">
             <option value="eleve">Élève</option>
             <option value="prof">Prof</option>
+            <option value="admin">Admin</option>
           </select>
           <button id="createUserBtn">Créer le compte</button>
 
           <div id="userList"></div>
+
+          <div id="backupSection">
+            <h3>Sauvegarde (export / import)</h3>
+            <button id="exportBackupBtn">Exporter les données</button>
+            <br /><br />
+            <input type="file" id="importBackupInput" accept=".json" />
+            <button id="importBackupBtn">Importer les données</button>
+            <p style="font-size:11px;opacity:0.8;margin-top:6px;">
+              Utilise l'export avant de changer de version du code, puis importe pour retrouver comptes et fichiers.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // --- Données en localStorage ---
     const STORAGE_KEY_USERS = 'miniwin_users';
     const STORAGE_KEY_FILES = 'miniwin_files';
 
     let currentUser = null;
     let currentDrive = 'home';
+    let isMaximized = {};
 
     function loadUsers() {
       const raw = localStorage.getItem(STORAGE_KEY_USERS);
       if (!raw) {
-        // Crée l'admin par défaut
         const defaultUsers = [
           { id: 'admin', pwd: 'admin', role: 'admin' }
         ];
@@ -399,7 +619,6 @@
       localStorage.setItem(STORAGE_KEY_FILES, JSON.stringify(files));
     }
 
-    // --- Login ---
     const loginScreen = document.getElementById('loginScreen');
     const desktop = document.getElementById('desktop');
     const loginBtn = document.getElementById('loginBtn');
@@ -428,29 +647,88 @@
       refreshExcelFileSelect();
     });
 
-    // --- Gestion des fenêtres ---
-    document.querySelectorAll('.taskbar-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-open');
+    // Ouverture fenêtres (bureau + barre des tâches)
+    document.querySelectorAll('[data-open]').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.getAttribute('data-open');
         const win = document.getElementById(id);
-        if (win) win.style.display = 'flex';
+        if (win) {
+          win.style.display = 'flex';
+          isMaximized[id] = false;
+        }
       });
     });
 
-    document.querySelectorAll('.close-btn').forEach(btn => {
+    // Boutons fenêtre
+    document.querySelectorAll('.window-btn.close').forEach(btn => {
       btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-close');
+        const id = btn.getAttribute('data-win');
         const win = document.getElementById(id);
         if (win) win.style.display = 'none';
       });
     });
 
-    // --- Explorateur ---
+    document.querySelectorAll('.window-btn.minimize').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-win');
+        const win = document.getElementById(id);
+        if (win) win.style.display = 'none';
+      });
+    });
+
+    document.querySelectorAll('.window-btn.maximize').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-win');
+        const win = document.getElementById(id);
+        if (!win) return;
+        if (!isMaximized[id]) {
+          win.dataset.oldLeft = win.style.left;
+          win.dataset.oldTop = win.style.top;
+          win.dataset.oldWidth = win.style.width;
+          win.dataset.oldHeight = win.style.height;
+          win.style.left = '0';
+          win.style.top = '0';
+          win.style.width = '100vw';
+          win.style.height = 'calc(100vh - 40px)';
+          isMaximized[id] = true;
+        } else {
+          win.style.left = win.dataset.oldLeft || '120px';
+          win.style.top = win.dataset.oldTop || '80px';
+          win.style.width = win.dataset.oldWidth || '640px';
+          win.style.height = win.dataset.oldHeight || '420px';
+          isMaximized[id] = false;
+        }
+      });
+    });
+
+    // Drag des fenêtres
+    document.querySelectorAll('.window').forEach(win => {
+      const header = win.querySelector('.window-header');
+      let offsetX = 0, offsetY = 0, dragging = false;
+
+      header.addEventListener('mousedown', (e) => {
+        dragging = true;
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (!dragging || isMaximized[win.id]) return;
+        win.style.left = (e.clientX - offsetX) + 'px';
+        win.style.top = (e.clientY - offsetY) + 'px';
+      });
+      document.addEventListener('mouseup', () => {
+        dragging = false;
+      });
+    });
+
+    // Explorateur
     const explorerSidebar = document.getElementById('explorerSidebar');
     const currentDriveTitle = document.getElementById('currentDriveTitle');
     const fileList = document.getElementById('fileList');
     const newFileName = document.getElementById('newFileName');
     const createFileBtn = document.getElementById('createFileBtn');
+    const newFolderName = document.getElementById('newFolderName');
+    const createFolderBtn = document.getElementById('createFolderBtn');
 
     explorerSidebar.querySelectorAll('li').forEach(li => {
       li.addEventListener('click', () => {
@@ -465,13 +743,21 @@
       const driveFiles = files[currentDrive] || {};
       fileList.innerHTML = '';
       Object.keys(driveFiles).forEach(name => {
+        const item = driveFiles[name];
         const div = document.createElement('div');
         div.className = 'file-item';
-        div.textContent = name;
-        div.addEventListener('click', () => {
-          // Ouvre dans Word par défaut
-          openFileInWord(currentDrive, name);
-        });
+        const icon = document.createElement('div');
+        icon.className = 'file-icon';
+        icon.textContent = item.type === 'folder' ? '📁' : '📄';
+        const label = document.createElement('span');
+        label.textContent = name;
+        div.appendChild(icon);
+        div.appendChild(label);
+        if (item.type === 'file') {
+          div.addEventListener('dblclick', () => {
+            openFileInWord(currentDrive, name);
+          });
+        }
         fileList.appendChild(div);
       });
     }
@@ -480,7 +766,6 @@
       if (!currentUser) return;
       const name = newFileName.value.trim();
       if (!name) return;
-      // Restriction : si drive = donnees, seuls prof/admin peuvent créer
       if (currentDrive === 'donnees' && !(currentUser.role === 'prof' || currentUser.role === 'admin')) {
         alert('Seuls les profs ou admin peuvent créer des fichiers dans donnees.');
         return;
@@ -488,10 +773,10 @@
       const files = loadFiles();
       if (!files[currentDrive]) files[currentDrive] = {};
       if (files[currentDrive][name]) {
-        alert('Un fichier avec ce nom existe déjà.');
+        alert('Un fichier ou dossier avec ce nom existe déjà.');
         return;
       }
-      files[currentDrive][name] = { type: 'text', content: '' };
+      files[currentDrive][name] = { type: 'file', content: '' };
       saveFiles(files);
       newFileName.value = '';
       refreshExplorer();
@@ -499,7 +784,27 @@
       refreshExcelFileSelect();
     });
 
-    // --- Word ---
+    createFolderBtn.addEventListener('click', () => {
+      if (!currentUser) return;
+      const name = newFolderName.value.trim();
+      if (!name) return;
+      if (currentDrive === 'donnees' && !(currentUser.role === 'prof' || currentUser.role === 'admin')) {
+        alert('Seuls les profs ou admin peuvent créer des dossiers dans donnees.');
+        return;
+      }
+      const files = loadFiles();
+      if (!files[currentDrive]) files[currentDrive] = {};
+      if (files[currentDrive][name]) {
+        alert('Un fichier ou dossier avec ce nom existe déjà.');
+        return;
+           }
+      files[currentDrive][name] = { type: 'folder' };
+      saveFiles(files);
+      newFolderName.value = '';
+      refreshExplorer();
+    });
+
+    // Word
     const wordFileSelect = document.getElementById('wordFileSelect');
     const wordLoadBtn = document.getElementById('wordLoadBtn');
     const wordSaveBtn = document.getElementById('wordSaveBtn');
@@ -510,10 +815,13 @@
       wordFileSelect.innerHTML = '';
       Object.keys(files).forEach(drive => {
         Object.keys(files[drive]).forEach(name => {
-          const opt = document.createElement('option');
-          opt.value = drive + '::' + name;
-          opt.textContent = drive + ' / ' + name;
-          wordFileSelect.appendChild(opt);
+          const item = files[drive][name];
+          if (item.type === 'file') {
+            const opt = document.createElement('option');
+            opt.value = drive + '::' + name;
+            opt.textContent = drive + ' / ' + name;
+            wordFileSelect.appendChild(opt);
+          }
         });
       });
     }
@@ -521,7 +829,7 @@
     function openFileInWord(drive, name) {
       const files = loadFiles();
       const file = files[drive][name];
-      if (!file) return;
+      if (!file || file.type !== 'file') return;
       wordFileSelect.value = drive + '::' + name;
       wordEditor.value = file.content || '';
       document.getElementById('wordWindow').style.display = 'flex';
@@ -544,12 +852,12 @@
       const files = loadFiles();
       if (!files[drive] || !files[drive][name]) return;
       files[drive][name].content = wordEditor.value;
-      files[drive][name].type = 'text';
+      files[drive][name].type = 'file';
       saveFiles(files);
       alert('Fichier sauvegardé.');
     });
 
-    // --- Excel (simple CSV) ---
+    // Excel
     const excelFileSelect = document.getElementById('excelFileSelect');
     const excelLoadBtn = document.getElementById('excelLoadBtn');
     const excelSaveBtn = document.getElementById('excelSaveBtn');
@@ -560,10 +868,13 @@
       excelFileSelect.innerHTML = '';
       Object.keys(files).forEach(drive => {
         Object.keys(files[drive]).forEach(name => {
-          const opt = document.createElement('option');
-          opt.value = drive + '::' + name;
-          opt.textContent = drive + ' / ' + name;
-          excelFileSelect.appendChild(opt);
+          const item = files[drive][name];
+          if (item.type === 'file') {
+            const opt = document.createElement('option');
+            opt.value = drive + '::' + name;
+            opt.textContent = drive + ' / ' + name;
+            excelFileSelect.appendChild(opt);
+          }
         });
       });
     }
@@ -574,7 +885,7 @@
       const [drive, name] = val.split('::');
       const files = loadFiles();
       const file = files[drive][name];
-      if (!file) return;
+      if (!file || file.type !== 'file') return;
       excelEditor.value = file.content || '';
       document.getElementById('excelWindow').style.display = 'flex';
     });
@@ -589,12 +900,12 @@
       const files = loadFiles();
       if (!files[drive] || !files[drive][name]) return;
       files[drive][name].content = excelEditor.value;
-      files[drive][name].type = 'csv';
+      files[drive][name].type = 'file';
       saveFiles(files);
-      alert('Fichier sauvegardé (format texte/CSV).');
+      alert('Fichier sauvegardé (texte/CSV).');
     });
 
-    // --- Navigateur web ---
+    // Navigateur
     const browserUrl = document.getElementById('browserUrl');
     const browserGoBtn = document.getElementById('browserGoBtn');
     const browserFrame = document.getElementById('browserFrame');
@@ -609,7 +920,7 @@
       browserFrame.src = finalUrl;
     });
 
-    // --- Admin panel ---
+    // Admin
     const newUserId = document.getElementById('newUserId');
     const newUserPwd = document.getElementById('newUserPwd');
     const newUserRole = document.getElementById('newUserRole');
@@ -619,10 +930,33 @@
     function refreshUserList() {
       const users = loadUsers();
       userList.innerHTML = '<h4>Utilisateurs existants</h4>';
-      users.forEach(u => {
+      users.forEach((u, index) => {
         const div = document.createElement('div');
         div.className = 'user-row';
-        div.textContent = `${u.id} (${u.role})`;
+        const info = document.createElement('span');
+        info.textContent = u.id;
+        const role = document.createElement('span');
+        role.className = 'role';
+        role.textContent = `(${u.role})`;
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Supprimer';
+        delBtn.addEventListener('click', () => {
+          if (!currentUser || currentUser.role !== 'admin') {
+            alert('Seul l\'admin peut supprimer des comptes.');
+            return;
+          }
+          if (u.id === 'admin') {
+            alert('Tu ne peux pas supprimer le compte admin par défaut.');
+            return;
+          }
+          const usersArr = loadUsers();
+          usersArr.splice(index, 1);
+          saveUsers(usersArr);
+          refreshUserList();
+        });
+        div.appendChild(info);
+        div.appendChild(role);
+        div.appendChild(delBtn);
         userList.appendChild(div);
       });
     }
@@ -650,6 +984,63 @@
       newUserPwd.value = '';
       refreshUserList();
       alert('Utilisateur créé.');
+    });
+
+    // Export / import sauvegarde
+    const exportBackupBtn = document.getElementById('exportBackupBtn');
+    const importBackupInput = document.getElementById('importBackupInput');
+    const importBackupBtn = document.getElementById('importBackupBtn');
+
+    exportBackupBtn.addEventListener('click', () => {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Seul l\'admin peut exporter les données.');
+        return;
+      }
+      const backup = {
+        users: loadUsers(),
+        files: loadFiles()
+      };
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'miniwindows_backup.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    importBackupBtn.addEventListener('click', () => {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Seul l\'admin peut importer les données.');
+        return;
+      }
+      const file = importBackupInput.files[0];
+      if (!file) {
+        alert('Choisis un fichier de sauvegarde (.json).');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const backup = JSON.parse(e.target.result);
+          if (backup.users && backup.files) {
+            localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(backup.users));
+            localStorage.setItem(STORAGE_KEY_FILES, JSON.stringify(backup.files));
+            alert('Sauvegarde importée. Recharge la page pour appliquer complètement.');
+            refreshUserList();
+            refreshExplorer();
+            refreshWordFileSelect();
+            refreshExcelFileSelect();
+          } else {
+            alert('Fichier de sauvegarde invalide.');
+          }
+        } catch (err) {
+          alert('Erreur lors de la lecture du fichier.');
+        }
+      };
+      reader.readAsText(file);
     });
   </script>
 </body>
