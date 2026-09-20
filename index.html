@@ -200,7 +200,7 @@
       height: 100%;
     }
     #explorerSidebar {
-      width: 160px;
+      width: 180px;
       border-right: 1px solid #444;
       padding-right: 5px;
     }
@@ -232,6 +232,27 @@
       margin-top: 0;
       font-size: 14px;
     }
+    #currentPathDisplay {
+      font-size: 11px;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+    #explorerToolbar {
+      margin-bottom: 6px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      font-size: 12px;
+    }
+    #explorerToolbar button {
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #0078d7;
+      color: #fff;
+      font-size: 11px;
+    }
     .file-item {
       padding: 4px;
       border-radius: 4px;
@@ -240,6 +261,12 @@
       align-items: center;
       gap: 6px;
       font-size: 12px;
+      justify-content: space-between;
+    }
+    .file-item-main {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .file-item:hover {
       background: rgba(255,255,255,0.1);
@@ -254,6 +281,15 @@
       justify-content: center;
       font-size: 11px;
     }
+    .file-delete-btn {
+      padding: 2px 6px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #e81123;
+      color: #fff;
+    }
     /* Word / Excel */
     .toolbar {
       margin-bottom: 8px;
@@ -262,6 +298,7 @@
       display: flex;
       gap: 5px;
       align-items: center;
+      flex-wrap: wrap;
     }
     .toolbar select {
       padding: 4px;
@@ -280,7 +317,7 @@
     }
     textarea {
       width: 100%;
-      height: calc(100% - 40px);
+      height: calc(100% - 60px);
       background: #111;
       color: #fff;
       border: 1px solid #444;
@@ -451,6 +488,10 @@
           </div>
           <div id="explorerContent">
             <h4 id="currentDriveTitle">Home</h4>
+            <div id="currentPathDisplay"></div>
+            <div id="explorerToolbar">
+              <button id="explorerBackBtn">⬅ Retour</button>
+            </div>
             <div id="fileList"></div>
             <hr />
             <h4>Créer un fichier</h4>
@@ -485,6 +526,27 @@
           <select id="wordFileSelect"></select>
           <button id="wordLoadBtn">Charger</button>
           <button id="wordSaveBtn">Sauvegarder</button>
+          <span style="margin-left:10px;">Texte :</span>
+          <select id="wordColorSelect">
+            <option value="#ffffff">Blanc</option>
+            <option value="#000000">Noir</option>
+            <option value="#ff0000">Rouge</option>
+            <option value="#00ff00">Vert</option>
+            <option value="#0078d7">Bleu</option>
+          </select>
+          <span>Fond :</span>
+          <select id="wordBgSelect">
+            <option value="#111111">Noir</option>
+            <option value="#ffffff">Blanc</option>
+            <option value="#1e1e1e">Gris foncé</option>
+          </select>
+          <span>Taille :</span>
+          <select id="wordSizeSelect">
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+          </select>
         </div>
         <textarea id="wordEditor" placeholder="Écris ton texte ici..."></textarea>
       </div>
@@ -584,6 +646,7 @@
 
     let currentUser = null;
     let currentDrive = 'home';
+    let currentPath = []; // chemin dans le drive
     let isMaximized = {};
 
     function loadUsers() {
@@ -606,8 +669,8 @@
       const raw = localStorage.getItem(STORAGE_KEY_FILES);
       if (!raw) {
         const defaultFiles = {
-          home: {},
-          donnees: {}
+          home: { type: 'folder', children: {} },
+          donnees: { type: 'folder', children: {} }
         };
         localStorage.setItem(STORAGE_KEY_FILES, JSON.stringify(defaultFiles));
         return defaultFiles;
@@ -617,6 +680,24 @@
 
     function saveFiles(files) {
       localStorage.setItem(STORAGE_KEY_FILES, JSON.stringify(files));
+    }
+
+    function getCurrentNode(files) {
+      let node = files[currentDrive];
+      for (const segment of currentPath) {
+        if (!node.children[segment]) return node;
+        node = node.children[segment];
+      }
+      return node;
+    }
+
+    function getNodeByPath(files, drive, pathArr) {
+      let node = files[drive];
+      for (const segment of pathArr) {
+        if (!node.children[segment]) return null;
+        node = node.children[segment];
+      }
+      return node;
     }
 
     const loginScreen = document.getElementById('loginScreen');
@@ -724,6 +805,8 @@
     // Explorateur
     const explorerSidebar = document.getElementById('explorerSidebar');
     const currentDriveTitle = document.getElementById('currentDriveTitle');
+    const currentPathDisplay = document.getElementById('currentPathDisplay');
+    const explorerBackBtn = document.getElementById('explorerBackBtn');
     const fileList = document.getElementById('fileList');
     const newFileName = document.getElementById('newFileName');
     const createFileBtn = document.getElementById('createFileBtn');
@@ -733,31 +816,79 @@
     explorerSidebar.querySelectorAll('li').forEach(li => {
       li.addEventListener('click', () => {
         currentDrive = li.getAttribute('data-drive');
+        currentPath = [];
         currentDriveTitle.textContent = currentDrive;
         refreshExplorer();
       });
     });
 
+    explorerBackBtn.addEventListener('click', () => {
+      if (currentPath.length > 0) {
+        currentPath.pop();
+        refreshExplorer();
+      }
+    });
+
     function refreshExplorer() {
       const files = loadFiles();
-      const driveFiles = files[currentDrive] || {};
+      const node = getCurrentNode(files);
+      currentPathDisplay.textContent = 'Chemin : ' + currentDrive + (currentPath.length ? '/' + currentPath.join('/') : '');
       fileList.innerHTML = '';
-      Object.keys(driveFiles).forEach(name => {
-        const item = driveFiles[name];
+      const children = node.children || {};
+      Object.keys(children).forEach(name => {
+        const item = children[name];
         const div = document.createElement('div');
         div.className = 'file-item';
+
+        const main = document.createElement('div');
+        main.className = 'file-item-main';
+
         const icon = document.createElement('div');
         icon.className = 'file-icon';
         icon.textContent = item.type === 'folder' ? '📁' : '📄';
+
         const label = document.createElement('span');
         label.textContent = name;
-        div.appendChild(icon);
-        div.appendChild(label);
-        if (item.type === 'file') {
+
+        main.appendChild(icon);
+        main.appendChild(label);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'file-delete-btn';
+        delBtn.textContent = 'Supprimer';
+
+        delBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!currentUser) return;
+          if (currentDrive === 'donnees' && !(currentUser.role === 'prof' || currentUser.role === 'admin')) {
+            alert('Seuls les profs ou admin peuvent supprimer dans donnees.');
+            return;
+          }
+          if (!confirm('Supprimer "' + name + '" ?')) return;
+          const files2 = loadFiles();
+          const node2 = getCurrentNode(files2);
+          delete node2.children[name];
+          saveFiles(files2);
+          refreshExplorer();
+          refreshWordFileSelect();
+          refreshExcelFileSelect();
+        });
+
+        div.appendChild(main);
+        div.appendChild(delBtn);
+
+        if (item.type === 'folder') {
           div.addEventListener('dblclick', () => {
-            openFileInWord(currentDrive, name);
+            currentPath.push(name);
+            refreshExplorer();
+          });
+        } else {
+          div.addEventListener('dblclick', () => {
+            const pathArr = currentPath.concat(name);
+            openFileInWordPath(currentDrive, pathArr);
           });
         }
+
         fileList.appendChild(div);
       });
     }
@@ -771,12 +902,13 @@
         return;
       }
       const files = loadFiles();
-      if (!files[currentDrive]) files[currentDrive] = {};
-      if (files[currentDrive][name]) {
+      const node = getCurrentNode(files);
+      if (!node.children) node.children = {};
+      if (node.children[name]) {
         alert('Un fichier ou dossier avec ce nom existe déjà.');
         return;
       }
-      files[currentDrive][name] = { type: 'file', content: '' };
+      node.children[name] = { type: 'file', content: '' };
       saveFiles(files);
       newFileName.value = '';
       refreshExplorer();
@@ -793,12 +925,13 @@
         return;
       }
       const files = loadFiles();
-      if (!files[currentDrive]) files[currentDrive] = {};
-      if (files[currentDrive][name]) {
+      const node = getCurrentNode(files);
+      if (!node.children) node.children = {};
+      if (node.children[name]) {
         alert('Un fichier ou dossier avec ce nom existe déjà.');
         return;
-           }
-      files[currentDrive][name] = { type: 'folder' };
+      }
+      node.children[name] = { type: 'folder', children: {} };
       saveFiles(files);
       newFolderName.value = '';
       refreshExplorer();
@@ -809,28 +942,49 @@
     const wordLoadBtn = document.getElementById('wordLoadBtn');
     const wordSaveBtn = document.getElementById('wordSaveBtn');
     const wordEditor = document.getElementById('wordEditor');
+    const wordColorSelect = document.getElementById('wordColorSelect');
+    const wordBgSelect = document.getElementById('wordBgSelect');
+    const wordSizeSelect = document.getElementById('wordSizeSelect');
+
+    function collectFilesForSelect(files, drive, node, pathArr, out) {
+      const children = node.children || {};
+      Object.keys(children).forEach(name => {
+        const item = children[name];
+        const newPath = pathArr.concat(name);
+        if (item.type === 'file') {
+          out.push({ drive, path: newPath });
+        } else if (item.type === 'folder') {
+          collectFilesForSelect(files, drive, item, newPath, out);
+        }
+      });
+    }
 
     function refreshWordFileSelect() {
       const files = loadFiles();
       wordFileSelect.innerHTML = '';
-      Object.keys(files).forEach(drive => {
-        Object.keys(files[drive]).forEach(name => {
-          const item = files[drive][name];
-          if (item.type === 'file') {
-            const opt = document.createElement('option');
-            opt.value = drive + '::' + name;
-            opt.textContent = drive + ' / ' + name;
-            wordFileSelect.appendChild(opt);
-          }
-        });
+      const drives = Object.keys(files);
+      const allFiles = [];
+      drives.forEach(drive => {
+        const root = files[drive];
+        collectFilesForSelect(files, drive, root, [], allFiles);
+      });
+      allFiles.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.drive + '::' + f.path.join('/');
+        opt.textContent = f.drive + ' / ' + f.path.join('/');
+        wordFileSelect.appendChild(opt);
       });
     }
 
-    function openFileInWord(drive, name) {
+    function openFileInWordPath(drive, pathArr) {
       const files = loadFiles();
-      const file = files[drive][name];
-      if (!file || file.type !== 'file') return;
-      wordFileSelect.value = drive + '::' + name;
+      const name = pathArr[pathArr.length - 1];
+      const parentPath = pathArr.slice(0, -1);
+      const parentNode = getNodeByPath(files, drive, parentPath);
+      if (!parentNode || !parentNode.children[name]) return;
+      const file = parentNode.children[name];
+      if (file.type !== 'file') return;
+      wordFileSelect.value = drive + '::' + pathArr.join('/');
       wordEditor.value = file.content || '';
       document.getElementById('wordWindow').style.display = 'flex';
     }
@@ -838,8 +992,9 @@
     wordLoadBtn.addEventListener('click', () => {
       const val = wordFileSelect.value;
       if (!val) return;
-      const [drive, name] = val.split('::');
-      openFileInWord(drive, name);
+      const [drive, pathStr] = val.split('::');
+      const pathArr = pathStr.split('/');
+      openFileInWordPath(drive, pathArr);
     });
 
     wordSaveBtn.addEventListener('click', () => {
@@ -848,13 +1003,28 @@
         alert('Choisis un fichier à sauvegarder.');
         return;
       }
-      const [drive, name] = val.split('::');
+      const [drive, pathStr] = val.split('::');
+      const pathArr = pathStr.split('/');
+      const name = pathArr[pathArr.length - 1];
+      const parentPath = pathArr.slice(0, -1);
       const files = loadFiles();
-      if (!files[drive] || !files[drive][name]) return;
-      files[drive][name].content = wordEditor.value;
-      files[drive][name].type = 'file';
+      const parentNode = getNodeByPath(files, drive, parentPath);
+      if (!parentNode || !parentNode.children[name]) return;
+      parentNode.children[name].content = wordEditor.value;
+      parentNode.children[name].type = 'file';
       saveFiles(files);
       alert('Fichier sauvegardé.');
+    });
+
+    // Word style
+    wordColorSelect.addEventListener('change', () => {
+      wordEditor.style.color = wordColorSelect.value;
+    });
+    wordBgSelect.addEventListener('change', () => {
+      wordEditor.style.backgroundColor = wordBgSelect.value;
+    });
+    wordSizeSelect.addEventListener('change', () => {
+      wordEditor.style.fontSize = wordSizeSelect.value + 'px';
     });
 
     // Excel
@@ -866,26 +1036,32 @@
     function refreshExcelFileSelect() {
       const files = loadFiles();
       excelFileSelect.innerHTML = '';
-      Object.keys(files).forEach(drive => {
-        Object.keys(files[drive]).forEach(name => {
-          const item = files[drive][name];
-          if (item.type === 'file') {
-            const opt = document.createElement('option');
-            opt.value = drive + '::' + name;
-            opt.textContent = drive + ' / ' + name;
-            excelFileSelect.appendChild(opt);
-          }
-        });
+      const drives = Object.keys(files);
+      const allFiles = [];
+      drives.forEach(drive => {
+        const root = files[drive];
+        collectFilesForSelect(files, drive, root, [], allFiles);
+      });
+      allFiles.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.drive + '::' + f.path.join('/');
+        opt.textContent = f.drive + ' / ' + f.path.join('/');
+        excelFileSelect.appendChild(opt);
       });
     }
 
     excelLoadBtn.addEventListener('click', () => {
       const val = excelFileSelect.value;
       if (!val) return;
-      const [drive, name] = val.split('::');
+      const [drive, pathStr] = val.split('::');
+      const pathArr = pathStr.split('/');
+      const name = pathArr[pathArr.length - 1];
+      const parentPath = pathArr.slice(0, -1);
       const files = loadFiles();
-      const file = files[drive][name];
-      if (!file || file.type !== 'file') return;
+      const parentNode = getNodeByPath(files, drive, parentPath);
+      if (!parentNode || !parentNode.children[name]) return;
+      const file = parentNode.children[name];
+      if (file.type !== 'file') return;
       excelEditor.value = file.content || '';
       document.getElementById('excelWindow').style.display = 'flex';
     });
@@ -896,11 +1072,15 @@
         alert('Choisis un fichier à sauvegarder.');
         return;
       }
-      const [drive, name] = val.split('::');
+      const [drive, pathStr] = val.split('::');
+      const pathArr = pathStr.split('/');
+      const name = pathArr[pathArr.length - 1];
+      const parentPath = pathArr.slice(0, -1);
       const files = loadFiles();
-      if (!files[drive] || !files[drive][name]) return;
-      files[drive][name].content = excelEditor.value;
-      files[drive][name].type = 'file';
+      const parentNode = getNodeByPath(files, drive, parentPath);
+      if (!parentNode || !parentNode.children[name]) return;
+      parentNode.children[name].content = excelEditor.value;
+      parentNode.children[name].type = 'file';
       saveFiles(files);
       alert('Fichier sauvegardé (texte/CSV).');
     });
